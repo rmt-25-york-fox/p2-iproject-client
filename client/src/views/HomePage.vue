@@ -17,7 +17,6 @@ export default {
 
 <template>
   <div id="homepage" class="container-fluid">
-    <!-- <NavBar /> -->
     <NavBar />
     <div class="row justify-content-center">
       <div class="main-content col-8 px-3 py-0">
