@@ -184,6 +184,34 @@ export const useBankStore = defineStore({
       }
     },
 
+    async paymentHandler(price) {
+      try {
+        const response = await axios.post(
+          this.baseUrl + "/payment",
+          { price },
+          {
+            headers: {
+              access_token: localStorage.getItem("access_token"),
+            },
+          }
+        );
+
+        window.snap.pay(response.data.token, {
+          onPending(result) {
+            this.router.push("/myorder");
+          },
+          onError(result) {
+            this.router.push("/myorder");
+          },
+          onClose(result) {
+            this.router.push("/myorder");
+          },
+        });
+      } catch (error) {
+        console.log(error);
+      }
+    },
+
     logoutHandler() {
       this.isLogin = false;
       localStorage.clear();
@@ -195,8 +223,10 @@ export const useBankStore = defineStore({
         this.isLogin = true;
         this.fetchProduct();
         this.myOrder();
-        this.myOrderById();
-        this.getCity();
+        // this.myOrderById();
+        // this.getCity();
+        // this.getCost();
+        // this.getProvince();
       }
     },
   },

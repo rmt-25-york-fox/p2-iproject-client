@@ -23,13 +23,31 @@ export default {
     ]),
   },
   methods: {
-    ...mapActions(useBankStore, ["myOrderById", "getCost"]),
+    ...mapActions(useBankStore, [
+      "myOrderById",
+      "getCost",
+      "paymentHandler",
+      "myOrder",
+      "getCity",
+    ]),
     localGetCost() {
       this.getCost(this.shipping);
     },
+    localPaymentHandler() {
+      let price =
+        this.myOrderSingle[0].Vga.price +
+        this.myOrderSingle[0].Psu.price +
+        this.myOrderSingle[0].Ram.price +
+        this.myOrderSingle[0].Processor.price +
+        this.myOrderSingle[0].Ssd.price;
+
+      this.paymentHandler(+price);
+    },
   },
   created() {
+    this.myOrder();
     this.myOrderById();
+    this.getCity();
   },
 };
 </script>
@@ -414,6 +432,7 @@ export default {
               class="flex font-semibold justify-between py-6 text-sm uppercase"
             >
               <span>Total cost</span>
+
               <span>{{
                 (
                   myOrderSingle[0].Vga.price +
@@ -431,6 +450,8 @@ export default {
               }}</span>
             </div>
             <button
+              id="pay-button"
+              @click.prevent="localPaymentHandler"
               class="bg-indigo-500 font-semibold hover:bg-indigo-600 py-3 text-sm text-white uppercase w-full"
             >
               Checkout
