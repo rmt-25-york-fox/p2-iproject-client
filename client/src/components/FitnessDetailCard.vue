@@ -1,7 +1,6 @@
 <script>
 export default {
   name: "FitnessDetailCard",
-
   data() {
     return { isLogin: false, page: "login" };
   },
