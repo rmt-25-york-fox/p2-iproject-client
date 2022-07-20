@@ -46,16 +46,7 @@ export default{
                     </div>
                 </div>
             </div>
-            <div class="col-lg-3">
-                <a href="#" class="block-s1">
-                <p class="how-to-games">Как начать играть ?</p>
-                <p class="desctops"> В данной теме рассказано как нчать игру на нашем проекте.</p>
-                </a>
-                <a href="#" class="block-s1 p2">
-                <p class="how-to-games">Стать модератором</p>
-                <p class="desctops"> В данном разделе вы можете купить модераторку за 900р.</p>
-                </a>
-            </div>
+            
         </div>
     </div>
     </section>
