@@ -3,13 +3,14 @@ import { mapActions, mapState } from 'pinia'
 import { useAllState } from '../stores/allState'
 import PokemonCard from '../components/PokemonCard.vue'
 import PokemonList from './PokemonList.vue'
+import NavBar from '../components/NavBar.vue'
 
   export default {
     name: 'HomeView',
     components: {
     PokemonCard,
     PokemonList,
-
+    NavBar
 },
     computed: {
       ...mapState(useAllState, ['pokemons', 'page'])
@@ -26,6 +27,7 @@ import PokemonList from './PokemonList.vue'
 
 <template>
   <section>
+    <NavBar/>
     <div class="container-fluid">
       <div class="row">
         <div class="col py-3">

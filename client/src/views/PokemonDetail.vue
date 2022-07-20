@@ -27,8 +27,8 @@ import { useAllState } from '../stores/allState'
 </template>
 <style scoped>
 .card{
-  margin-left: 300px;
-  margin-right: 300px
+  margin: 100px;
+  /* margin-right: 300px */
 }
 h3{
   padding: 25px;
