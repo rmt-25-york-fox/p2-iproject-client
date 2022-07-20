@@ -10,6 +10,28 @@ export const useTutorialStore = defineStore({
     nodeJsTutorials: [],
     javaTutorials: [],
     golangTutorials: [],
+    categories: [
+      {
+        name: "Node.js",
+        route: "/tutorial/nodejs",
+        description: "Node.js is an open-source, cross-platform JavaScript runtimes environment.",
+        font: "fa-brands fa-node mb-3",
+      },
+      {
+        name: "Java",
+        route: "/tutorial/java",
+        description:
+          "Java is a general-purpose computer-programming language that is concurrent, class-based, object-oriented, and specifically designed to have as few implementation dependencies as possible.",
+        font: "fa-brands fa-java mb-3",
+      },
+      {
+        name: "Go",
+        route: "/tutorial/golang",
+        description:
+          "Go is an open-source programming language that makes it easy to build simple, reliable, and efficient software.",
+        font: "fa-brands fa-golang mb-3",
+      },
+    ],
   }),
   getters: {},
   actions: {
@@ -36,6 +58,9 @@ export const useTutorialStore = defineStore({
       } catch (err) {
         Swal.fire(`${err.response.data.message}`, "", "error");
       }
+    },
+    clickCategoryHandler(route) {
+      this.router.push(route);
     },
   },
 });

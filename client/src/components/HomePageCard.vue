@@ -1,6 +1,13 @@
 <script>
+import { mapActions } from 'pinia';
+import { useTutorialStore } from '../stores/tutorial';
+
 export default {
   name: "HomePageCard",
+  props: ["category"],
+  methods: {
+    ...mapActions(useTutorialStore, ["clickCategoryHandler"]),
+  }
 };
 </script>
 
@@ -9,9 +16,7 @@ export default {
     <div class="card-flyer bg-white">
       <div class="text-box">
         <div class="image-box">
-          <i role="button" class="fa-brands fa-node mb-3" style="font-size: 150px"></i>
-          <i role="button" class="fa-brands fa-golang mt-2 mb-3" style="font-size: 150px"></i>
-          <i role="button" class="fa-brands fa-java mb-3" style="font-size: 150px"></i>
+          <i @click.prevent="clickCategoryHandler(category.route)" role="button" :class="category.font" style="font-size: 150px"></i>
         </div>
       </div>
     </div>
