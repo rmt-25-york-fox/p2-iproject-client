@@ -1,6 +1,15 @@
 <script>
+import Swal from 'sweetalert2'
+
 export default{
-    name:'Navbar'
+    name:'Navbar',
+    methods:{
+        logout(){
+            localStorage.clear()
+            this.isLogin = false
+            Swal.fire("Success Logout")
+        }
+    }
 }
 </script>
 
@@ -17,12 +26,12 @@ export default{
                 </div>
                 <div class="nav-wrap">
                 <ul id="nav" class="nav-wrap__list menu">
-                    <li class="current"><a href="/" title="Главная">Home</a></li>
+                    <li class="current"><a href="#" title="Главная">Home</a></li>
                     <li><a href="#" title="Проекте">My Request</a></li>
                     <li><a href="#" title="Контакты">My Task</a></li>
                 </ul>
                 <div class="riglt-floats-xs">
-                    <a href="/how-start.html" class="btn-startgames">Logout</a>
+                    <a href="#" v-on:click="logout" class="btn-startgames">Logout</a>
                 </div>
                 </div>
             </div>

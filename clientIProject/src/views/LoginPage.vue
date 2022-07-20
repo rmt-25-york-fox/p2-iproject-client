@@ -1,25 +1,33 @@
 <script>
 import { mapActions } from "pinia";
+import { useUserStore } from "../stores/user";
+
 export default {
-    name:'LoginPage'
+    name:'LoginPage',
+    data(){
+        return {
+            temp:{
+                email:"",
+                password:""
+            }
+        }
+    },
+    methods:{
+        ...mapActions(useUserStore,["login"]),
+        logiin(){
+            this.login(this.temp)
+        }
+    }
 }
 </script>
 
 <template>
 <h3 class="text-center" style="margin-right: 200px;">Login</h3>
-<form method="post"  class="w-25 mx-auto">
-    <label class="form-label">Username:</label>
-    <input
-    class="form-control"
-
-    type="text"
-    name="username"
-    placeholder="Masukkan Username"
-    />
+<form method="post" v-on:submit.prevent="logiin" class="w-25 mx-auto">
     <label class="form-label">Email:</label>
     <input
     class="form-control"
-
+    v-model="temp.email"
     type="text"
     name="email"
     placeholder="Masukkan Email"
@@ -27,7 +35,7 @@ export default {
     <label class="form-label">Password:</label>
     <input
     class="form-control"
-
+    v-model="temp.password"
     type="password"
     name="password"
     placeholder="Masukkan Password"
@@ -36,7 +44,7 @@ export default {
     ><br />
     <label
     >Don't have account?
-    <router-link to="/regis">
+    <router-link to="/register">
         <a v-on:click="directPage" href="#">Register</a>
     </router-link>
     </label>

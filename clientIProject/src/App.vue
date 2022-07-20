@@ -9,7 +9,13 @@ export default {
         Navbar,RouterView
     },
     computed:{
-    ...mapState((useUserStore),["isLogin"])
+        ...mapState((useUserStore),["isLogin"])
+    },
+    methods:{
+        ...mapActions((useUserStore),["loginStatus"])
+    },
+    created(){
+        this.loginStatus()
     }
 }
 </script>

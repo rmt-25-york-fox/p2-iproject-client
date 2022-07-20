@@ -7,5 +7,40 @@ export const useUserStore = defineStore({
     state:()=>({
         isLogin:false,
         baseUrl:'http://localhost:3000'
-    })
+    }),
+    actions:{
+        async login(temp){
+            try {
+                const resp = await axios.post(this.baseUrl+'/login',{
+                    email:temp.email,
+                    password:temp.password
+                })
+                this.isLogin = true
+                localStorage.setItem("access_token",resp.data.access_token)
+                this.router.push('/')
+                Swal.fire("Success Login")
+            } catch (err) {
+                console.log(err);
+                Swal.fire(err.response.data)
+            }
+        },
+        async regis(temp){
+            try {
+                const resp = await axios.post(this.baseUrl+'/register',{
+                    name: temp.username,
+                    email: temp.email,
+                    password: temp.password,
+                    phoneNumber: temp.phoneNumber,
+                    address: temp.address
+                })
+                this.router.push('/login')
+                Swal.fire("Registration Success!");
+            } catch (err) {
+                Swal.fire(err.response.data)
+            }
+        },
+        loginStatus(){
+            if(localStorage.access_token) this.isLogin = true
+        }
+    }
 })
