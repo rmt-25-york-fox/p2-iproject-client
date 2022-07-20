@@ -6,14 +6,55 @@ import axios from "axios";
 export const useMainGas = defineStore({
   id: "counter",
   state: () => ({
-    counter: 0,
+    isLogin: false,
+    transaksi: [],
+    petrol: [],
   }),
-  getters: {
-    doubleCount: (state) => state.counter * 2,
-  },
+  getters: {},
   actions: {
-    increment() {
-      this.counter++;
+    checkLogin() {
+      const accestoken = localStorage.getItem("accesstoken");
+      if (accestoken) {
+        this.isLogin = true;
+      }
+    },
+
+    async login(data) {
+      try {
+        const response = await instanceAxios.post(`/public/login`, {
+          email: data.email,
+          password: data.password,
+        });
+
+        let accessToken = response.data.data.accestoken;
+        let userId = response.data.data.userId;
+        let email = response.data.data.email;
+
+        localStorage.setItem("accesstoken", accessToken);
+        localStorage.setItem("authorId", userId);
+        localStorage.setItem("email", email);
+
+        this.isLogin = true;
+        this.router.push("/public/");
+        swal("Berhasil login");
+      } catch (err) {
+        console.log(err);
+      }
+    },
+
+    async register(data) {
+      try {
+        const response = await instanceAxios.post(`/register`, {
+          email: data.email,
+          password: data.password,
+          kendaraan: data.kendaraan,
+        });
+        this.router.push("/login");
+        swal(`berhasil mendaftar`);
+      } catch (err) {
+        console.log(err);
+        swal(`tidak berhasil`);
+      }
     },
   },
 });

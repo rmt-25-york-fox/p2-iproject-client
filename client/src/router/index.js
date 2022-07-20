@@ -42,4 +42,24 @@ const router = createRouter({
   ],
 });
 
+router.beforeEach((to, from, next) => {
+  const isAuthenticated = localStorage.getItem("accesstoken");
+  if (
+    (to.name === "Home" ||
+      to.name === "Listgas" ||
+      to.name === "MyTransaksi" ||
+      to.name === "Buygas") &&
+    !isAuthenticated
+  ) {
+    next({ name: "Login" });
+  } else if (
+    (to.name === "Login" || to.name === "Register") &&
+    isAuthenticated
+  ) {
+    next({ name: "Home" });
+  } else {
+    next();
+  }
+});
+
 export default router;
