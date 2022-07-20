@@ -19,6 +19,7 @@ export default {
         <div id="cards-wrapper">
           <div class="container">
             <div class="row justify-content-center">
+              <h1 class="brand-name" style="font-size: 50px;">What do you want to learn?</h1>
               <HomePageCard />
               <HomePageCard />
               <HomePageCard />

@@ -68,7 +68,7 @@ export default {
                   <button
                     @click.prevent="localPaymentHandler"
                     id="btn-login"
-                    class="btn btn-primary shadow w-100"
+                    class="btn btn-outline-dark shadow w-100"
                     type="submit"
                   >
                     DONATE

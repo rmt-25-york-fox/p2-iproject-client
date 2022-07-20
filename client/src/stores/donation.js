@@ -23,7 +23,10 @@ export const useDonationStore = defineStore({
           onSuccess(result) {
             ini.updateStatusHandler(result.order_id);
             ini.router.push("/");
-            Swal.fire("Payment Success", "Thank you for your support!", "success");
+            Swal.fire("Payment Success", "Thank you for supporting us!", "success");
+          },
+          onError(result) {
+            Swal.fire("Payment Failed", "", "error");
           },
         });
       } catch (err) {
