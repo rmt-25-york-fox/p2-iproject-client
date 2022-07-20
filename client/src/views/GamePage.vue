@@ -19,10 +19,7 @@ export default {
   
   computed: {
     ...mapState(useAllState, ['pokemonDetail']),
-    result() {
-        // this.pokemonDetail = {};
-    // this.play()
-    console.log(1);
+    async result() {
     const { computerSelected, selected } = this;
 
     if (computerSelected === selected) {
@@ -36,6 +33,10 @@ export default {
         this.compCounter++
         return "OOPS.. YOU LOSE! TRY AGAIN! YOUR POKEMON IS WAITING FOR YOU!";
         }
+        const total_pokemons = 1000;
+        const name = Math.floor(Math.random() * (total_pokemons - 1 + 1) + 1)
+        this.catchedPokemon = await this.getPokemonDetail(name)
+        this.localAddPokemonToPocket(name)
         this.userCounter++
         return "YUPS.. YOU WIN! GO CHECK YOUR POKEMON!";
     }
@@ -44,18 +45,16 @@ export default {
   },
 
   methods: {
-    ...mapActions(useAllState,['getPokemonDetail', 'toMain']),
-    
+    ...mapActions(useAllState,['getPokemonDetail', 'toMain', 'addPokemonToPocket']),
+    localAddPokemonToPocket(name){
+        this.addPokemonToPocket(name)
+    },
     async play() {
         if (!this.selected) {
             return;
         }
         const computerChoiceIndex = Math.floor(Math.random() * choices.length);
         this.computerSelected = choices[computerChoiceIndex];
-        const total_pokemons = 500;
-        const name = Math.floor(Math.random() * (total_pokemons - 1 + 1) + 1)
-        this.catchedPokemon = await this.getPokemonDetail(name)
-        
     },
     selectMove(type){
         this.selected = type

@@ -33,7 +33,7 @@ import { useAllState } from '../stores/allState'
           <form v-on:submit.prevent="localRegisterHandler" class="form-component">
             <h1>REGISTER NOW</h1>
             <input
-              type="password"
+              type="text"
               name="password"
               v-model="username"
               placeholder="USERNAME"

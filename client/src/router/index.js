@@ -6,6 +6,7 @@ import PokemonDetail from "../views/PokemonDetail.vue";
 import GamePage from "../views/GamePage.vue";
 import WelcomePage from "../views/WelcomePage.vue";
 import LeaderBoard from "../views/LeaderBoard.vue";
+import PocketPage from "../views/PocketPage.vue";
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -34,6 +35,11 @@ const router = createRouter({
       path: "/register",
       name: "RegisterPage",
       component: RegisterPage,
+    },
+    {
+      path: "/pocket",
+      name: "PocketPage",
+      component: PocketPage,
     },
     {
       path: "/leaderBoard",

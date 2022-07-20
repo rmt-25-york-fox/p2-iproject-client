@@ -15,7 +15,7 @@ import { useAllState } from '../stores/allState'
     
     <div class="navi">
       <span><a href="#home">Home</a></span>
-      <span><a href="#portfolio">Pokcket</a></span>
+      <span><a href="" @click.prevent="toPocket">Pokcket</a></span>
       <span><a href="" @click.prevent="toLogout">Logout</a></span>
     </div>
   </section>

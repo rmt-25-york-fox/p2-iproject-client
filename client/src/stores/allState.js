@@ -11,6 +11,7 @@ export const useAllState = defineStore({
     pokemonDetail: {},
     page: "home",
     leaderboards: "",
+    pockets: [],
   }),
   // getters: {
   //   doubleCount: (state) => state.counter * 2,
@@ -27,6 +28,9 @@ export const useAllState = defineStore({
     },
     toPlay() {
       this.router.push({ name: "GamePage" });
+    },
+    toPocket() {
+      this.router.push({ name: "PocketPage" });
     },
     toLeaderBoard() {
       this.router.push({ name: "LeaderBoard" });
@@ -130,7 +134,7 @@ export const useAllState = defineStore({
         const { data } = await axios.get(`${baseUrl}/pokemons`, {
           headers: { access_token: localStorage.getItem("access_token") },
         });
-        console.log(data);
+        // console.log(data);
         if (localStorage.getItem("access_token")) {
           this.page = "main";
         } else {
@@ -164,15 +168,6 @@ export const useAllState = defineStore({
       }
     },
 
-    // async tokenLeaderboard() {
-    //   try {
-    //     const { data } = await axios.post(`${baseUrl}/userBoard`);
-    //     this.leaderboards = data;
-    //   } catch (error) {
-    //     next(error);
-    //   }
-    // },
-
     async getLeaderBoard() {
       try {
         const { data } = await axios.post(`${baseUrl}/leaderboards`, {
@@ -185,6 +180,47 @@ export const useAllState = defineStore({
         console.log(data);
       } catch (error) {
         console.log(error);
+      }
+    },
+
+    async allPocket() {
+      try {
+        let { data } = await axios.get(`${baseUrl}/user/pocket`, {
+          headers: { access_token: localStorage.getItem("access_token") },
+        });
+        console.log(data);
+        this.page = "main";
+        this.pockets = data;
+      } catch (error) {
+        Swal.fire(String(error.response.data.message).split(",").join(", "));
+      }
+    },
+
+    async addPokemonToPocket(name) {
+      try {
+        let { data } = await axios.post(
+          `${baseUrl}/user/pokemons/${name}`,
+          {
+            name,
+            UserId: localStorage.getItem("id"),
+          },
+          {
+            headers: { access_token: localStorage.getItem("access_token") },
+          }
+        );
+        console.log(data);
+        this.page = "main";
+        this.router.push({ name: "GamePage" });
+        this.allPocket();
+        Swal.fire({
+          title: "Added to your wishlist!",
+          text: "Check your wishlist!",
+          icon: "success",
+          button: "Sure!",
+        });
+      } catch (error) {
+        this.router.push({ name: "LoginPage" });
+        Swal.fire(String(error.response.data.message).split(",").join(", "));
       }
     },
   },
