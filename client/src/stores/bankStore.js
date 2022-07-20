@@ -12,6 +12,7 @@ export const useBankStore = defineStore({
     ssd: [],
     ram: [],
     processor: [],
+    myOrderList: [],
   }),
   getters: {},
   actions: {
@@ -79,9 +80,21 @@ export const useBankStore = defineStore({
             },
           }
         );
+      } catch (error) {
+        console.log(error);
+      }
+    },
 
-        console.log(response, "INI RESPONSE");
+    async myOrder() {
+      try {
+        const id = localStorage.getItem("id");
+        const response = await axios.get(this.baseUrl + "/myorder", {
+          headers: {
+            access_token: localStorage.getItem("access_token"),
+          },
+        });
         console.log(response);
+        this.myOrderList = response.data;
       } catch (error) {
         console.log(error);
       }
@@ -97,6 +110,7 @@ export const useBankStore = defineStore({
       if (localStorage.getItem("access_token")) {
         this.isLogin = true;
         this.fetchProduct();
+        this.myOrder();
       }
     },
   },

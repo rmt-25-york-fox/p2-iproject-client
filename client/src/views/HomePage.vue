@@ -19,10 +19,11 @@ export default {
     ...mapState(useBankStore, ["vga", "psu", "ram", "ssd", "processor"]),
   },
   methods: {
-    ...mapActions(useBankStore, ["fetchProduct"]),
+    ...mapActions(useBankStore, ["fetchProduct", "myOrder"]),
   },
   created() {
     this.fetchProduct();
+    this.myOrder();
   },
 };
 </script>
