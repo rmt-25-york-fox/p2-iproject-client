@@ -6,7 +6,9 @@ const baseUrl = "http://localhost:3000";
 
 export const useDonationStore = defineStore({
   id: "donation",
-  state: () => ({}),
+  state: () => ({
+    donations: [],
+  }),
   getters: {},
   actions: {
     async paymentHandler(objPayment) {
@@ -38,6 +40,14 @@ export const useDonationStore = defineStore({
         await axios.patch(`${baseUrl}/donations/payment`, {
           orderId,
         });
+      } catch (err) {
+        Swal.fire(`${err.response.data.message}`, "", "error");
+      }
+    },
+    async getDonations() {
+      try {
+        const { data } = await axios.get(`${baseUrl}/donations`);
+        this.donations = data;
       } catch (err) {
         Swal.fire(`${err.response.data.message}`, "", "error");
       }
