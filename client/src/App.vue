@@ -23,35 +23,7 @@ body {
   background-color: #f8f9fc;
 }
 
-.navbar {
-  background-color: #f8f9fc;
-}
-
-.top-nav {
-  font-family: "Dancing Script", cursive;
-}
-
-.sidebar {
-  margin-top: 48px;
-  min-height: 100vh;
-  z-index: -1;
-}
-
-#footer {
-  padding-left: 0px;
-  padding-right: 0px;
-  width: 100%;
-}
-
-#img-avatar-sidebar {
-  width: 50px;
-}
-
 .brand-name {
-  font-family: "Dancing Script", cursive;
-}
-
-footer .brand-name {
   font-family: "Dancing Script", cursive;
 }
 
@@ -70,7 +42,6 @@ footer .brand-name {
 
 #cards-wrapper .card-flyer .image-box {
   overflow: hidden;
-  box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15);
   border-radius: 5px;
 }
 
@@ -78,6 +49,12 @@ footer .brand-name {
   width: 100%;
   height: 200px;
   object-fit: cover;
+}
+
+#cards-wrapper .card-flyer .image-box i {
+  width: 100%;
+  height: 150px;
+  object-fit: contain;
 }
 
 #cards-wrapper .card-flyer .text-box {

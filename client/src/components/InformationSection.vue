@@ -5,10 +5,10 @@ export default {
 </script>
 
 <template>
-  <div class="hero-section container mt-5 mb-2">
-    <div class="row pb-0 pe-lg-0 align-items-center rounded-3 border shadow">
+  <div class="information-section container mt-5 mb-2">
+    <div class="row pb-0 pe-lg-0 align-items-center bg-white rounded-3 border shadow">
       <div class="col-lg-9 p-3 p-lg-5 pt-lg-3">
-        <i class="fa-brands fa-node fs-1 mb-3"></i>
+        <i class="fa-brands fa-node mb-3" style="font-size: 100px;" ></i>
         <i class="fa-brands fa-golang fs-1 mb-3"></i>
         <i class="fa-brands fa-java fs-1 mb-3"></i>
         <p class="lead">

@@ -18,16 +18,23 @@ export const useDonationStore = defineStore({
           message: objPayment.message,
         });
 
-        var ini = this
+        var ini = this;
         window.snap.pay(data.token, {
           onSuccess(result) {
-            console.log(result);
+            ini.updateStatusHandler(result.order_id);
             ini.router.push("/");
-            Swal.fire("Payment Success", "", "success");
+            Swal.fire("Payment Success", "Thank you for your support!", "success");
           },
         });
-
-        
+      } catch (err) {
+        Swal.fire(`${err.response.data.message}`, "", "error");
+      }
+    },
+    async updateStatusHandler(orderId) {
+      try {
+        await axios.patch(`${baseUrl}/donations/payment`, {
+          orderId,
+        });
       } catch (err) {
         Swal.fire(`${err.response.data.message}`, "", "error");
       }

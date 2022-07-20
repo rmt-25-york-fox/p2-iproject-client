@@ -17,7 +17,7 @@ export default {
   },
   components: { NavBar, Footer },
   methods: {
-    ...mapActions(useDonationStore, ["paymentHandler"]),
+    ...mapActions(useDonationStore, ["paymentHandler", "updateStatusHandler"]),
     localPaymentHandler() {
       this.paymentHandler(this.objPayment);
     },
