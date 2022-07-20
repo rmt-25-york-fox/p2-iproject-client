@@ -61,7 +61,7 @@ export default {
         <div id="cards-wrapper">
           <div class="container">
             <div class="row">
-              <TutorialCard />
+              <TutorialCard v-for="tutorial in tutorials" :key="tutorial.id" :tutorial="tutorial" />
             </div>
           </div>
         </div>

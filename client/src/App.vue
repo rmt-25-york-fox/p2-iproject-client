@@ -1,5 +1,20 @@
-<script setup>
-import { RouterLink, RouterView } from "vue-router";
+<script>
+import { mapActions } from "pinia";
+import { RouterView } from "vue-router";
+import { useTutorialStore } from "./stores/tutorial";
+export default {
+  components: {
+    RouterView,
+  },
+  methods: {
+    ...mapActions(useTutorialStore, ["getNodeJsTutorials", "getGolangTutorials", "getJavaTutorials"]),
+  },
+  created() {
+    // this.getJavaTutorials();
+    // this.getGolangTutorials();
+    // this.getNodeJsTutorials();
+  },
+};
 </script>
 
 <template>
