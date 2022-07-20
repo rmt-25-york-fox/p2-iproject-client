@@ -103,7 +103,8 @@ export default {
             <div class="card shadow">
               <div class="card-body text-center align-items-center">
                 <div class="mb-3 p-2"><i class="fa-solid fa-users fs-4"></i></div>
-                  <h6 class="mb-2" v-for="donation in donations">{{ donation.name }}</h6>
+                <h6 class="mb-2" v-if="donations.length > 0" v-for="donation in donations">{{ donation.name }}</h6>
+                <h6 class="mb-2" v-else>No Donator Yet</h6>
               </div>
             </div>
           </div>

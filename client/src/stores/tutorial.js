@@ -10,6 +10,7 @@ export const useTutorialStore = defineStore({
     nodeJsTutorials: [],
     javaTutorials: [],
     golangTutorials: [],
+    tutorial: {},
     categories: [
       {
         name: "Node.js",
@@ -37,30 +38,40 @@ export const useTutorialStore = defineStore({
   actions: {
     async getNodeJsTutorials() {
       try {
-        const { data } = await axios.get(`${baseUrl}/tutorials/nodejs`);
-        this.nodeJsTutorials = data;
+        if (this.nodeJsTutorials.length == 0) {
+          const { data } = await axios.get(`${baseUrl}/tutorials/nodejs`);
+          this.nodeJsTutorials = data;
+        }
       } catch (err) {
         Swal.fire(`${err.response.data.message}`, "", "error");
       }
     },
     async getJavaTutorials() {
       try {
-        const { data } = await axios.get(`${baseUrl}/tutorials/java`);
-        this.javaTutorials = data;
+        if (this.nodeJsTutorials.length == 0) {
+          const { data } = await axios.get(`${baseUrl}/tutorials/java`);
+          this.javaTutorials = data;
+        }
       } catch (err) {
         Swal.fire(`${err.response.data.message}`, "", "error");
       }
     },
     async getGolangTutorials() {
       try {
-        const { data } = await axios.get(`${baseUrl}/tutorials/golang`);
-        this.golangTutorials = data;
+        if (this.nodeJsTutorials.length == 0) {
+          const { data } = await axios.get(`${baseUrl}/tutorials/golang`);
+          this.golangTutorials = data;
+        }
       } catch (err) {
         Swal.fire(`${err.response.data.message}`, "", "error");
       }
     },
     clickCategoryHandler(route) {
       this.router.push(route);
+    },
+    detailTutorialHandler(objTutorial, category) {
+      this.tutorial = objTutorial;
+      this.router.push(`${category}/${objTutorial.id}`);
     },
   },
 });
