@@ -24,6 +24,9 @@ export const useAllState = defineStore({
       this.router.push({ name: "RegisterPage" });
     },
     toMain() {
+      this.router.push({ name: "WelcomePage" });
+    },
+    toPokedex() {
       this.router.push({ name: "HomeView" });
     },
     toPlay() {
