@@ -80,7 +80,7 @@ export const useBankStore = defineStore({
           }
         );
 
-        console.log(response);
+        console.log(response, "INI RESPONSE");
       } catch (error) {
         console.log(error);
       }
