@@ -33,6 +33,18 @@ export const useAllStatesStore = defineStore({
         Swal.fire(err.response.data.message);
       }
     },
+    async register(account) {
+      try {
+        const response = await axios.post(`${baseUrl}/register`, {
+          email: account.email,
+          password: account.password
+        })
+        this.router.push('/login')
+        console.log(response.data)
+      } catch (err) {
+        Swal.fire(err.response.data.message)
+      }
+    },
     async fetchAllDigimons() {
       try {
         const response = await axios.get(`${baseUrl}/digimon`);
