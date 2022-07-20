@@ -14,11 +14,31 @@ export const useSportStore = defineStore({
     rating: "",
     genreId: "",
     movies: [],
+    fitness: [],
   }),
   getters: {
     doubleCount: (state) => state.counter * 2,
   },
   actions: {
+    async fetchFitness() {
+      try {
+        console.log("fetchFitness");
+        const access_token = localStorage.getItem("access_token");
+
+        const { data } = await axios({
+          method: "get",
+          url: `${this.baseUrl}/fitness`,
+          headers: {
+            access_token: access_token,
+          },
+        });
+
+        this.fitness = data.data;
+        console.log("data Fitness>>>>>", this.fitness);
+      } catch (err) {
+        console.log(err);
+      }
+    },
     async pagination(objQuery) {
       try {
         console.log("HIT PAGINATION");

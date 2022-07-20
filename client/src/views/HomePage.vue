@@ -8,9 +8,11 @@ import Card from "../components/Card.vue";
 import Sidebar from "../components/Sidebar.vue";
 import PageButton from "../components/PageButton.vue";
 import MovieList from "../components/MovieList.vue";
+import FitnessDetailCard from "../components/FitnessDetailCard.vue";
 
 export default {
   created() {
+    this.fetchFitness();
     this.pagination({
       page: this.page,
       title: this.title,
@@ -31,7 +33,13 @@ export default {
   },
   name: "HomePage",
   computed: {
-    ...mapState(useSportStore, ["page", "title", "rating", "genreId"]),
+    ...mapState(useSportStore, [
+      "page",
+      "title",
+      "rating",
+      "genreId",
+      "fitness",
+    ]),
   },
 
   methods: {
@@ -39,13 +47,21 @@ export default {
       "fetchMovies",
       "pagination",
       "fetchFavorites",
+      "fetchFitness",
     ]),
     loginHandler() {
       this.isLogin = true;
       this.page = "home";
     },
   },
-  components: { Navbar, Card, Sidebar, PageButton, MovieList },
+  components: {
+    Navbar,
+    Card,
+    Sidebar,
+    PageButton,
+    MovieList,
+    FitnessDetailCard,
+  },
 };
 </script>
 <template>
@@ -70,6 +86,8 @@ export default {
       "
       class="headers container-fluid row"
     >
+      <FitnessDetailCard :fitness="fitness" />
+
       <div class="ads1 col-4">
         <img
           style="margin-left: 100px; margin: 10px; width: auto; height: 200px"
