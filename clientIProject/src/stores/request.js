@@ -78,7 +78,8 @@ export const useRequestStore = defineStore ({
                 this.getRequest()
                 Swal.fire("Task added")
             } catch (err) {
-                console.log(err);
+                Swal.fire(err.response.data.name)
+                
             }
         },
         async finishRequest(id){
