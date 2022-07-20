@@ -13,6 +13,7 @@ export const useBankStore = defineStore({
     ram: [],
     processor: [],
     myOrderList: [],
+    myOrderSingle: [],
   }),
   getters: {},
   actions: {
@@ -80,6 +81,9 @@ export const useBankStore = defineStore({
             },
           }
         );
+        swal("Good job!", "You successfully add order!", "success");
+        this.router.push("/myorder");
+        this.myOrder();
       } catch (error) {
         console.log(error);
       }
@@ -93,8 +97,23 @@ export const useBankStore = defineStore({
             access_token: localStorage.getItem("access_token"),
           },
         });
-        console.log(response);
+        // console.log(response);
         this.myOrderList = response.data;
+      } catch (error) {
+        console.log(error);
+      }
+    },
+
+    async myOrderById(id) {
+      try {
+        const response = await axios.get(this.baseUrl + `/myorder/${id}`, {
+          headers: {
+            access_token: localStorage.getItem("access_token"),
+          },
+        });
+        this.myOrderSingle = response.data;
+        this.router.push("/checkout");
+        this.fetchProduct();
       } catch (error) {
         console.log(error);
       }
@@ -111,6 +130,7 @@ export const useBankStore = defineStore({
         this.isLogin = true;
         this.fetchProduct();
         this.myOrder();
+        this.myOrderById();
       }
     },
   },

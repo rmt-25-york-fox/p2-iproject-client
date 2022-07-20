@@ -6,6 +6,12 @@ export default {
   computed: {
     ...mapState(useBankStore, ["myOrderList"]),
   },
+  methods: {
+    ...mapActions(useBankStore, ["myOrderById"]),
+    localCheckoutHandler(id) {
+      this.myOrderById(id);
+    },
+  },
 };
 </script>
 
@@ -126,6 +132,7 @@ export default {
             class="py-4 px-6 text-right"
           >
             <a
+              @click.prevent="myOrderById(el.id)"
               href="#"
               class="font-medium text-blue-600 dark:text-blue-500 hover:underline"
               >Checkout</a

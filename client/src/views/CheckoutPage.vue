@@ -1,6 +1,18 @@
 <script>
+import { useBankStore } from "../stores/bankStore";
+import { mapState, mapActions } from "pinia";
+
 export default {
   name: "CheckoutPage",
+  computed: {
+    ...mapState(useBankStore, ["myOrderSingle"]),
+  },
+  methods: {
+    ...mapActions(useBankStore, ["myOrderById"]),
+  },
+  created() {
+    this.myOrderById();
+  },
 };
 </script>
 
@@ -11,7 +23,7 @@ export default {
         <div class="w-3/4 bg-white px-10 py-10">
           <div class="flex justify-between border-b pb-8">
             <h1 class="font-semibold text-2xl">Shopping Cart</h1>
-            <h2 class="font-semibold text-2xl">3 Items</h2>
+            <h2 class="font-semibold text-2xl">5 Items</h2>
           </div>
           <div class="flex mt-10 mb-5">
             <h3 class="font-semibold text-gray-600 text-xs uppercase w-2/5">
@@ -20,12 +32,12 @@ export default {
             <h3
               class="font-semibold text-center text-gray-600 text-xs uppercase w-1/5 text-center"
             >
-              Quantity
+              Power
             </h3>
             <h3
               class="font-semibold text-center text-gray-600 text-xs uppercase w-1/5 text-center"
             >
-              Price
+              Class
             </h3>
             <h3
               class="font-semibold text-center text-gray-600 text-xs uppercase w-1/5 text-center"
@@ -37,128 +49,229 @@ export default {
             <div class="flex w-2/5">
               <!-- product -->
               <div class="w-20">
-                <img
-                  class="h-24"
-                  src="https://drive.google.com/uc?id=18KkAVkGFvaGNqPy2DIvTqmUH_nk39o3z"
-                  alt=""
-                />
+                <img class="h-24" :src="myOrderSingle[0].Vga.imageUrl" alt="" />
               </div>
               <div class="flex flex-col justify-between ml-4 flex-grow">
-                <span class="font-bold text-sm">Iphone 6S</span>
-                <span class="text-red-500 text-xs">Apple</span>
+                <span class="font-bold text-sm">{{
+                  myOrderSingle[0].Vga.name
+                }}</span>
+                <span class="text-red-500 text-xs">VGA Card</span>
                 <a
                   href="#"
                   class="font-semibold hover:text-red-500 text-gray-500 text-xs"
-                  >Remove</a
+                  >Graphic</a
                 >
               </div>
             </div>
             <div class="flex justify-center w-1/5">
-              <svg class="fill-current text-gray-600 w-3" viewBox="0 0 448 512">
-                <path
-                  d="M416 208H32c-17.67 0-32 14.33-32 32v32c0 17.67 14.33 32 32 32h384c17.67 0 32-14.33 32-32v-32c0-17.67-14.33-32-32-32z"
-                />
-              </svg>
-
               <input
                 class="mx-2 border text-center w-8"
                 type="text"
-                value="1"
+                :value="myOrderSingle[0].Vga.power"
               />
-
-              <svg class="fill-current text-gray-600 w-3" viewBox="0 0 448 512">
-                <path
-                  d="M416 208H272V64c0-17.67-14.33-32-32-32h-32c-17.67 0-32 14.33-32 32v144H32c-17.67 0-32 14.33-32 32v32c0 17.67 14.33 32 32 32h144v144c0 17.67 14.33 32 32 32h32c17.67 0 32-14.33 32-32V304h144c17.67 0 32-14.33 32-32v-32c0-17.67-14.33-32-32-32z"
-                />
-              </svg>
             </div>
-            <span class="text-center w-1/5 font-semibold text-sm">$400.00</span>
-            <span class="text-center w-1/5 font-semibold text-sm">$400.00</span>
+            <span
+              v-if="myOrderSingle[0].Vga.power > 80"
+              class="text-center w-1/5 font-semibold text-sm"
+              >Great</span
+            >
+            <span
+              v-else-if="myOrderSingle[0].Vga.power > 60"
+              class="text-center w-1/5 font-semibold text-sm"
+              >Decent</span
+            >
+            <span v-else class="text-center w-1/5 font-semibold text-sm"
+              >Bad</span
+            >
+            <span class="text-center w-1/5 font-semibold text-sm">{{
+              myOrderSingle[0].Vga.price
+                .toLocaleString("id-ID", { style: "currency", currency: "IDR" })
+                .split(",")[0]
+            }}</span>
+          </div>
+
+          <div class="flex items-center hover:bg-gray-100 -mx-8 px-6 py-5">
+            <div class="flex w-2/5">
+              <!-- product -->
+              <div class="w-24">
+                <img
+                  class="h-24"
+                  :src="myOrderSingle[0].Processor.imageUrl"
+                  alt=""
+                />
+              </div>
+              <div class="flex flex-col justify-between ml-4 flex-grow">
+                <span class="font-bold text-sm">{{
+                  myOrderSingle[0].Processor.name
+                }}</span>
+                <span class="text-red-500 text-xs">Processor Card</span>
+                <a
+                  href="#"
+                  class="font-semibold hover:text-red-500 text-gray-500 text-xs"
+                  >Performance</a
+                >
+              </div>
+            </div>
+            <div class="flex justify-center w-1/5">
+              <input
+                class="mx-2 border text-center w-8"
+                type="text"
+                :value="myOrderSingle[0].Processor.power"
+              />
+            </div>
+            <span
+              v-if="myOrderSingle[0].Processor.power > 80"
+              class="text-center w-1/5 font-semibold text-sm"
+              >Great</span
+            >
+            <span
+              v-else-if="myOrderSingle[0].Processor.power > 60"
+              class="text-center w-1/5 font-semibold text-sm"
+              >Decent</span
+            >
+            <span v-else class="text-center w-1/5 font-semibold text-sm"
+              >Bad</span
+            >
+            <span class="text-center w-1/5 font-semibold text-sm">{{
+              myOrderSingle[0].Processor.price
+                .toLocaleString("id-ID", { style: "currency", currency: "IDR" })
+                .split(",")[0]
+            }}</span>
           </div>
 
           <div class="flex items-center hover:bg-gray-100 -mx-8 px-6 py-5">
             <div class="flex w-2/5">
               <!-- product -->
               <div class="w-20">
-                <img
-                  class="h-24"
-                  src="https://drive.google.com/uc?id=10ht6a9IR3K2i1j0rHofp9-Oubl1Chraw"
-                  alt=""
-                />
+                <img class="h-24" :src="myOrderSingle[0].Psu.imageUrl" alt="" />
               </div>
               <div class="flex flex-col justify-between ml-4 flex-grow">
-                <span class="font-bold text-sm">Xiaomi Mi 20000mAh</span>
-                <span class="text-red-500 text-xs">Xiaomi</span>
+                <span class="font-bold text-sm">{{
+                  myOrderSingle[0].Psu.name
+                }}</span>
+                <span class="text-red-500 text-xs">Psu Card</span>
                 <a
                   href="#"
                   class="font-semibold hover:text-red-500 text-gray-500 text-xs"
-                  >Remove</a
+                  >Power Unit</a
                 >
               </div>
             </div>
             <div class="flex justify-center w-1/5">
-              <svg class="fill-current text-gray-600 w-3" viewBox="0 0 448 512">
-                <path
-                  d="M416 208H32c-17.67 0-32 14.33-32 32v32c0 17.67 14.33 32 32 32h384c17.67 0 32-14.33 32-32v-32c0-17.67-14.33-32-32-32z"
-                />
-              </svg>
-
               <input
                 class="mx-2 border text-center w-8"
                 type="text"
-                value="1"
+                :value="myOrderSingle[0].Psu.power"
               />
-
-              <svg class="fill-current text-gray-600 w-3" viewBox="0 0 448 512">
-                <path
-                  d="M416 208H272V64c0-17.67-14.33-32-32-32h-32c-17.67 0-32 14.33-32 32v144H32c-17.67 0-32 14.33-32 32v32c0 17.67 14.33 32 32 32h144v144c0 17.67 14.33 32 32 32h32c17.67 0 32-14.33 32-32V304h144c17.67 0 32-14.33 32-32v-32c0-17.67-14.33-32-32-32z"
-                />
-              </svg>
             </div>
-            <span class="text-center w-1/5 font-semibold text-sm">$40.00</span>
-            <span class="text-center w-1/5 font-semibold text-sm">$40.00</span>
+            <span
+              v-if="myOrderSingle[0].Psu.power > 80"
+              class="text-center w-1/5 font-semibold text-sm"
+              >Great</span
+            >
+            <span
+              v-else-if="myOrderSingle[0].Psu.power > 60"
+              class="text-center w-1/5 font-semibold text-sm"
+              >Decent</span
+            >
+            <span v-else class="text-center w-1/5 font-semibold text-sm"
+              >Bad</span
+            >
+            <span class="text-center w-1/5 font-semibold text-sm">{{
+              myOrderSingle[0].Psu.price
+                .toLocaleString("id-ID", { style: "currency", currency: "IDR" })
+                .split(",")[0]
+            }}</span>
           </div>
 
           <div class="flex items-center hover:bg-gray-100 -mx-8 px-6 py-5">
             <div class="flex w-2/5">
               <!-- product -->
               <div class="w-20">
-                <img
-                  class="h-24"
-                  src="https://drive.google.com/uc?id=1vXhvO9HoljNolvAXLwtw_qX3WNZ0m75v"
-                  alt=""
-                />
+                <img class="h-24" :src="myOrderSingle[0].Ram.imageUrl" alt="" />
               </div>
               <div class="flex flex-col justify-between ml-4 flex-grow">
-                <span class="font-bold text-sm">Airpods</span>
-                <span class="text-red-500 text-xs">Apple</span>
+                <span class="font-bold text-sm">{{
+                  myOrderSingle[0].Ram.name
+                }}</span>
+                <span class="text-red-500 text-xs">Ram Card</span>
                 <a
                   href="#"
                   class="font-semibold hover:text-red-500 text-gray-500 text-xs"
-                  >Remove</a
+                  >Memory</a
                 >
               </div>
             </div>
             <div class="flex justify-center w-1/5">
-              <svg class="fill-current text-gray-600 w-3" viewBox="0 0 448 512">
-                <path
-                  d="M416 208H32c-17.67 0-32 14.33-32 32v32c0 17.67 14.33 32 32 32h384c17.67 0 32-14.33 32-32v-32c0-17.67-14.33-32-32-32z"
-                />
-              </svg>
               <input
                 class="mx-2 border text-center w-8"
                 type="text"
-                value="1"
+                :value="myOrderSingle[0].Ram.power"
               />
-
-              <svg class="fill-current text-gray-600 w-3" viewBox="0 0 448 512">
-                <path
-                  d="M416 208H272V64c0-17.67-14.33-32-32-32h-32c-17.67 0-32 14.33-32 32v144H32c-17.67 0-32 14.33-32 32v32c0 17.67 14.33 32 32 32h144v144c0 17.67 14.33 32 32 32h32c17.67 0 32-14.33 32-32V304h144c17.67 0 32-14.33 32-32v-32c0-17.67-14.33-32-32-32z"
-                />
-              </svg>
             </div>
-            <span class="text-center w-1/5 font-semibold text-sm">$150.00</span>
-            <span class="text-center w-1/5 font-semibold text-sm">$150.00</span>
+            <span
+              v-if="myOrderSingle[0].Ram.power > 80"
+              class="text-center w-1/5 font-semibold text-sm"
+              >Great</span
+            >
+            <span
+              v-else-if="myOrderSingle[0].Ram.power > 60"
+              class="text-center w-1/5 font-semibold text-sm"
+              >Decent</span
+            >
+            <span v-else class="text-center w-1/5 font-semibold text-sm"
+              >Bad</span
+            >
+            <span class="text-center w-1/5 font-semibold text-sm">{{
+              myOrderSingle[0].Ram.price
+                .toLocaleString("id-ID", { style: "currency", currency: "IDR" })
+                .split(",")[0]
+            }}</span>
+          </div>
+
+          <div class="flex items-center hover:bg-gray-100 -mx-8 px-6 py-5">
+            <div class="flex w-2/5">
+              <!-- product -->
+              <div class="w-20">
+                <img class="h-24" :src="myOrderSingle[0].Ssd.imageUrl" alt="" />
+              </div>
+              <div class="flex flex-col justify-between ml-4 flex-grow">
+                <span class="font-bold text-sm">{{
+                  myOrderSingle[0].Ssd.name
+                }}</span>
+                <span class="text-red-500 text-xs">Ssd Card</span>
+                <a
+                  href="#"
+                  class="font-semibold hover:text-red-500 text-gray-500 text-xs"
+                  >Storage</a
+                >
+              </div>
+            </div>
+            <div class="flex justify-center w-1/5">
+              <input
+                class="mx-2 border text-center w-8"
+                type="text"
+                :value="myOrderSingle[0].Ssd.power"
+              />
+            </div>
+            <span
+              v-if="myOrderSingle[0].Ssd.power > 80"
+              class="text-center w-1/5 font-semibold text-sm"
+              >Great</span
+            >
+            <span
+              v-else-if="myOrderSingle[0].Ssd.power > 60"
+              class="text-center w-1/5 font-semibold text-sm"
+              >Decent</span
+            >
+            <span v-else class="text-center w-1/5 font-semibold text-sm"
+              >Bad</span
+            >
+            <span class="text-center w-1/5 font-semibold text-sm">{{
+              myOrderSingle[0].Ssd.price
+                .toLocaleString("id-ID", { style: "currency", currency: "IDR" })
+                .split(",")[0]
+            }}</span>
           </div>
 
           <a href="#" class="flex font-semibold text-indigo-600 text-sm mt-10">
@@ -177,8 +290,21 @@ export default {
         <div id="summary" class="w-1/4 px-8 py-10">
           <h1 class="font-semibold text-2xl border-b pb-8">Order Summary</h1>
           <div class="flex justify-between mt-10 mb-5">
-            <span class="font-semibold text-sm uppercase">Items 3</span>
-            <span class="font-semibold text-sm">590$</span>
+            <span class="font-semibold text-sm uppercase">Items 5</span>
+            <span class="font-semibold text-sm">{{
+              (
+                myOrderSingle[0].Vga.price +
+                myOrderSingle[0].Psu.price +
+                myOrderSingle[0].Ram.price +
+                myOrderSingle[0].Processor.price +
+                myOrderSingle[0].Ssd.price
+              )
+                .toLocaleString("id-ID", {
+                  style: "currency",
+                  currency: "IDR",
+                })
+                .split(",")[0]
+            }}</span>
           </div>
           <div>
             <label class="font-medium inline-block mb-3 text-sm uppercase"
@@ -211,7 +337,20 @@ export default {
               class="flex font-semibold justify-between py-6 text-sm uppercase"
             >
               <span>Total cost</span>
-              <span>$600</span>
+              <span>{{
+                (
+                  myOrderSingle[0].Vga.price +
+                  myOrderSingle[0].Psu.price +
+                  myOrderSingle[0].Ram.price +
+                  myOrderSingle[0].Processor.price +
+                  myOrderSingle[0].Ssd.price
+                )
+                  .toLocaleString("id-ID", {
+                    style: "currency",
+                    currency: "IDR",
+                  })
+                  .split(",")[0]
+              }}</span>
             </div>
             <button
               class="bg-indigo-500 font-semibold hover:bg-indigo-600 py-3 text-sm text-white uppercase w-full"
