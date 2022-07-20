@@ -1,7 +1,7 @@
 <script>
 import { RouterLink, RouterView } from 'vue-router'
 import {mapActions} from 'pinia'
-import NavBar from 'client/src/components/NavBar.vue'
+import NavBar from './components/NavBar.vue'
 
 
 export default {
