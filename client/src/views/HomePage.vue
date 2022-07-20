@@ -17,6 +17,6 @@ export default {
         <HeroSection />
       </div>
     </div>
-    <Footer />
   </div>
+  <Footer />
 </template>
