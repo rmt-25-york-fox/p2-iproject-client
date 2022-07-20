@@ -32,7 +32,7 @@ export default {
           <RouterLink to="/">Dashboard</RouterLink>
         </div>
         <div class="basis-1/5 text-center hover:text-amber-300">
-          <a href="">Showcase</a>
+          <RouterLink to="/showcase">Showcase</RouterLink>
         </div>
         <div v-if="isLogin" class="basis-2/5 text-left hover:text-amber-300">
           <RouterLink to="/myorder" href="">My Order</RouterLink>

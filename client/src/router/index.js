@@ -5,6 +5,7 @@ import LoginPage from "../views/LoginPage.vue";
 import BuildPage from "../views/BuildPage.vue";
 import MyOrderPage from "../views/MyOrderPage.vue";
 import CheckoutPage from "../views/CheckoutPage.vue";
+import ShowcasePage from "../views/ShowcasePage.vue";
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -38,6 +39,11 @@ const router = createRouter({
       path: "/checkout",
       name: "checkoutpage",
       component: CheckoutPage,
+    },
+    {
+      path: "/showcase",
+      name: "showcasepage",
+      component: ShowcasePage,
     },
   ],
 });

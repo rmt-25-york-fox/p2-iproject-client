@@ -13,6 +13,7 @@ export const useBankStore = defineStore({
     ram: [],
     processor: [],
     myOrderList: [],
+    showcase: [],
     myOrderSingle: [],
     provinc: [],
     city: [],
@@ -123,6 +124,17 @@ export const useBankStore = defineStore({
       }
     },
 
+    async getShowcase() {
+      try {
+        const response = await axios.get(this.baseUrl + "/showcase");
+
+        this.showcase = response.data.showcase;
+        console.log(this.showcase);
+      } catch (error) {
+        console.log(error);
+      }
+    },
+
     async getCity() {
       try {
         const response = await axios.get(this.baseUrl + "/shipping/city", {
@@ -223,6 +235,7 @@ export const useBankStore = defineStore({
         this.isLogin = true;
         this.fetchProduct();
         this.myOrder();
+        this.getShowcase();
         // this.myOrderById();
         // this.getCity();
         // this.getCost();

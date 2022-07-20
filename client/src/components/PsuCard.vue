@@ -10,29 +10,42 @@ export default {
 
 <template>
   <div
-    class="w-56 h-96 bg-white rounded-lg shadow-md dark:bg-gray-800 dark:border-gray-800"
+    class="w-56 h-auto bg-white rounded-lg shadow-md dark:bg-gray-800 dark:border-gray-800"
   >
-    <a href="#">
+    <RouterLink to="/build">
       <img class="p-8 rounded-t-lg" :src="psu.imageUrl" alt="psu image" />
-    </a>
+    </RouterLink>
     <div class="px-5 pb-5">
-      <a href="#">
+      <RouterLink to="/build">
         <h5
           class="text-xs font-semibold tracking-tight text-gray-900 dark:text-white"
         >
           {{ psu.name }}
         </h5>
-      </a>
-      <div class="flex items-center mt-2.5 mb-5">
-        <h5
+      </RouterLink>
+      <div class="flex items-end mt-2.5 mb-5 justify-center">
+        <!-- <h5
           class="text-xs font-semibold tracking-tight text-gray-900 dark:text-white"
         >
           Power
-        </h5>
+        </h5> -->
+
         <span
           class="bg-blue-100 text-blue-800 text-xs font-semibold mr-2 px-2.5 py-0.5 rounded dark:bg-blue-200 dark:text-blue-800 ml-3"
-          >{{ psu.power }}</span
+          >Power {{ psu.power }}</span
         >
+      </div>
+      <div class="flex items-end mt-2.5 mb-5 justify-center">
+        <!-- <h5
+          class="text-xs font-semibold tracking-tight text-gray-900 dark:text-white"
+        >
+          Type
+        </h5> -->
+
+        <span
+          class="bg-green-100 text-green-800 text-xs font-semibold mr-2 px-2.5 py-0.5 rounded dark:bg-blue-200 dark:text-blue-800 ml-3"
+          >Power Supply Unit
+        </span>
       </div>
       <div class="flex justify-between items-center">
         <span class="text-1xl font-bold text-gray-900 dark:text-white px-8">{{
