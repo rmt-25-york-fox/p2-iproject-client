@@ -21,7 +21,7 @@ export const useMainGas = defineStore({
 
     async login(data) {
       try {
-        const response = await instanceAxios.post(`/public/login`, {
+        const response = await instanceAxios.post(`/login`, {
           email: data.email,
           password: data.password,
         });
@@ -35,7 +35,7 @@ export const useMainGas = defineStore({
         localStorage.setItem("email", email);
 
         this.isLogin = true;
-        this.router.push("/public/");
+        this.router.push("/");
         swal("Berhasil login");
       } catch (err) {
         console.log(err);
