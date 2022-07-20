@@ -90,13 +90,13 @@ export default {
 </script>
 
 <template>
-  <section>
+  <section class="d-flex flex-column min-vh-100">
     <img class="imgtitle" src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/98/International_Pok%C3%A9mon_logo.svg/1200px-International_Pok%C3%A9mon_logo.svg.png"/>
     <img class="imgtitle" src="https://images-na.ssl-images-amazon.com/images/I/61QkvmvEdVL.png"/>
     <button class="btn btncss btn-lg active textsize">{{timerCount}}</button>
     <h2 v-if="this.timerCount == null" id="demo">Let's Catch Pokemon! Click START to Play</h2>
     <h3>{{finalResult}}</h3>
-    <div v-if="finalResult == '🎉🎉🎉 YUPS.. YOU CATCH POKEMON! GO CHECK YOUR POKEMON! 🎉🎉🎉'" class="card mb-3">
+    <div v-if="finalResult == '🎉🎉🎉 YUPS.. YOU CATCH POKEMON! GO CHECK YOUR POKEMON! 🎉🎉🎉'" >
     <div class="flip-box">
     <div class="flip-box-inner">
         <div class="flip-box-front">
@@ -185,7 +185,7 @@ h1 {
 .flip-box-inner {
     position: relative;
     width: 50%;
-    height: 100%;
+    /* height: 50%; */
     padding-top: 52.65%;
     text-align: center;
     transition: transform 0.8s;

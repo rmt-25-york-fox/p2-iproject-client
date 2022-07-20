@@ -19,7 +19,7 @@ import { useAllState } from '../stores/allState'
 <template>
   <section>
     <div class="card" style="width: 26rem;">
-      <img :src="pocket.imgUrl"/>
+      <img :src="pocket.imgUrl" class="card-img-top" alt="Chicago Skyscrapers"/>
       <div class="card-body">
         <h5 class="card-title">{{pocket.name}}</h5>
       </div>
