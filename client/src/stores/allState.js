@@ -55,7 +55,7 @@ export const useAllState = defineStore({
     async handleCredentialResponse(response) {
       try {
         const { data } = await axios.post(
-          `${baseUrl}/public/googleSignIn`,
+          `${baseUrl}/googleSignIn`,
           {},
           {
             headers: {
@@ -64,8 +64,8 @@ export const useAllState = defineStore({
           }
         );
         localStorage.setItem("access_token", data.access_token);
-        this.router.push({ name: "HomeView" });
-        this.allProduct();
+        this.router.push({ name: "WelcomePage" });
+        this.allPokemon();
         this.page = "main";
         Swal.fire({
           title: "Google Login Success!",
@@ -93,7 +93,7 @@ export const useAllState = defineStore({
         localStorage.setItem("username", data.username);
         localStorage.setItem("tokenStat", data.access_token);
         this.page = "main";
-        this.router.push({ name: "HomeView" });
+        this.router.push({ name: "WelcomePage" });
         Swal.fire({
           title: "Login Success!",
           icon: "success",

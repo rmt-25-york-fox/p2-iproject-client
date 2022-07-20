@@ -43,7 +43,7 @@ import { useAllState } from '../stores/allState'
             <button class="btn" type="submit">LOGIN</button>
             <h4>Don't have an account yet? Register now!</h4>
             <button  @click.prevent="toRegister" class="btn">REGISTER</button>
-            <!-- <div id="g_id_onload"></div> -->
+            <div id="g_id_onload"></div>
           </form>
         </div>
       </div>
@@ -62,7 +62,6 @@ import { useAllState } from '../stores/allState'
   background-size:cover;
   height:100%;
 }
-/* https://deifoexkvnt11.cloudfront.net/assets/article/2020/07/06/pokemongofest2020-lookcloser_feature.jpg */
 
 .form-container {
   margin: 200px;
