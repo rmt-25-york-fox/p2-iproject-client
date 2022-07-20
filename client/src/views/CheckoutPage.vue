@@ -4,11 +4,29 @@ import { mapState, mapActions } from "pinia";
 
 export default {
   name: "CheckoutPage",
+  data() {
+    return {
+      shipping: {
+        origin: 151,
+        destination: Number(""),
+        weight: "",
+        courier: "",
+      },
+    };
+  },
   computed: {
-    ...mapState(useBankStore, ["myOrderSingle"]),
+    ...mapState(useBankStore, [
+      "myOrderSingle",
+      "city",
+      "shippingCost",
+      "shippingDay",
+    ]),
   },
   methods: {
-    ...mapActions(useBankStore, ["myOrderById"]),
+    ...mapActions(useBankStore, ["myOrderById", "getCost"]),
+    localGetCost() {
+      this.getCost(this.shipping);
+    },
   },
   created() {
     this.myOrderById();
@@ -23,7 +41,7 @@ export default {
         <div class="w-3/4 bg-white px-10 py-10">
           <div class="flex justify-between border-b pb-8">
             <h1 class="font-semibold text-2xl">Shopping Cart</h1>
-            <h2 class="font-semibold text-2xl">5 Items</h2>
+            <h2 class="font-semibold text-2xl">5 Components</h2>
           </div>
           <div class="flex mt-10 mb-5">
             <h3 class="font-semibold text-gray-600 text-xs uppercase w-2/5">
@@ -77,10 +95,12 @@ export default {
             >
             <span
               v-else-if="myOrderSingle[0].Vga.power > 60"
-              class="text-center w-1/5 font-semibold text-sm"
+              class="text-center w-1/5 font-semibold text-sm text-green-500"
               >Decent</span
             >
-            <span v-else class="text-center w-1/5 font-semibold text-sm"
+            <span
+              v-else
+              class="text-center w-1/5 font-semibold text-sm text-red-500"
               >Bad</span
             >
             <span class="text-center w-1/5 font-semibold text-sm">{{
@@ -126,10 +146,12 @@ export default {
             >
             <span
               v-else-if="myOrderSingle[0].Processor.power > 60"
-              class="text-center w-1/5 font-semibold text-sm"
+              class="text-center w-1/5 font-semibold text-sm text-green-500"
               >Decent</span
             >
-            <span v-else class="text-center w-1/5 font-semibold text-sm"
+            <span
+              v-else
+              class="text-center w-1/5 font-semibold text-sm text-red-500"
               >Bad</span
             >
             <span class="text-center w-1/5 font-semibold text-sm">{{
@@ -171,10 +193,12 @@ export default {
             >
             <span
               v-else-if="myOrderSingle[0].Psu.power > 60"
-              class="text-center w-1/5 font-semibold text-sm"
+              class="text-center w-1/5 font-semibold text-sm text-green-500"
               >Decent</span
             >
-            <span v-else class="text-center w-1/5 font-semibold text-sm"
+            <span
+              v-else
+              class="text-center w-1/5 font-semibold text-sm text-red-500"
               >Bad</span
             >
             <span class="text-center w-1/5 font-semibold text-sm">{{
@@ -216,10 +240,12 @@ export default {
             >
             <span
               v-else-if="myOrderSingle[0].Ram.power > 60"
-              class="text-center w-1/5 font-semibold text-sm"
+              class="text-center w-1/5 font-semibold text-sm text-green-500"
               >Decent</span
             >
-            <span v-else class="text-center w-1/5 font-semibold text-sm"
+            <span
+              v-else
+              class="text-center w-1/5 font-semibold text-sm text-red-500"
               >Bad</span
             >
             <span class="text-center w-1/5 font-semibold text-sm">{{
@@ -261,10 +287,12 @@ export default {
             >
             <span
               v-else-if="myOrderSingle[0].Ssd.power > 60"
-              class="text-center w-1/5 font-semibold text-sm"
+              class="text-center w-1/5 font-semibold text-sm text-green-500"
               >Decent</span
             >
-            <span v-else class="text-center w-1/5 font-semibold text-sm"
+            <span
+              v-else
+              class="text-center w-1/5 font-semibold text-sm text-red-500"
               >Bad</span
             >
             <span class="text-center w-1/5 font-semibold text-sm">{{
@@ -290,7 +318,7 @@ export default {
         <div id="summary" class="w-1/4 px-8 py-10">
           <h1 class="font-semibold text-2xl border-b pb-8">Order Summary</h1>
           <div class="flex justify-between mt-10 mb-5">
-            <span class="font-semibold text-sm uppercase">Items 5</span>
+            <span class="font-semibold text-sm uppercase">Components</span>
             <span class="font-semibold text-sm">{{
               (
                 myOrderSingle[0].Vga.price +
@@ -306,34 +334,83 @@ export default {
                 .split(",")[0]
             }}</span>
           </div>
-          <div>
-            <label class="font-medium inline-block mb-3 text-sm uppercase"
-              >Shipping</label
-            >
-            <select class="block p-2 text-gray-600 w-full text-sm">
-              <option>Standard shipping - $10.00</option>
-            </select>
+
+          <form @submit.prevent="localGetCost">
+            <div>
+              <label class="font-medium inline-block mb-3 text-sm uppercase"
+                >Shipping</label
+              >
+              <select
+                v-model="shipping.destination"
+                class="block p-2 text-gray-600 w-full text-sm"
+              >
+                <option v-for="city in city" :value="+city.city_id">
+                  {{ city.city_name }}
+                </option>
+              </select>
+
+              <select
+                v-model="shipping.weight"
+                class="block p-2 text-gray-600 w-full text-sm"
+              >
+                <option
+                  :value="
+                    (((myOrderSingle[0].Vga.power +
+                      myOrderSingle[0].Psu.power +
+                      myOrderSingle[0].Ram.power +
+                      myOrderSingle[0].Processor.power +
+                      myOrderSingle[0].Ssd.power) /
+                      10) *
+                      1000) /
+                    2
+                  "
+                >
+                  {{
+                    (myOrderSingle[0].Vga.power +
+                      myOrderSingle[0].Psu.power +
+                      myOrderSingle[0].Ram.power +
+                      myOrderSingle[0].Processor.power +
+                      myOrderSingle[0].Ssd.power) /
+                    10 /
+                    2
+                  }}
+                  KG
+                </option>
+              </select>
+              <select
+                v-model="shipping.courier"
+                class="block p-2 text-gray-600 w-full text-sm"
+              >
+                <option value="jne">JNE</option>
+                <option value="tiki">TIKI</option>
+                <option value="pos">POS Indonesia</option>
+              </select>
+              <button
+                class="bg-blue-500 hover:bg-blue-300 px-5 py- text-xs text-white uppercase"
+              >
+                Calculate Shipping Cost
+              </button>
+            </div>
+          </form>
+          <div class="flex justify-between mt-10 mb-5">
+            <span class="font-semibold text-sm uppercase">SHIPPING COST</span>
+            <span class="font-semibold text-sm">{{
+              shippingCost
+                .toLocaleString("id-ID", {
+                  style: "currency",
+                  currency: "IDR",
+                })
+                .split(",")[0]
+            }}</span>
           </div>
-          <div class="py-10">
-            <label
-              for="promo"
-              class="font-semibold inline-block mb-3 text-sm uppercase"
-              >Promo Code</label
-            >
-            <input
-              type="text"
-              id="promo"
-              placeholder="Enter your code"
-              class="p-2 text-sm w-full"
-            />
+          <div class="flex justify-between mt-10 mb-5">
+            <span class="font-semibold text-sm uppercase">Duration</span>
+            <span class="font-semibold text-sm">{{ shippingDay }} Day</span>
           </div>
-          <button
-            class="bg-red-500 hover:bg-red-600 px-5 py-2 text-sm text-white uppercase"
-          >
-            Apply
-          </button>
+
           <div class="border-t mt-8">
             <div
+              v-if="shippingCost"
               class="flex font-semibold justify-between py-6 text-sm uppercase"
             >
               <span>Total cost</span>
@@ -343,7 +420,8 @@ export default {
                   myOrderSingle[0].Psu.price +
                   myOrderSingle[0].Ram.price +
                   myOrderSingle[0].Processor.price +
-                  myOrderSingle[0].Ssd.price
+                  myOrderSingle[0].Ssd.price +
+                  shippingCost
                 )
                   .toLocaleString("id-ID", {
                     style: "currency",

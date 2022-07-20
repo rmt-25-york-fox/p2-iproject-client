@@ -14,6 +14,10 @@ export const useBankStore = defineStore({
     processor: [],
     myOrderList: [],
     myOrderSingle: [],
+    provinc: [],
+    city: [],
+    shippingCost: [],
+    shippingDay: [],
   }),
   getters: {},
   actions: {
@@ -119,6 +123,67 @@ export const useBankStore = defineStore({
       }
     },
 
+    async getCity() {
+      try {
+        const response = await axios.get(this.baseUrl + "/shipping/city", {
+          headers: {
+            access_token: localStorage.getItem("access_token"),
+          },
+        });
+        this.city = response.data.data;
+      } catch (error) {
+        console.log(error);
+      }
+    },
+
+    async getProvince() {
+      try {
+        const response = await axios.get(this.baseUrl + "/shipping/province", {
+          headers: {
+            access_token: localStorage.getItem("access_token"),
+          },
+        });
+        this.province = response.data.data;
+      } catch (error) {
+        console.log(error);
+      }
+    },
+
+    async getCost(shipping) {
+      try {
+        const response = await axios.post(
+          this.baseUrl + "/shipping/cost",
+          {
+            origin: 151,
+            destination: Number(shipping.destination),
+            weight: shipping.weight,
+            courier: shipping.courier,
+          },
+          {
+            headers: {
+              access_token: localStorage.getItem("access_token"),
+            },
+          }
+        );
+        this.shippingCost = response.data.data.shipping[0].cost[0].value;
+        this.shippingDay = response.data.data.shipping[0].cost[0].etd;
+        swal(
+          "Total Shipping Cost",
+          `${
+            this.shippingCost
+              .toLocaleString("id-ID", {
+                style: "currency",
+                currency: "IDR",
+              })
+              .split(",")[0]
+          }`,
+          "success"
+        );
+      } catch (error) {
+        console.log(error);
+      }
+    },
+
     logoutHandler() {
       this.isLogin = false;
       localStorage.clear();
@@ -131,6 +196,7 @@ export const useBankStore = defineStore({
         this.fetchProduct();
         this.myOrder();
         this.myOrderById();
+        this.getCity();
       }
     },
   },

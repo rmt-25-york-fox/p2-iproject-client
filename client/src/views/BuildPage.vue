@@ -19,9 +19,6 @@ export default {
   },
   methods: {
     ...mapActions(useBankStore, ["loginHandler", "fetchProduct", "addOrder"]),
-    localLoginHandler() {
-      this.loginHandler(this.credential);
-    },
     localAddHandler() {
       this.addOrder(this.specification);
     },
