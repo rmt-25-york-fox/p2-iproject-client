@@ -10,9 +10,9 @@ export default {
     ...mapActions(useTutorialStore, ["getNodeJsTutorials", "getGolangTutorials", "getJavaTutorials"]),
   },
   created() {
-    // this.getJavaTutorials();
-    // this.getGolangTutorials();
-    // this.getNodeJsTutorials();
+    this.getJavaTutorials();
+    this.getGolangTutorials();
+    this.getNodeJsTutorials();
   },
 };
 </script>

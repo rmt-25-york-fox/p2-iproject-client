@@ -39,7 +39,6 @@ export const useTutorialStore = defineStore({
     async getNodeJsTutorials() {
       try {
         if (this.nodeJsTutorials.length == 0) {
-          console.log('hitt');
           const { data } = await axios.get(`${baseUrl}/tutorials/nodejs`);
           this.nodeJsTutorials = data;
         }
@@ -50,8 +49,6 @@ export const useTutorialStore = defineStore({
     async getJavaTutorials() {
       try {
         if (this.nodeJsTutorials.length == 0) {
-          console.log('hitt');
-
           const { data } = await axios.get(`${baseUrl}/tutorials/java`);
           this.javaTutorials = data;
         }
@@ -62,8 +59,6 @@ export const useTutorialStore = defineStore({
     async getGolangTutorials() {
       try {
         if (this.nodeJsTutorials.length == 0) {
-          console.log('hitt');
-
           const { data } = await axios.get(`${baseUrl}/tutorials/golang`);
           this.golangTutorials = data;
         }
@@ -76,8 +71,7 @@ export const useTutorialStore = defineStore({
     },
     detailTutorialHandler(objTutorial, category) {
       this.tutorial = objTutorial;
-      console.log(objTutorial);
       this.router.push(`${category}/${objTutorial.id}`);
-    }
+    },
   },
 });
