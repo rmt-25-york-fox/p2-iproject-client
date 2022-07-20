@@ -50,7 +50,7 @@ export default {
 
       <div v-if="isLogin" class="basis-1/5 w-full flex flex-row py-8">
         <div class="basis-1/2 text-center hover:text-amber-300">
-          <RouterLink to="/checkout" href="">Checkout</RouterLink>
+          <RouterLink to="/checkout" href="">Cart</RouterLink>
         </div>
         <div class="basis-1/2 text-left hover:text-amber-300">
           <a @click.prevent="localLogoutHandler" href="">Sign Out</a>

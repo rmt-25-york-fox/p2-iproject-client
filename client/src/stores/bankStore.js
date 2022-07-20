@@ -129,7 +129,24 @@ export const useBankStore = defineStore({
         const response = await axios.get(this.baseUrl + "/showcase");
 
         this.showcase = response.data.showcase;
-        console.log(this.showcase);
+      } catch (error) {
+        console.log(error);
+      }
+    },
+
+    async deleteMyOrder(id) {
+      try {
+        await axios.delete(this.baseUrl + `/myorder/${id}`, {
+          headers: {
+            access_token: localStorage.getItem("access_token"),
+          },
+        });
+        this.router.push("/build");
+        console.log("sss");
+        // this.myOrder();
+        swal("Good job!", "You successfully delete unused order!", "success");
+        // this.router.push("/myorder");
+        console.log("berhasil delete", id);
       } catch (error) {
         console.log(error);
       }

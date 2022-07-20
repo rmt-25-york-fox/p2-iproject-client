@@ -7,9 +7,13 @@ export default {
     ...mapState(useBankStore, ["myOrderList"]),
   },
   methods: {
-    ...mapActions(useBankStore, ["myOrderById"]),
+    ...mapActions(useBankStore, ["myOrderById", "deleteMyOrder"]),
     localCheckoutHandler(id) {
       this.myOrderById(id);
+    },
+    localDeleteHandler(id) {
+      console.log(id, "asdsa");
+      this.deleteMyOrder(id);
     },
   },
 };
@@ -131,12 +135,22 @@ export default {
             v-if="el.Vga && el.Ram && el.Processor && el.Ssd && el.Psu"
             class="py-4 px-6 text-right"
           >
-            <a
-              @click.prevent="myOrderById(el.id)"
-              href="#"
-              class="font-medium text-blue-600 dark:text-blue-500 hover:underline"
-              >Checkout</a
-            >
+            <div>
+              <a
+                @click.prevent="myOrderById(el.id)"
+                href="#"
+                class="font-medium text-blue-600 dark:text-blue-500 hover:underline"
+                >Checkout</a
+              >
+            </div>
+            <div>
+              <a
+                @click.prevent="deleteMyOrder(el.id)"
+                href="#"
+                class="font-medium text-red-600 dark:text-blue-500 hover:underline"
+                >Delete</a
+              >
+            </div>
           </td>
         </tr>
       </tbody>
