@@ -23,7 +23,7 @@ a.btn-login {
 span.ic-sx21 {
     width: 21px;
     height: 21px;
-    background: url(/icons/ic26.png) no-repeat;
+    background: url('../../icons/ic26.png') no-repeat;
     background-size: contain;
     margin-left: 10px;
     float: left;

@@ -22,7 +22,7 @@ export default {
 </script>
 
 <template>
-<h3 class="text-center" style="margin-right: 200px;">Login</h3>
+<h3 class="text-center" style="margin-right: 20px;">Login</h3>
 <form method="post" v-on:submit.prevent="logiin" class="w-25 mx-auto">
     <label class="form-label">Email:</label>
     <input

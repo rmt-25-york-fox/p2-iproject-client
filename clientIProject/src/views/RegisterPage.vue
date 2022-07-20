@@ -26,7 +26,7 @@ export default {
 
 <template>
 
-<h3 class="text-center" style="margin-right: 180px;">Register</h3>
+<h3 class="text-center" style="margin-right: 20px;">Register</h3>
 <form method="post" v-on:submit.prevent="register" class="w-25 mx-auto">
     <div class="mb-3">
     <label class="form-label">Username:</label>

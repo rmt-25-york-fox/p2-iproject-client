@@ -847,14 +847,14 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#5658db', end
 .form-control {
   outline: none;
   display: block;
-  background: none;
+  background: white;
   font-size: 1rem;
   border: 0 solid transparent;
   line-height: 1.5;
   width: 100%;
   color: #333;
   box-shadow: none;
-  opacity: 0.001;
+  opacity: 1;
   transition: opacity 0.28s ease;
   will-change: opacity;
 }

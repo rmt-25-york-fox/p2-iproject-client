@@ -1,6 +1,19 @@
 <script>
+import { mapActions } from 'pinia'
+import { useRequestStore } from '../stores/request'
 export default {
-    name:'Card'
+    name:'Card',
+    props:['request'],
+    methods:{
+        ...mapActions(useRequestStore,['assignPic','detailRequest']),
+        getTask(){
+            this.assignPic(this.request.id)
+        },
+        viewDetail(){
+            this.detailRequest(this.request.id)
+        }
+        
+    }
 }
 </script>
 
@@ -9,26 +22,14 @@ export default {
 <div class="row">
     <div class="col-lg-9 col-md-9">
         <div class="news-link">
-            <img class="poster" src="/img/post.png" />
-            <span class="hot-news">HOT</span>
-            <h3 class="news-log">PUBG Теперь и в майнкрафт !</h3>
+            <span v-if="request.status === 'Taken'" class="hot-news">TAKEN</span>
+            <span v-else-if="request.status === 'New'" v-on:click="getTask" class="new-news">NEW</span>
+            <span v-else class="new-news">FINISHED</span>
+            <h3 class="news-log">{{request.title}}</h3>
             <p class="description">
-            Встречайте новая мини-игра PUBG теперь и на нашем сервере в майнкрафт !
-            По традиции нашим первым шагом будет ознакомление с правилами и регистрация аккаунта. 
-            Будьте внимательны при чтении правил нашего проекта, незнание их не освобождает вас от... 
+            {{request.description}}
             </p>
-            <a href="#" class="btn-view"><span class="ic-sx24"></span> Подробнее</a>
-        </div>
-        <div class="news-link">
-            <img class="poster" src="/img/post.png" />
-            <span class="new-news">NEW</span>
-            <h3 class="news-log">PUBG Теперь и в майнкрафт !</h3>
-            <p class="description">
-            Встречайте новая мини-игра PUBG теперь и на нашем сервере в майнкрафт !
-            По традиции нашим первым шагом будет ознакомление с правилами и регистрация аккаунта. 
-            Будьте внимательны при чтении правил нашего проекта, незнание их не освобождает вас от... 
-            </p>
-            <a href="#" class="btn-view"><span class="ic-sx24"></span> Подробнее</a>
+            <a href="#" v-on:click="viewDetail" class="btn-view"><span class="ic-sx24"></span> View Detail</a>
         </div>
     </div>
 </div>
