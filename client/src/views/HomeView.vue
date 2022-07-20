@@ -27,7 +27,6 @@ import NavBar from '../components/NavBar.vue'
 
 <template>
   <section>
-    <NavBar/>
     <div class="container-fluid">
       <div class="row">
         <div class="col py-3">

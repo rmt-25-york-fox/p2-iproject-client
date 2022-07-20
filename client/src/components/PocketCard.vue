@@ -22,11 +22,8 @@ import { useAllState } from '../stores/allState'
       <img :src="pocket.imgUrl"/>
       <div class="card-body">
         <h5 class="card-title">{{pocket.name}}</h5>
-        <!-- <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p> -->
       </div>
       <div class="card-body">
-        <!-- <a href="" class="card-link btn" @click.prevent="localAddWishlist(pocket.id)">Add To Wishlist 
-💗</a> -->
         <a href="" class="card-link btn" @click.prevent="localDetailProduct(pocket.name)">See Detail</a>
       </div>
     </div>

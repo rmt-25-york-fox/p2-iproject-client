@@ -87,6 +87,7 @@ export const useAllState = defineStore({
         this.email = "";
         this.password = "";
         localStorage.setItem("access_token", data.access_token);
+        localStorage.setItem("username", data.username);
         localStorage.setItem("tokenStat", data.access_token);
         this.page = "main";
         this.router.push({ name: "HomeView" });
@@ -168,6 +169,27 @@ export const useAllState = defineStore({
       }
     },
 
+    async createLeaderBoard(score) {
+      try {
+        const { data } = await axios.post(
+          `${baseUrl}/userBoard`,
+          { name: localStorage.getItem("username"), score },
+          {
+            headers: {
+              Authorization: `Bearer ${localStorage.getItem("tokenStat")}`,
+              "Content-Type": "application/json",
+            },
+          }
+        );
+        // console.log(data);
+        this.page = "main";
+        this.router.push({ name: "LeaderBoard" });
+        this.getLeaderBoard();
+      } catch (error) {
+        console.log(error);
+      }
+    },
+
     async getLeaderBoard() {
       try {
         const { data } = await axios.post(`${baseUrl}/leaderboards`, {
@@ -177,7 +199,7 @@ export const useAllState = defineStore({
         });
         // console.log(data.data);
         this.leaderboards = data.data;
-        console.log(data);
+        // console.log(data);
       } catch (error) {
         console.log(error);
       }
@@ -188,7 +210,7 @@ export const useAllState = defineStore({
         let { data } = await axios.get(`${baseUrl}/user/pocket`, {
           headers: { access_token: localStorage.getItem("access_token") },
         });
-        console.log(data);
+        // console.log(data);
         this.page = "main";
         this.pockets = data;
       } catch (error) {
@@ -208,16 +230,10 @@ export const useAllState = defineStore({
             headers: { access_token: localStorage.getItem("access_token") },
           }
         );
-        console.log(data);
+        // console.log(data);
         this.page = "main";
         this.router.push({ name: "GamePage" });
         this.allPocket();
-        Swal.fire({
-          title: "Added to your wishlist!",
-          text: "Check your wishlist!",
-          icon: "success",
-          button: "Sure!",
-        });
       } catch (error) {
         this.router.push({ name: "LoginPage" });
         Swal.fire(String(error.response.data.message).split(",").join(", "));

@@ -1,8 +1,6 @@
 <script>
 import { mapActions, mapState } from 'pinia'
 import { useAllState } from '../stores/allState'
-import PokemonCard from '../components/PokemonCard.vue'
-import PokemonList from './PokemonList.vue'
 
 const choices = ["rock", "paper", "scissors"];
 export default {
@@ -13,48 +11,71 @@ export default {
       computerSelected: "",
       catchedPokemon: "",
       userCounter: 0,
-      compCounter: 0
+      compCounter: 0,
+      result: "",
+      timerCount: null,
     };
   },
   
   computed: {
     ...mapState(useAllState, ['pokemonDetail']),
-    async result() {
-    const { computerSelected, selected } = this;
-
-    if (computerSelected === selected) {
-        return `TIE, PLAY IT AGAIN!`;
-    } else {
-        if (
-        (computerSelected === "rock" && selected === "scissors") ||
-        (computerSelected === "paper" && selected === "rock") ||
-        (computerSelected === "scissors" && selected === "paper")
-        ) {
-        this.compCounter++
-        return "OOPS.. YOU LOSE! TRY AGAIN! YOUR POKEMON IS WAITING FOR YOU!";
-        }
-        const total_pokemons = 1000;
-        const name = Math.floor(Math.random() * (total_pokemons - 1 + 1) + 1)
-        this.catchedPokemon = await this.getPokemonDetail(name)
-        this.localAddPokemonToPocket(name)
-        this.userCounter++
-        return "YUPS.. YOU WIN! GO CHECK YOUR POKEMON!";
-    }
-
+    finalResult() {
+      // console.log(this.result);
+    return this.result
     },
+    
   },
+  watch: {
+      timerCount: {
+        handler(value) {
+          if (value > 0) {
+            setTimeout(() => {
+              this.timerCount--;
+              }, 1000);
+          } else if (value == 0){
+            this.localAddBoard(this.userCounter)
+          }
 
+        },
+        immediate: true // This ensures the watcher is triggered upon creation
+      }
+  },
   methods: {
-    ...mapActions(useAllState,['getPokemonDetail', 'toMain', 'addPokemonToPocket']),
+    ...mapActions(useAllState,['getPokemonDetail', 'toMain', 'addPokemonToPocket', 'createLeaderBoard']),
     localAddPokemonToPocket(name){
         this.addPokemonToPocket(name)
     },
+    localAddBoard(score){
+      this.createLeaderBoard(score)
+    },
+
     async play() {
         if (!this.selected) {
             return;
         }
         const computerChoiceIndex = Math.floor(Math.random() * choices.length);
         this.computerSelected = choices[computerChoiceIndex];
+        
+        const { computerSelected, selected } = this;
+        if (computerSelected === selected) {
+        this.result = `TIE, PLAY IT AGAIN!`;
+        } else {
+            if (
+              (computerSelected === "rock" && selected === "scissors") ||
+              (computerSelected === "paper" && selected === "rock") ||
+              (computerSelected === "scissors" && selected === "paper")
+              ) {
+              this.compCounter++
+              this.result = "OOPS.. YOU LOSE! TRY AGAIN! YOUR POKEMON IS WAITING FOR YOU!";
+            } else {
+            const total_pokemons = 500;
+            const name = Math.floor(Math.random() * (total_pokemons - 1 + 1) + 1)
+            this.catchedPokemon = await this.getPokemonDetail(name)
+            this.localAddPokemonToPocket(name)
+            this.userCounter++
+            this.result = "YUPS.. YOU WIN! GO CHECK YOUR POKEMON!";
+            }
+        }
     },
     selectMove(type){
         this.selected = type
@@ -73,9 +94,10 @@ export default {
   <section>
     <img class="imgtitle" src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/98/International_Pok%C3%A9mon_logo.svg/1200px-International_Pok%C3%A9mon_logo.svg.png"/>
     <h1>Rock Paper Scissors</h1>
+    <div>{{timerCount}}</div>
     <h2 id="demo">Try your luck ! Click START to Play</h2>
-    <h3>{{result}}</h3>
-    <div v-if="result == 'YUPS.. YOU WIN! GO CHECK YOUR POKEMON!'" class="card mb-3">
+    <h3>{{finalResult}}</h3>
+    <div v-if="finalResult == 'YUPS.. YOU WIN! GO CHECK YOUR POKEMON!'" class="card mb-3">
     <div class="flip-box">
     <div class="flip-box-inner">
         <div class="flip-box-front">
@@ -93,7 +115,7 @@ export default {
                 <h3>You :</h3><span id="playerScore">{{userCounter}}</span>
             </div>
             <div class="show">
-                <!-- <i v-if="!selected" class="fa fa-question" aria-hidden="true"></i> -->
+              <!-- <i v-if="!selected" class="fa fa-question" aria-hidden="true"></i> -->
                 <i v-if="selected === 'rock'" class="fas fa-hand-rock active"></i>
                 <i v-if="selected === 'paper'" class="fas fa-hand-paper"></i>
                 <i v-if="selected === 'scissors'" class="fas fa-hand-scissors"></i>
@@ -113,15 +135,15 @@ export default {
         </div>
     </div>
     <h2 style="color: rgb(233, 33, 19);" id="demo2">Choose One !</h2>
+    <div v-if="this.timerCount !== null">
     <div class="selection">
         <button @click="selectMove('rock')" class="fas fa-hand-rock"></button>
         <button @click="selectMove('paper')" class="fas fa-hand-paper"></button>
         <button @click="selectMove('scissors')" class="fas fa-hand-scissors"></button>
     </div>
-    <!-- <i class="bi bi-play"></i> -->
+    </div>
     <div>
-
-      <button class="btn btn-warning btn-lg active textsize" @click="play">START</button>
+      <button class="btn btn-warning btn-lg active textsize" @click="timerCount=20">START</button>
     </div>
 
 </section>
