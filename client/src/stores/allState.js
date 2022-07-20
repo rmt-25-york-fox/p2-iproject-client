@@ -10,6 +10,7 @@ export const useAllState = defineStore({
     details: [],
     pokemonDetail: {},
     page: "home",
+    leaderboards: "",
   }),
   // getters: {
   //   doubleCount: (state) => state.counter * 2,
@@ -24,8 +25,11 @@ export const useAllState = defineStore({
     toMain() {
       this.router.push({ name: "HomeView" });
     },
-    toWishlist() {
-      this.router.push({ name: "WishlistPage" });
+    toPlay() {
+      this.router.push({ name: "GamePage" });
+    },
+    toLeaderBoard() {
+      this.router.push({ name: "LeaderBoard" });
     },
     toDetail(name) {
       console.log(name);
@@ -79,6 +83,7 @@ export const useAllState = defineStore({
         this.email = "";
         this.password = "";
         localStorage.setItem("access_token", data.access_token);
+        localStorage.setItem("tokenStat", data.access_token);
         this.page = "main";
         this.router.push({ name: "HomeView" });
         Swal.fire({
@@ -156,6 +161,30 @@ export const useAllState = defineStore({
           "",
           "error"
         );
+      }
+    },
+
+    // async tokenLeaderboard() {
+    //   try {
+    //     const { data } = await axios.post(`${baseUrl}/userBoard`);
+    //     this.leaderboards = data;
+    //   } catch (error) {
+    //     next(error);
+    //   }
+    // },
+
+    async getLeaderBoard() {
+      try {
+        const { data } = await axios.post(`${baseUrl}/leaderboards`, {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("tokenStat")}`,
+          },
+        });
+        // console.log(data.data);
+        this.leaderboards = data.data;
+        console.log(data);
+      } catch (error) {
+        console.log(error);
       }
     },
   },

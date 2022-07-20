@@ -7,9 +7,6 @@ import PokemonList from './PokemonList.vue'
 const choices = ["rock", "paper", "scissors"];
 export default {
   name: "GamePage",
-  components: {
-    PokemonCard
-  },
   data() {
     return {
       selected: "",
