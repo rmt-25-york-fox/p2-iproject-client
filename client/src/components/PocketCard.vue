@@ -2,13 +2,16 @@
 import { mapActions } from 'pinia'
 import { useAllState } from '../stores/allState'
   export default {
-    name: 'PokemonCard',
-    props: ['pokemon', 'details'],
+    name: 'PocketCard',
+    props: ['pocket', 'details'],
         methods: {
-      ...mapActions(useAllState, ['getPokemonDetail', 'toMain', 'toDetail','addWishlist']),
+      ...mapActions(useAllState, ['getPokemonDetail', 'toMain', 'toDetail','addPokemonToPocket']),
       localDetailProduct(id){
         this.toDetail(id)
       },
+      localAddPokemonToPocket(name){
+        this.addPokemonToPocket(name)
+      }
     }
 }
 </script>
@@ -16,12 +19,12 @@ import { useAllState } from '../stores/allState'
 <template>
   <section>
     <div class="card" style="width: 26rem;">
-      <img :src="pokemon.sprites.other['official-artwork']['front_default']" class="card-img-top" alt="Chicago Skyscrapers"/>
+      <img :src="pocket.imgUrl"/>
       <div class="card-body">
-        <h5 class="card-title">{{pokemon.name}}</h5>
+        <h5 class="card-title">{{pocket.name}}</h5>
       </div>
       <div class="card-body">
-        <a href="" class="card-link btn" @click.prevent="localDetailProduct(pokemon.name)">See Detail</a>
+        <a href="" class="card-link btn" @click.prevent="localDetailProduct(pocket.name)">See Detail</a>
       </div>
     </div>
   </section>

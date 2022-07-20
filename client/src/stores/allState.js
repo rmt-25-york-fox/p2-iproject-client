@@ -11,6 +11,7 @@ export const useAllState = defineStore({
     pokemonDetail: {},
     page: "home",
     leaderboards: "",
+    pockets: [],
   }),
   // getters: {
   //   doubleCount: (state) => state.counter * 2,
@@ -27,6 +28,9 @@ export const useAllState = defineStore({
     },
     toPlay() {
       this.router.push({ name: "GamePage" });
+    },
+    toPocket() {
+      this.router.push({ name: "PocketPage" });
     },
     toLeaderBoard() {
       this.router.push({ name: "LeaderBoard" });
@@ -83,6 +87,7 @@ export const useAllState = defineStore({
         this.email = "";
         this.password = "";
         localStorage.setItem("access_token", data.access_token);
+        localStorage.setItem("username", data.username);
         localStorage.setItem("tokenStat", data.access_token);
         this.page = "main";
         this.router.push({ name: "HomeView" });
@@ -130,7 +135,7 @@ export const useAllState = defineStore({
         const { data } = await axios.get(`${baseUrl}/pokemons`, {
           headers: { access_token: localStorage.getItem("access_token") },
         });
-        console.log(data);
+        // console.log(data);
         if (localStorage.getItem("access_token")) {
           this.page = "main";
         } else {
@@ -164,14 +169,26 @@ export const useAllState = defineStore({
       }
     },
 
-    // async tokenLeaderboard() {
-    //   try {
-    //     const { data } = await axios.post(`${baseUrl}/userBoard`);
-    //     this.leaderboards = data;
-    //   } catch (error) {
-    //     next(error);
-    //   }
-    // },
+    async createLeaderBoard(score) {
+      try {
+        const { data } = await axios.post(
+          `${baseUrl}/userBoard`,
+          { name: localStorage.getItem("username"), score },
+          {
+            headers: {
+              Authorization: `Bearer ${localStorage.getItem("tokenStat")}`,
+              "Content-Type": "application/json",
+            },
+          }
+        );
+        // console.log(data);
+        this.page = "main";
+        this.router.push({ name: "LeaderBoard" });
+        this.getLeaderBoard();
+      } catch (error) {
+        console.log(error);
+      }
+    },
 
     async getLeaderBoard() {
       try {
@@ -182,9 +199,44 @@ export const useAllState = defineStore({
         });
         // console.log(data.data);
         this.leaderboards = data.data;
-        console.log(data);
+        // console.log(data);
       } catch (error) {
         console.log(error);
+      }
+    },
+
+    async allPocket() {
+      try {
+        let { data } = await axios.get(`${baseUrl}/user/pocket`, {
+          headers: { access_token: localStorage.getItem("access_token") },
+        });
+        // console.log(data);
+        this.page = "main";
+        this.pockets = data;
+      } catch (error) {
+        Swal.fire(String(error.response.data.message).split(",").join(", "));
+      }
+    },
+
+    async addPokemonToPocket(name) {
+      try {
+        let { data } = await axios.post(
+          `${baseUrl}/user/pokemons/${name}`,
+          {
+            name,
+            UserId: localStorage.getItem("id"),
+          },
+          {
+            headers: { access_token: localStorage.getItem("access_token") },
+          }
+        );
+        // console.log(data);
+        this.page = "main";
+        this.router.push({ name: "GamePage" });
+        this.allPocket();
+      } catch (error) {
+        this.router.push({ name: "LoginPage" });
+        Swal.fire(String(error.response.data.message).split(",").join(", "));
       }
     },
   },
