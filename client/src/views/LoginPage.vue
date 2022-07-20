@@ -20,7 +20,6 @@ export default {
         email: this.inputEmailLogin,
         password: this.inputPasswordLogin
       })
-      console.log("helo")
     }
   }
 }

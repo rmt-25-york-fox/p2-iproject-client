@@ -1,17 +1,20 @@
 <script>
 import { RouterLink } from 'vue-router'
 import { useAllStatesStore } from '../stores/allState'
-import { mapActions } from 'pinia'
+import { mapActions, mapState } from 'pinia'
 
 export default {
   name: "NavBar",
   components: {
     RouterLink
   },
+  computed: {
+    ...mapState(useAllStatesStore, ['isLoggedIn'])
+  },
   methods: {
-    ...mapActions(useAllStatesStore, ['toCharactersPage']),
-    localToCharacterPage() {
-      this.toCharactersPage()
+    ...mapActions(useAllStatesStore, ['logout']),
+    localLogout() {
+      this.logout()
     }
   }
 }
@@ -28,7 +31,13 @@ export default {
         <RouterLink to="/leaderboards" class="nav-link">Leaderboards</RouterLink>
       </li>
       <li class="nav-item">
-        <RouterLink @click.prevent="localToCharacterPage" to="/characters" class="nav-link">Characters</RouterLink>
+        <RouterLink to="/characters" class="nav-link">Characters</RouterLink>
+      </li>
+      <li class="nav-item">
+        <RouterLink to="/mycollections" class="nav-link">My Collections</RouterLink>
+      </li>
+      <li v-if="isLoggedIn" class="nav-item">
+        <RouterLink @click.prevent="localLogout" to="/" class="nav-link">Logout</RouterLink>
       </li>
     </ul>
   </section>

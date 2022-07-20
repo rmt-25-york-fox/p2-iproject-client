@@ -35,12 +35,13 @@ export default {
 </script>
 
 <template>
+  <div class="input-group mt-3 rounded container" style="max-width: 500px;">
+    <input type="search" class="form-control" placeholder="Search" aria-label="Search" aria-describedby="search-addon"
+      v-model="name" />
+    <button @click.prevent="localSearchDigimon" type="submit" class="btn btn-outline-danger">search</button>
+  </div>
   <div class="d-flex flex-row flex-wrap justify-content-evenly border-4">
-    <div class="input-group mt-1 rounded">
-      <input type="search" class="form-control" placeholder="Search" aria-label="Search" aria-describedby="search-addon"
-        v-model="name" />
-      <button @click.prevent="localSearchDigimon" type="submit" class="btn btn-outline-danger">search</button>
-    </div>
+
     <DigimonCard v-for="digimon, index in digimons" :key="index + 1" :digimon="digimon" />
   </div>
 
