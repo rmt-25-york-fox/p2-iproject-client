@@ -1,4 +1,7 @@
 <script>
+import { mapActions, mapState } from "pinia";
+import { useSportStore } from "../stores/sport";
+
 export default {
   name: "Navbar",
 
@@ -8,10 +11,10 @@ export default {
   emits: [""],
   props: [""],
   computed: {
-    ...mapState(useMovieStore, ["isLogin"]),
+    ...mapState(useSportStore, ["isLogin"]),
   },
   methods: {
-    ...mapActions(useMovieStore, [
+    ...mapActions(useSportStore, [
       "toHomePage",
       "toLoginPage",
       "toRegisterPage",
@@ -25,7 +28,7 @@ export default {
 <template>
   <nav class="navbar navbar-expand-lg bg-light">
     <div style="margin-left: 50px" class="container-fluid">
-      <a @click.prevent="toHomePage" class="navbar-brand">Hacktiv Movies</a>
+      <a @click.prevent="toHomePage" class="navbar-brand">GetShaped</a>
       <button
         class="navbar-toggler"
         type="button"

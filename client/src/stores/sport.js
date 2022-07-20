@@ -1,13 +1,18 @@
 import { defineStore } from "pinia";
 import axios from "axios";
+import axiosInstance from "../axiosInstance";
 import Swal from "sweetalert2";
 
 export const useSportStore = defineStore({
   id: "counter",
   state: () => ({
-    baseUrl: "http://localhost:3000",
+    baseUrl: "http://localhost:3000/pub",
     isLogin: "",
     isError: "",
+    page: 0,
+    title: "",
+    rating: "",
+    genreId: "",
     movies: [],
   }),
   getters: {
@@ -40,18 +45,53 @@ export const useSportStore = defineStore({
         this.title = objQuery.title;
         this.rating = objQuery.rating;
         this.genreId = objQuery.genreId;
-
-        const response = await axiosInstance.get(
-          `${this.baseUrl}/movies?page=${this.page}&size=8&title=${this.title}&rating=${this.rating}&genreId=${this.genreId}`
+        console.log(
+          "queries>>>",
+          this.page,
+          this.title,
+          this.rating,
+          this.genreId
         );
 
-        this.movies = response.data.data.movies;
-        console.log("RESPONSE DATA ROWS >>>>", this.movies);
+        const response = await axiosInstance.get(
+          `${this.baseUrl}/sports?page=${this.page}&size=8&title=${this.title}&rating=${this.rating}&genreId=${this.genreId}`
+        );
+        console.log("response>>>", response);
+        this.movies = response.data.data.sports;
+
+        console.log("RESPONSE THIS MOVIES >>>>", this.movies);
       } catch (err) {
         console.log(err);
       }
     },
-    async fetchSports() {},
+    async fetchSports() {
+      try {
+        const axios = require("axios");
+
+        const options = {
+          method: "GET",
+          url: "https://exercisedb.p.rapidapi.com/exercises",
+          headers: {
+            "X-RapidAPI-Key":
+              "e271177b1dmsh75da436e4a78356p10452ejsnd733e94bc616",
+            "X-RapidAPI-Host": "exercisedb.p.rapidapi.com",
+          },
+        };
+
+        axios
+          .request(options)
+          .then(function (response) {
+            this.movies = response.data;
+            console.log(response.data);
+            console.log("this movies>>>", this.movies);
+          })
+          .catch(function (error) {
+            console.error(error);
+          });
+      } catch (err) {
+        console.log(err);
+      }
+    },
     async loginHandler(objCredential) {
       try {
         console.log("loginHandler HITT");

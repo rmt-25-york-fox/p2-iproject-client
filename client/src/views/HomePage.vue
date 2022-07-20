@@ -61,7 +61,6 @@ export default {
     "
     class="container-fluid row"
   >
-    <Navbar />
     <div
       style="
         padding-left: 100px;
@@ -74,23 +73,15 @@ export default {
       <div class="ads1 col-4">
         <img
           style="margin-left: 100px; margin: 10px; width: auto; height: 200px"
-          src="../assets/thor.jpeg"
+          src=""
           alt=""
         />
       </div>
       <div style="padding: 0px" class="ads2 col-4">
-        <img
-          style="margin: 10px; width: auto; height: 200px"
-          src="../assets/drStrange.jpg"
-          alt=""
-        />
+        <img style="margin: 10px; width: auto; height: 200px" src="" alt="" />
       </div>
       <div style="padding: 0px" class="ads2 col-4">
-        <img
-          style="margin: 10px; width: auto; height: 200px"
-          src="../assets/spiderman.jpeg"
-          alt=""
-        />
+        <img style="margin: 10px; width: auto; height: 200px" src="" alt="" />
       </div>
     </div>
 

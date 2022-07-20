@@ -9,14 +9,7 @@ export default {
     return {};
   },
   name: "LoginPage",
-  emits: [
-    "toSignUp",
-    "loginHandler",
-    "handleCredentialResponse",
-    "mounted",
-    "modifiedProps",
-    "inputEmail",
-  ],
+
   props: ["isLogin", "email", "password", "baseUrl", "page"],
   components: { ButtonApp, GoogleLoginButton },
   methods: {
@@ -81,14 +74,13 @@ export default {
       Or Sign in with google
     </h6>
 
-    <GoogleLoginButton
+    <!-- <GoogleLoginButton
       @modifiedProps="modifiedProps"
       @handleCredentialResponse="handleCredentialResponse"
-      @mounted="mounted"
       :isLogin="isLogin"
       :page="page"
       :baseUrl="baseUrl"
-    />
+    /> -->
   </div>
 </template>
 
