@@ -2,7 +2,7 @@ import { defineStore } from "pinia";
 import Swal from "sweetalert2";
 import axios from "axios";
 
-const baseUrl = "http://localhost:3000";
+const baseUrl = "https://digidice.herokuapp.com";
 
 export const useAllStatesStore = defineStore({
   id: "allState",
@@ -53,9 +53,7 @@ export const useAllStatesStore = defineStore({
     },
     async fetchAllDigimons() {
       try {
-        const response = await axios.get(`${baseUrl}/digimon`, {
-          headers: { access_token: localStorage.getItem("access_token") },
-        });
+        const response = await axios.get(`${baseUrl}/digimon`);
         this.digimons = response.data;
       } catch (err) {
         Swal.fire("Failed to load digimons");
@@ -63,9 +61,7 @@ export const useAllStatesStore = defineStore({
     },
     async searchDigimon(name) {
       try {
-        const response = await axios.get(`${baseUrl}/digimon/${name}`, {
-          headers: { access_token: localStorage.getItem("access_token") },
-        });
+        const response = await axios.get(`${baseUrl}/digimon/${name}`);
         this.digimons = response.data;
       } catch (err) {
         Swal.fire("Error");
