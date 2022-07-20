@@ -35,7 +35,6 @@ export default {
           } else if (value == 0){
             this.localAddBoard(this.userCounter)
           }
-
         },
         immediate: true // This ensures the watcher is triggered upon creation
       }
@@ -66,14 +65,14 @@ export default {
               (computerSelected === "scissors" && selected === "paper")
               ) {
               this.compCounter++
-              this.result = "OOPS.. YOU LOSE! TRY AGAIN! YOUR POKEMON IS WAITING FOR YOU!";
+              this.result = "OOPS.. YOU LOSE! TRY AGAIN! YOUR POKEMON IS WAITING FOR YOU! (⌣̩̩́_⌣̩̩̀) ";
             } else {
             const total_pokemons = 500;
             const name = Math.floor(Math.random() * (total_pokemons - 1 + 1) + 1)
             this.catchedPokemon = await this.getPokemonDetail(name)
             this.localAddPokemonToPocket(name)
             this.userCounter++
-            this.result = "YUPS.. YOU WIN! GO CHECK YOUR POKEMON!";
+            this.result = "🎉🎉🎉 YUPS.. YOU CATCH POKEMON! GO CHECK YOUR POKEMON! 🎉🎉🎉";
             }
         }
     },
@@ -93,11 +92,11 @@ export default {
 <template>
   <section>
     <img class="imgtitle" src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/98/International_Pok%C3%A9mon_logo.svg/1200px-International_Pok%C3%A9mon_logo.svg.png"/>
-    <h1>Rock Paper Scissors</h1>
-    <div>{{timerCount}}</div>
-    <h2 id="demo">Try your luck ! Click START to Play</h2>
+    <img class="imgtitle" src="https://images-na.ssl-images-amazon.com/images/I/61QkvmvEdVL.png"/>
+    <button class="btn btncss btn-lg active textsize">{{timerCount}}</button>
+    <h2 v-if="this.timerCount == null" id="demo">Let's Catch Pokemon! Click START to Play</h2>
     <h3>{{finalResult}}</h3>
-    <div v-if="finalResult == 'YUPS.. YOU WIN! GO CHECK YOUR POKEMON!'" class="card mb-3">
+    <div v-if="finalResult == '🎉🎉🎉 YUPS.. YOU CATCH POKEMON! GO CHECK YOUR POKEMON! 🎉🎉🎉'" class="card mb-3">
     <div class="flip-box">
     <div class="flip-box-inner">
         <div class="flip-box-front">
@@ -134,8 +133,8 @@ export default {
             </div>
         </div>
     </div>
-    <h2 style="color: rgb(233, 33, 19);" id="demo2">Choose One !</h2>
     <div v-if="this.timerCount !== null">
+    <h2 style="color: rgb(233, 33, 19);" id="demo2">Choose One !</h2>
     <div class="selection">
         <button @click="selectMove('rock')" class="fas fa-hand-rock"></button>
         <button @click="selectMove('paper')" class="fas fa-hand-paper"></button>
@@ -143,7 +142,7 @@ export default {
     </div>
     </div>
     <div>
-      <button class="btn btn-warning btn-lg active textsize" @click="timerCount=20">START</button>
+      <button v-if="this.timerCount == null" class="btn btncss btn-lg active textsize" @click="timerCount=15">START</button>
     </div>
 
 </section>
@@ -199,6 +198,7 @@ h1 {
 }
 
 img {
+    padding: 20px;
     width: 100%;
     height: 100%;
     object-fit: cover;
@@ -252,7 +252,7 @@ img {
     margin: 20px 50px;
 }
 .section .info{
-    background: rgb(10, 10, 10);
+    background: rgb(17, 27, 53);
     display: flex;
     align-items: center;
     justify-content: center;
@@ -267,14 +267,15 @@ img {
 }
 .show{
     display: flex;
+    box-shadow: 0 4px 6px 0 hsla(175, 46%, 16%, 0.959);
     align-items: center;
     justify-content: center;
-    background : rgb(41, 40, 40);
+    background : rgba(221, 224, 61, 0.692);
     height: 220px;
 }
 .show i{
     font-size: 100px;
-    color: orange;
+    color: rgba(14, 67, 240, 0.692);
 }
 h2{
     font-family: sans-serif;
@@ -295,7 +296,8 @@ h3 {
     font-weight: 100px;
 }
 .selection{
-    margin-left:800px;
+    margin-left:780px;
+    margin-bottom: 60px;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -310,12 +312,13 @@ h3 {
     border: none;
     outline: none;
     cursor: pointer;
-    background : rgb(41, 40, 40);
+    background : rgb(29, 97, 97);
     font-size: 33px;
     color: orange;
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.5), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }
 button:hover{
+    font-weight: bold;
     color: rgb(17, 80, 197);
     background-color: whitesmoke;
     border-color: black;
@@ -335,5 +338,21 @@ button:hover{
 .imgtitle {
   width: 25%;
   margin-left: 700px
+}
+
+.btncss{
+    margin-left:900px;
+    margin-bottom: 60px;
+    padding: 10px;
+    border-radius: 10%;
+    widows: 70px;
+    border: none;
+    outline: none;
+    cursor: pointer;
+    background : rgb(165, 36, 36);
+    font-size: 25px;
+    color: rgb(255, 252, 244);
+    font-weight: bold;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.5), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }
 </style>

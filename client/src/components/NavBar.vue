@@ -5,7 +5,7 @@ import { useAllState } from '../stores/allState'
     name: 'NavBar',
 
         methods: {
-      ...mapActions(useAllState, ['toMain', 'toDetail','toPocket', 'toLogout']),
+      ...mapActions(useAllState, ['toMain', 'toDetail','toPocket', 'toPlay','toPokedex', 'toLeaderBoard','toLogout']),
     }
 }
 </script>
@@ -13,8 +13,11 @@ import { useAllState } from '../stores/allState'
 <template>
   <section>
     <div class="navi">
-      <span><a href="#home">Home</a></span>
-      <span><a href="" @click.prevent="toPocket">Pokcket</a></span>
+      <span><a href="" @click.prevent="toMain">About Us</a></span>
+      <span><a href="" @click.prevent="toPlay">Play POCKETMON</a></span>
+      <span><a href="" @click.prevent="toPokedex">Pokédex</a></span>
+      <span><a href="" @click.prevent="toPocket">My Pocket</a></span>
+      <span><a href="" @click.prevent="toLeaderBoard">Leaderboard</a></span>
       <span><a href="" @click.prevent="toLogout">Logout</a></span>
     </div>
   </section>
@@ -60,7 +63,7 @@ h3{
 }
 
 .navi{ 
-  background: #029A81;
+  background: #408579;
   padding: 20px 40px;
   font-size: 28px;
   text-align: right;
@@ -78,7 +81,7 @@ h3{
 }
 
 #home, #portfolio, #contact { 
-  background: #32AC97;
+  background: #3fc0ab;
   width: 100%;
   padding: 40px 0;
 }
