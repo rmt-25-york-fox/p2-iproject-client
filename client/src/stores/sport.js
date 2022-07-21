@@ -127,7 +127,9 @@ export const useSportStore = defineStore({
             access_token: access_token
           }
         })
+
         console.log('data Fitness>>>>>', data)
+
 
         this.fitness = data.data
         console.log('data Fitness>>>>>', data)
