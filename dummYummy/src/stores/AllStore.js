@@ -2,7 +2,7 @@ import { defineStore } from "pinia";
 import axios from "axios";
 import swal from "sweetalert2";
 
-const baseUrl = "http://localhost:3000";
+const baseUrl = "https://dummyummy.herokuapp.com";
 
 export const useCounterStore = defineStore({
   id: "counter",
