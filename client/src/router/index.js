@@ -8,6 +8,7 @@ import PlanetPage from "../views/PlanetPage.vue";
 import RegisterPage from "../views/Register.vue";
 import ChatPage from "../views/ChatPage.vue";
 import TwitPage from "../views/TwitPage.vue";
+import MarsPage from "../views/MarsPage.vue";
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -56,6 +57,11 @@ const router = createRouter({
       path: "/news",
       name: "news",
       component: TwitPage,
+    },
+    {
+      path: "/mars",
+      name: "mars",
+      component: MarsPage,
     },
   ],
 });

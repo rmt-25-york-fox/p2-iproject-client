@@ -35,6 +35,7 @@ export default {
             <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
               <li><router-link to="/planet" class="dropdown-item" href="#">APOD</router-link></li>
               <li><router-link to="/news" class="dropdown-item" href="#">Nasa News</router-link></li>
+              <li><router-link to="/mars" class="dropdown-item" href="#">Mars Weather</router-link></li>
               <li><router-link to="/add" class="dropdown-item" href="#">Add new Info</router-link></li>
               <li><hr class="dropdown-divider" /></li>
               <li @click.prevent="logoutHandler"><router-link to="" class="dropdown-item" href="#">Sign Out</router-link></li>

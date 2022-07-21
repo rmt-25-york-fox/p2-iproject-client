@@ -1,17 +1,16 @@
 <script>
-import Card from "../components/Card.vue";
+import Mars from "../components/Mars.vue";
 import { mapActions, mapWritableState } from "pinia";
 import { useCounterStore } from "../stores/counter";
 
 export default {
   components: {
-    Card,
+    Mars,
   },
   methods: {
-    ...mapActions(useCounterStore, ["getApod", "marsWeather"]),
+    ...mapActions(useCounterStore, ["marsWeather"]),
   },
   created() {
-    this.getApod();
     this.marsWeather();
   },
 };
@@ -19,8 +18,8 @@ export default {
 
 <template>
   <div class="container-card">
-    <h1 class="txt">Astronomy Picture Of the Day</h1>
-    <Card />
+    <h1 class="txt">Mars Weather</h1>
+    <Mars />
   </div>
 </template>
 

@@ -7,6 +7,7 @@ export const useCounterStore = defineStore({
   id: "counter",
   state: () => ({
     apod: "",
+    mars: "",
     twt: "",
     apiKey: "bMMYPqCAMs4fyql1uteiYhSqBfNjKfTSYMm0JsZ1",
     twitKey: "nJSDvcgwtEu7je5aaPUL6cWV1",
@@ -143,6 +144,16 @@ export const useCounterStore = defineStore({
           }
         );
         this.router.push("/shuttle");
+      } catch (err) {
+        console.log(err);
+      }
+    },
+    async marsWeather() {
+      try {
+        const { data } = await axios.get(`https://api.nasa.gov/insight_weather/?api_key=${this.apiKey}&feedtype=json&ver=1.0`);
+        // console.log(data);
+        this.mars = data.validity_checks;
+        console.log(this.mars);
       } catch (err) {
         console.log(err);
       }
