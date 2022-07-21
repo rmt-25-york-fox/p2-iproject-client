@@ -9,6 +9,7 @@ export const useMainGas = defineStore({
     isLogin: false,
     transaksi: [],
     petrols: [],
+    charts: [],
   }),
   getters: {},
   actions: {
@@ -74,7 +75,39 @@ export const useMainGas = defineStore({
 
     async buyPetrol(data) {
       try {
-      } catch (err) {}
+        console.log(data);
+        let response = await instanceAxios.post(
+          `/transaksi/${data.gas}`,
+          {
+            userId: data.userId,
+            liter: data.liter,
+            PetrolId: data.gas,
+          },
+          {
+            headers: {
+              access_token: localStorage.getItem("accesstoken"),
+            },
+          }
+        );
+        swal("berhasil tabah data");
+        this.router.push("/petrol");
+      } catch (err) {
+        console.log(err);
+      }
+    },
+
+    async chart() {
+      try {
+        const response = await instanceAxios.get("/chart", {
+          headers: {
+            access_token: localStorage.getItem("accesstoken"),
+          },
+        });
+
+        this.charts = response.data;
+      } catch (err) {
+        console.log(err);
+      }
     },
 
     logouthendler() {
