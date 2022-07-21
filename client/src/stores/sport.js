@@ -128,8 +128,11 @@ export const useSportStore = defineStore({
           }
         })
 
+        console.log('data Fitness>>>>>', data)
+
+
         this.fitness = data.data
-        console.log('data Fitness>>>>>', this.fitness)
+        console.log('data Fitness>>>>>', data)
       } catch (err) {
         console.log(err)
       }
