@@ -1,10 +1,15 @@
 <script>
+import Navbar from "../components/Navbar.vue";
 export default {
   name: "Buygas",
+  components: {
+    Navbar,
+  },
 };
 </script>
 
 <template>
+  <Navbar />
   <div class="container-xxl py-5">
     <div class="container">
       <div class="row g-5">
