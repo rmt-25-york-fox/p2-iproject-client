@@ -42,6 +42,13 @@ export const useCounterStore = defineStore({
       }
     },
 
+    checkLogin() {
+      const access_token = localStorage.getItem("access_token");
+      if (access_token) {
+        this.login = true;
+      }
+    },
+
     logoutHandler() {
       localStorage.clear();
       this.login = false;

@@ -1,3 +1,20 @@
+<script>
+import { mapActions, mapWritableState } from "pinia";
+import { useCounterStore } from "../stores/counter";
+
+export default {
+  mounted() {
+    this.checkLogin();
+  },
+  methods: {
+    ...mapActions(useCounterStore, ["checkLogin", "logoutHandler"]),
+  },
+  computed: {
+    ...mapWritableState(useCounterStore, ["login"]),
+  },
+};
+</script>
+
 <template>
   <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
     <div class="container-fluid">
@@ -10,15 +27,15 @@
           <li class="nav-item">
             <router-link to="/shuttle" class="nav-link active" aria-current="page" href="#">Home</router-link>
           </li>
-          <li class="nav-item">
+          <li v-if="!login" class="nav-item">
             <router-link to="/login" class="nav-link active" aria-current="page" href="#">Log In</router-link>
           </li>
-          <li class="nav-item dropdown">
+          <li v-if="login" class="nav-item dropdown">
             <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false"> Setting </a>
             <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
               <li><router-link to="/planet" class="dropdown-item" href="#">APOD</router-link></li>
               <li><hr class="dropdown-divider" /></li>
-              <li><router-link to="" class="dropdown-item" href="#">Sign Out</router-link></li>
+              <li @click.prevent="logoutHandler"><router-link to="" class="dropdown-item" href="#">Sign Out</router-link></li>
             </ul>
           </li>
         </ul>
