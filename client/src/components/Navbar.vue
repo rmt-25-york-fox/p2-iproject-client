@@ -1,29 +1,30 @@
 <script>
-import { mapActions, mapState } from "pinia";
-import { useSportStore } from "../stores/sport";
+import { mapActions, mapState } from 'pinia'
+import { useSportStore } from '../stores/sport'
 
 export default {
-  name: "Navbar",
+  name: 'Navbar',
 
   data() {
-    return { page: "login" };
+    return { page: 'login' }
   },
-  emits: [""],
-  props: [""],
+  emits: [''],
+  props: [''],
   computed: {
-    ...mapState(useSportStore, ["isLogin"]),
+    ...mapState(useSportStore, ['isLogin'])
   },
   methods: {
     ...mapActions(useSportStore, [
-      "toHomePage",
-      "toLoginPage",
-      "toRegisterPage",
-      "toFavoritePage",
-      "toDetailPage",
-      "logoutHandler",
-    ]),
-  },
-};
+      'toHomePage',
+      'toLoginPage',
+      'toRegisterPage',
+      'toFavoritePage',
+      'toDetailPage',
+      'logoutHandler',
+      'toChatPage'
+    ])
+  }
+}
 </script>
 <template>
   <nav class="navbar navbar-expand-lg bg-light">
@@ -52,7 +53,9 @@ export default {
               >
             </li>
             <li class="nav-item">
-              <a @click.prevent="toHomePage" class="nav-link">Movie List</a>
+              <a @click.prevent="toChatPage" class="nav-link"
+                >Chat with coach</a
+              >
             </li>
             <li class="nav-item">
               <a @click.prevent="toFavoritePage" class="nav-link"
@@ -103,11 +106,11 @@ ul li a {
   box-sizing: border-box;
 }
 
-input[type="text"],
-input[type="text-area"],
-input[type="number"],
+input[type='text'],
+input[type='text-area'],
+input[type='number'],
 select,
-input[type="password"] {
+input[type='password'] {
   width: 100%;
   padding: 5px;
   border-radius: 10px;
