@@ -9,7 +9,7 @@ export default {
 }
 </script>
 <template>
-<header>
+<main>
         <div class="content px-12 py-2">
             <div class="body mt-20 mx-12" style="margin-top: 32vh">
                 <div class="md:flex items-center justify-between">
@@ -45,5 +45,5 @@ export default {
                 </div>
             </div>
         </div>
-    </header>
+    </main>
 </template>
