@@ -1,58 +1,58 @@
 <script>
-import { mapActions, mapState } from "pinia";
-import { useSportStore } from "../stores/sport";
-import { RouterLink, RouterView } from "vue-router";
+import { mapActions, mapState } from 'pinia'
+import { useSportStore } from '../stores/sport'
+import { RouterLink, RouterView } from 'vue-router'
 
-import Navbar from "../components/Navbar.vue";
-import Card from "../components/Card.vue";
-import Sidebar from "../components/Sidebar.vue";
-import PageButton from "../components/PageButton.vue";
-import MovieList from "../components/MovieList.vue";
-import FitnessDetailCard from "../components/FitnessDetailCard.vue";
+import Navbar from '../components/Navbar.vue'
+import Card from '../components/Card.vue'
+import Sidebar from '../components/Sidebar.vue'
+import PageButton from '../components/PageButton.vue'
+import MovieList from '../components/MovieList.vue'
+import FitnessDetailCard from '../components/FitnessDetailCard.vue'
 
 export default {
   created() {
-    this.fetchFitness();
+    this.fetchFitness()
     this.pagination({
       page: this.page,
       title: this.title,
       rating: this.rating,
-      genreId: this.genreId,
-    });
+      genreId: this.genreId
+    })
 
     if (localStorage.access_token) {
-      this.page = "home";
-      this.isLogin = true;
+      this.page = 'home'
+      this.isLogin = true
       this.pagination({
         page: this.page,
         title: this.title,
         rating: this.rating,
-        genreId: this.genreId,
-      });
+        genreId: this.genreId
+      })
     }
   },
-  name: "HomePage",
+  name: 'HomePage',
   computed: {
     ...mapState(useSportStore, [
-      "page",
-      "title",
-      "rating",
-      "genreId",
-      "fitness",
-    ]),
+      'page',
+      'title',
+      'rating',
+      'genreId',
+      'fitness'
+    ])
   },
 
   methods: {
     ...mapActions(useSportStore, [
-      "fetchMovies",
-      "pagination",
-      "fetchFavorites",
-      "fetchFitness",
+      'fetchMovies',
+      'pagination',
+      'fetchFavorites',
+      'fetchFitness'
     ]),
     loginHandler() {
-      this.isLogin = true;
-      this.page = "home";
-    },
+      this.isLogin = true
+      this.page = 'home'
+    }
   },
   components: {
     Navbar,
@@ -60,9 +60,9 @@ export default {
     Sidebar,
     PageButton,
     MovieList,
-    FitnessDetailCard,
-  },
-};
+    FitnessDetailCard
+  }
+}
 </script>
 <template>
   <div

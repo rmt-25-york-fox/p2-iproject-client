@@ -1,24 +1,24 @@
 <script>
-import { mapActions, mapState } from "pinia";
-import { useSportStore } from "./stores/sport";
-import { RouterLink, RouterView } from "vue-router";
+import { mapActions, mapState } from 'pinia'
+import { useSportStore } from '../src/stores/sport'
+import { RouterLink, RouterView } from 'vue-router'
 
-import LoginPage from "./views/LoginPage.vue";
-import Navbar from "./components/Navbar.vue";
-import HomePage from "./views/HomePage.vue";
+import LoginPage from './views/LoginPage.vue'
+import Navbar from './components/Navbar.vue'
+import HomePage from './views/HomePage.vue'
 
 export default {
   data() {
-    return {};
+    return {}
   },
   computed: {
-    ...mapActions(useSportStore, [""]),
+    ...mapActions(useSportStore, [''])
   },
   methods: {
-    ...mapState(useSportStore, ["loginHandler"]),
+    ...mapState(useSportStore, ['loginHandler'])
   },
-  components: { LoginPage, Navbar, HomePage },
-};
+  components: { LoginPage, Navbar, HomePage }
+}
 </script>
 
 <template>

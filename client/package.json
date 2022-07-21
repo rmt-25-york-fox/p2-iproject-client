@@ -13,6 +13,7 @@
     "firebase": "^9.9.0",
     "pinia": "^2.0.16",
     "sweetalert2": "^11.4.23",
+    "tailwind": "^4.0.0",
     "vue": "^3.2.37",
     "vue-router": "^4.1.2"
   },

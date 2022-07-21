@@ -20,8 +20,75 @@ export const useSportStore = defineStore({
     doubleCount: state => state.counter * 2
   },
   actions: {
+    async logout() {
+      try {
+        localStorage.clear()
+        google.accounts.id.revoke(localStorage.email, done => {
+          google.accounts.id.disableAutoSelect()
+          console.log('consent revoked')
+          localStorage.clear()
+
+          Swal.fire({
+            icon: 'success',
+            title: `Success!`,
+            text: `You are successfully logout`
+          })
+
+          localStorage.clear()
+
+          this.page = 'login'
+          this.isLogin = false
+          this.emailLogin = ''
+          this.passwordLogin = ''
+
+          console.log('logout terpanggil')
+          this.mounted()
+        })
+        this.mounted()
+      } catch (err) {
+        console.log(err)
+      }
+    },
+    async addFitness(objFitness) {
+      console.log('Add Fitness')
+      try {
+        const access_token = localStorage.getItem('access_token')
+
+        console.log('access_token>>>', access_token)
+        const { data } = await axios({
+          method: 'put',
+          url: `${this.baseUrl}/updateFitness`,
+          headers: { access_token: access_token },
+          data: {
+            height: objFitness.height,
+            weight: objFitness.weight,
+            neck: objFitness.neck,
+            waist: objFitness.waist,
+            hip: objFitness.hip,
+            goal: objFitness.goal,
+            activitylevel: objFitness.activitylevel
+          }
+        })
+        Swal.fire({
+          icon: 'success',
+          title: `Success!`,
+          text: `You're data has been successfully added`
+        })
+        console.log(data)
+      } catch (err) {
+        console.log(err)
+      }
+    },
+    toAddFitnessPage() {
+      this.router.push({ name: 'add' })
+    },
+    toEditFitnessPage() {
+      this.router.push({ name: 'edit' })
+    },
     toHomePage() {
+      this.fetchFitness()
       this.router.push({ name: 'home' })
+      this.fetchFitness()
     },
     toChatPage() {
       this.router.push({ name: 'chat' })
@@ -31,13 +98,21 @@ export const useSportStore = defineStore({
         console.log('fetchFitness')
         const access_token = localStorage.getItem('access_token')
 
-        const { data } = await axios({
+        console.log('access token fetch Fitness>>>>>', access_token)
+
+        const data = await axios({
           method: 'get',
           url: `${this.baseUrl}/fitness`,
           headers: {
             access_token: access_token
           }
         })
+          .then(_ => {
+            console.log(_)
+          })
+          .catch(err => {
+            console.log(err)
+          })
 
         this.fitness = data.data
         console.log('data Fitness>>>>>', this.fitness)
