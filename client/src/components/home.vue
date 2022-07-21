@@ -1,8 +1,11 @@
 <script>
 import { StripeCheckout } from "@vue-stripe/vue-stripe";
-import { mapActions, mapState } from "pinia";
+// import { mapActions, mapState } from "pinia";
 import swal from "sweetalert2";
-import { useAllStateStore } from "../stores/allState.js";
+import { mapActions, mapState } from "pinia";
+import { useAllStateStore } from "../stores/allState";
+import { pushScopeId } from "vue";
+// import { useAllStateStore } from "../stores/allState.js";
 export default {
   name: "homepage",
   components: {
@@ -28,7 +31,13 @@ export default {
   },
   methods: {
     ...mapActions(useAllStateStore, ["getAllData"]),
-    submit() {
+    submit(params) {
+      if (params === 1) {
+        this.publishableKey.lineItems.pushScopeId({
+          price: "price_1LNfqRKr6Ku81LiIQ8rNzbK3",
+          quantity: 1,
+        });
+      }
       if (this.isLoggedin === false) {
         swal.fire("login first");
       } else {
@@ -36,20 +45,23 @@ export default {
       }
     },
   },
+  created() {
+    this.getAllData();
+  },
 };
 </script>
 
 <template>
   <section class="product" id="product">
-    <img class="imgUp" src="" alt="" />
-    <h3 class="sub-heading">Nike</h3>
+    <img class="imgUp" src="../assets/5684302.jpg" alt="" />
+    <h3 class="sub-heading">Sport Store</h3>
     <h1 class="heading">List Product</h1>
 
     <div class="box-container">
       <div class="box">
         <div class="image">
           <img src="https://i.imgur.com/ioL0h1s.jpg" />
-          <a href="#" class="fas fa-heart"></a>
+          <!-- <a href="#" class="fas fa-heart"></a> -->
         </div>
         <div class="content">
           <div class="stars">

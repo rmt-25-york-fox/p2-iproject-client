@@ -14,7 +14,8 @@ export const useAllStateStore = defineStore({
       address: "",
     },
     isOtp: "",
-    // listData: [],
+    listData: [],
+    detailProduct: [],
   }),
   actions: {
     async loginHandler(objLogin) {
@@ -49,9 +50,7 @@ export const useAllStateStore = defineStore({
           email: email,
         });
         this.isOtp = response.data;
-      } catch (error) {
-        console.log(error, "<<<<<<");
-      }
+      } catch (error) {}
     },
     async registerhandle(otp) {
       try {
@@ -72,6 +71,24 @@ export const useAllStateStore = defineStore({
         swal.fire(error.response.data.message);
       }
     },
+    async getAllData() {
+      try {
+        const response = await axios.get(`${baseUrl}/listProducts`);
+        console.log("KKK");
+        this.listData = response.data;
+        // console.log("<>><>");
+      } catch (error) {
+        console.log(error, "<<");
+      }
+    },
+    async selectDetailsProduct(id) {
+      try {
+        const response = await axios.get(`${baseUrl}/pub/detailsProduct/${id}`);
+        this.detailProduct = response.data;
+      } catch (error) {
+        console.log(error);
+      }
+    },
     checkLogin() {
       if (localStorage.getItem("access_token")) {
         this.isLoggedin = true;
@@ -81,14 +98,8 @@ export const useAllStateStore = defineStore({
       localStorage.clear();
       this.isLoggedin = false;
     },
+    homePage() {
+      this.router.push("/");
+    },
   },
-  // async getAllData() {
-  //   try {
-  //     const response = await axios.get(`${baseUrl}/listProducts`);
-  //     this.listData = response.data;
-  //     console.log("<>><>");
-  //   } catch (error) {
-  //     console.log(error, "<<");
-  //   }
-  // },
 });

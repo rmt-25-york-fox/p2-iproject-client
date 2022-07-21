@@ -7,9 +7,16 @@ export default {
     ...mapState(useAllStateStore, ["isLoggedin"]),
   },
   methods: {
-    ...mapActions(useAllStateStore, ["checkLogin", "logOutHandler"]),
+    ...mapActions(useAllStateStore, [
+      "checkLogin",
+      "logOutHandler",
+      "homePage",
+    ]),
     logOutClickHandler() {
       this.logOutHandler();
+    },
+    clikHome() {
+      this.homePage();
     },
   },
   created() {
@@ -23,7 +30,7 @@ export default {
     class="navbar navbar-expand-lg navbar-light bg-light"
     style="height: 50px"
   >
-    <a class="navbar-brand" href="#" @click.prevent="clikHome">Nike</a>
+    <a class="navbar-brand" href="#" @click.prevent="clikHome">Sport Store</a>
     <button
       class="navbar-toggler"
       type="button"
