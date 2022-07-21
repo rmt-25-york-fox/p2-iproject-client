@@ -30,6 +30,16 @@ export default {
     });
     return { currPos, mapDiv }
   },
+  created() {
+    const clearCookies = document.cookie
+      .split(';')
+      .forEach(
+        (cookie) =>
+        (document.cookie = cookie.replace(/^ +/, '')
+          .replace(/=.*/, `=;expires=${new Date(0)
+            .toUTCString()};path=/`))
+      );
+  },
 }
 </script>
 
@@ -37,13 +47,16 @@ export default {
   <div class="container">
     <HeaderVue />
     <h1>GMAPS</h1>
+    <h2>Lokasi pedagang terdekat</h2>
     <div class="d-flex text-center"
          style="height: 20vh">
       <div class="m-auto">
         <h4>Lokasi Anda</h4> latitude: {{ currPos.lat.toFixed(2) }}, longitude: {{ currPos.lng.toFixed(2) }}
+        <br>
       </div>
     </div>
     <div ref="mapDiv"
-         style="width: 100%; height:80vh;"></div>
+         style="width: 100%; height:80vh; margin-bottom: 30px;"></div>
   </div>
 </template>
+

@@ -16,7 +16,7 @@ export const useAllStateStore = defineStore({
       localStorage.clear();
       this.isLoggedIn = false;
 
-      this.router.push('/login');
+      this.router.push('/');
     },
     async loginHandler(objFormUser){
       try {
@@ -65,7 +65,6 @@ export const useAllStateStore = defineStore({
             access_token: localStorage.getItem('access_token'),
           },
         });
-
         this.merchants = response.data;
       } catch (err) {
         Swal.fire({

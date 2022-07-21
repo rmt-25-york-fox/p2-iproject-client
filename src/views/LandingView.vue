@@ -9,21 +9,25 @@ export default {
     <HeaderVue />
     <div class="content flex">
       <div class="one">
-        <h1>Lorem ipsum dolor, sit amet<br>consectetur adipisicing elit. <img src="../assets/logo.svg"
+        <h1>Mari Bersama Bantu UKM<br>Di Tengah Kebiasaan<br>Baru! <img src="../assets/ukm-icon.jpg"
                alt="">
         </h1>
-        <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Consectetur, at quaerat, in sed cupiditate eveniet
+        <p> “Apa yang anda butuhkan untuk memulai bisnis? Ada tiga hal sederhana: lebih mengenal produk anda sendiri
+          daripada orang lain, mengenal pelanggan anda, dan memiliki hasrat yang membara untuk sukses.” – Dave Thomas
         </p>
         <input type="button"
-               value="Join Now">
+               value="Gabung">
         <input type="button"
                class="input2"
-               value="See how it works">
+               value="Lihat Daftar Pedagang"
+               style="margin-left: 10px">
       </div>
       <div class="two">
-        <img alt=""
+        <img src="../assets/pasto-colombia-july-3-2016-600w.webp"
+             alt=""
              class="main">
-        <img alt=""
+        <img src="../assets/bekasi-indonesia-october-23-2020-600w.webp"
+             alt=""
              class="main">
       </div>
     </div>

@@ -26,22 +26,25 @@ export default {
 <template>
   <header class="flex">
     <div class="logo flex">
-      <img src="../assets/logo.svg"
+      <img src="../assets/ukm-icon.jpg"
            alt="" />
-      <h1><span>UKM</span>World</h1>
+      <h1>
+        <RouterLink to="/">Dunia<span>UKM</span>
+        </RouterLink>
+      </h1>
     </div>
     <ul class="flex">
       <li>
-        <a href="#">Home</a>
+        <RouterLink to="/">Beranda</RouterLink>
       </li>
       <li>
         <RouterLink to="/gmaps">Google Maps</RouterLink>
       </li>
       <li>
-        <a href="#">Contact Us</a>
+        <RouterLink to="/merchants">Daftar Pedagang</RouterLink>
       </li>
       <li>
-        <a href="#">Blogs</a>
+        <a></a>
       </li>
     </ul>
     <div>
@@ -62,5 +65,13 @@ export default {
            data-toggle="modal"
            class="trigger-btn"
            value="Register" />
+    <input v-if="isLoggedIn"
+           @click.prevent="onClickLogoutHandler"
+           type="button"
+           class="trigger-btn"
+           value="Logout" />
   </header>
 </template>
+
+<style>
+</style>
