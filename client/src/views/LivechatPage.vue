@@ -6,7 +6,7 @@ import Swal from "sweetalert2";
 import NavBar from "../components/NavBar.vue";
 import Footer from "../components/Footer.vue";
 
-const baseUrl = "http://localhost:3000";
+const baseUrl = "https://backmiup.herokuapp.com";
 
 export default {
   name: "LivechatPage",
