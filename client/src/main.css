@@ -1,19 +1,3 @@
-<script>
-import Nav from '@/components/Nav.vue'
-import Chat from '@/components/Chat.vue'
-
-export default {
-  name: 'ChatPage',
-  components: { Nav, Chat }
-}
-</script>
-
-<template>
-  <Nav />
-  <Chat />
-</template>
-
-<style scoped>
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -141,4 +125,3 @@ nav button {
 ::-webkit-scrollbar-thumb:hover {
   @apply bg-gray-200;
 }
-</style>
