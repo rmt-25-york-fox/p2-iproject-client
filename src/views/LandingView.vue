@@ -1,0 +1,192 @@
+<script>
+import HeaderVue from '../components/HeaderComponent.vue';
+export default {
+  components: { HeaderVue }
+}
+</script>
+<template>
+  <div class="container">
+    <HeaderVue />
+    <div class="content flex">
+      <div class="one">
+        <h1>Mari Bersama Bantu UKM<br>Di Tengah Kebiasaan<br>Baru! <img src="../assets/ukm-icon.jpg"
+               alt="">
+        </h1>
+        <p> “Apa yang anda butuhkan untuk memulai bisnis? Ada tiga hal sederhana: lebih mengenal produk anda sendiri
+          daripada orang lain, mengenal pelanggan anda, dan memiliki hasrat yang membara untuk sukses.” – Dave Thomas
+        </p>
+        <input type="button"
+               value="Gabung">
+        <input type="button"
+               class="input2"
+               value="Lihat Daftar Pedagang"
+               style="margin-left: 10px">
+      </div>
+      <div class="two">
+        <img src="../assets/pasto-colombia-july-3-2016-600w.webp"
+             alt=""
+             class="main">
+        <img src="../assets/bekasi-indonesia-october-23-2020-600w.webp"
+             alt=""
+             class="main">
+      </div>
+    </div>
+  </div>
+</template>
+
+<style >
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  text-decoration: none;
+  list-style: none;
+  font-family: "Roboto", sans-serif;
+}
+
+.flex {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+body {
+  background-color: aliceblue;
+}
+
+.container {
+  width: 100%;
+  height: 100%;
+}
+
+header {
+  width: 100%;
+  padding: 20px;
+  justify-content: space-around !important;
+}
+
+header .logo img {
+  width: 50px;
+  height: 50px;
+}
+
+header h1 {
+  padding-top: 10px;
+  padding-left: 5px;
+  cursor: pointer;
+}
+
+/* @learnwithshero */
+
+header h1 span {
+  color: rgb(8, 205, 8);
+}
+
+header ul {
+  margin-top: 10px;
+}
+
+header ul li {
+  padding: 5px 20px;
+  margin: 10px;
+  transition: all 0.5s;
+}
+
+header ul li a {
+  font-size: 20px;
+  color: rgba(0, 0, 0, 0.705);
+  font-weight: 600;
+  transition: color ease-out 0.6s;
+}
+
+header ul li a:hover {
+  color: greenyellow;
+}
+
+header input {
+  padding: 8px 20px;
+  background-color: rgb(9, 209, 9);
+  color: white;
+  font-weight: 800;
+  outline: none;
+  border: none;
+  margin-top: 10px;
+  font-size: 17px;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: all 0.7s;
+}
+
+header input:hover {
+  transform: scale(1.09);
+  background-color: rgba(9, 209, 9, 0.603);
+}
+
+.container .content {
+  width: 100%;
+  height: 90vh;
+}
+
+.content .one {
+  width: 60%;
+  padding: 0 100px;
+}
+
+.content .one h1 {
+  font-size: 60px;
+}
+
+.content .one img {
+  width: 50px;
+  height: 50px;
+  margin-top: 8px;
+  margin-left: -10px;
+}
+
+.content .one p {
+  font-size: 16px;
+  padding: 10px 0;
+  color: rgba(0, 0, 0, 0.728);
+}
+
+/* @learnwithshero */
+
+.content input {
+  padding: 10px 20px;
+  background-color: rgb(9, 209, 9);
+  color: white;
+  font-size: 16px;
+  font-weight: 700;
+  outline: none;
+  border: none;
+  border-radius: 10px;
+  margin-top: 20px;
+  cursor: pointer;
+  transition: all 0.7s;
+}
+
+.content input:hover {
+  transform: scale(1.09);
+  background-color: rgba(9, 209, 9, 0.683);
+}
+
+.content input2 {
+  margin-left: 15px;
+}
+
+.content .two {
+  width: 40%;
+  position: relative;
+}
+
+.content .two .main {
+  margin-top: -100px;
+}
+
+.content .two .toy {
+  position: absolute;
+  width: 370px;
+  left: 70px;
+  top: 90px;
+}
+</style>
