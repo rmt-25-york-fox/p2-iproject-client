@@ -1,12 +1,23 @@
 <script>
 import Navbar from "../components/Navbar.vue";
 import ListGas from "../components/ListGas.vue";
+import { mapActions, mapState } from "pinia";
+import { useMainGas } from "../stores/counter.js";
 
 export default {
   name: "Listgas",
   components: {
     Navbar,
     ListGas,
+  },
+  methods: {
+    ...mapActions(useMainGas, ["getPetrol"]),
+  },
+  computed: {
+    ...mapState(useMainGas, ["petrols"]),
+  },
+  created() {
+    this.getPetrol();
   },
 };
 </script>
@@ -24,7 +35,12 @@ export default {
         <h1 class="text-center">Fuel</h1>
       </div>
       <div class="row g-3">
-        <ListGas />
+        <ListGas
+          v-for="petrol in petrols"
+          :key="petrol.id"
+          :petrol="petrol"
+          class="column"
+        />
       </div>
     </div>
   </div>
