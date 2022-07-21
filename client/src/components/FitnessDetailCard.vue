@@ -1,18 +1,18 @@
 <script>
 export default {
-  name: "FitnessDetailCard",
+  name: 'FitnessDetailCard',
   data() {
-    return { isLogin: false, page: "login" };
+    return { isLogin: false, page: 'login' }
   },
-  emits: [""],
-  props: ["movie", "fitness"],
+  emits: [''],
+  props: ['movie', 'fitness'],
   methods: {
     loginHandler() {
-      this.isLogin = true;
-      this.page = "home";
-    },
-  },
-};
+      this.isLogin = true
+      this.page = 'home'
+    }
+  }
+}
 </script>
 <template>
   <!-- Tutorial Card -->
@@ -32,20 +32,25 @@ export default {
         ></iframe>
       </div>
 
-      <div class="card-body">
+      <div v-if="fitness.length >= 0" class="card-body">
         <h5 class="card-title">
-          Your Body Mass Index (BMI) is: {{ fitness.bmi.bmi }}
+          Your Body Mass Index (BMI) is:
+          {{ fitness.bmi.bmi }}
         </h5>
         <p class="card-text">
-          Your Health Category is: {{ fitness.bmi.health }}
+          Your Health Category is:
+          {{ fitness.bmi.health }}
         </p>
         <p class="card-text">
-          Your Ideal Weight is: {{ fitness.idealWeight.Hamwi }} Kg
+          Your Ideal Weight is:
+          {{ fitness.idealWeight.Hamwi }}
+          Kg
         </p>
 
         <span
           >Your Body Fat Percentage is:
-          {{ fitness.bodyFatPercentage["Body Fat (BMI method)"] }} %</span
+          {{ fitness.bodyFatPercentage['Body Fat (BMI method)'] }}
+          %</span
         >
       </div>
     </div>
