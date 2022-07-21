@@ -50,7 +50,7 @@ export default {
            type="button"
            name="login"
            id=""
-           href="#myModal"
+           href="#myModalLogin"
            data-toggle="modal"
            class="trigger-btn"
            value="Login" />

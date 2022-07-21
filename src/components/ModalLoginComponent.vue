@@ -21,13 +21,13 @@ export default {
 
 <template>
   <!-- Modal HTML -->
-  <div id="myModal"
+  <div id="myModalLogin"
        class="modal fade">
     <div class="modal-dialog modal-login">
       <div class="modal-content">
         <div class="modal-header">
           <div class="avatar">
-            <img src="/examples/images/avatar.png"
+            <img src=""
                  alt="Avatar">
           </div>
           <h4 class="modal-title">Member Login</h4>

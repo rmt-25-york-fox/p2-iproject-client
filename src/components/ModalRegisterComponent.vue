@@ -27,7 +27,7 @@ export default {
       <div class="modal-content">
         <div class="modal-header">
           <div class="avatar">
-            <img src="/examples/images/avatar.png"
+            <img src=""
                  alt="Avatar">
           </div>
           <h4 class="modal-title">Member Register</h4>
