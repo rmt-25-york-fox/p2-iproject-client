@@ -90,7 +90,7 @@ export const useMainGas = defineStore({
             },
           }
         );
-        swal("berhasil tabah data");
+        swal("Berhasil Menambahkan Data pembelian");
         this.router.push("/petrol");
       } catch (err) {
         console.log(err);

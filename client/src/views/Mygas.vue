@@ -40,7 +40,7 @@ export default {
     },
     width: {
       type: Number,
-      default: 300,
+      default: 200,
     },
     height: {
       type: Number,
@@ -87,16 +87,6 @@ export default {
 
     console.log(this.chartData.datasets[0].data[0]);
     let nilai = this.chartData.datasets[0].data[0];
-
-    // let nilai = [
-    //   { kelas: "A", jumlah: 50 },
-    //   { kelas: "B", jumlah: 40 },
-    //   { kelas: "C", jumlah: 45 },
-    // ];
-    // let total = siswa.reduce((val, element) => {
-    //   return val + element.jumlah;
-    // }, 0);
-    // console.log(total);
   },
 };
 </script>
@@ -108,8 +98,6 @@ export default {
     <Bar
       :chart-options="chartOptions"
       :chart-data="chartData"
-      :chart-id="chartId"
-      :dataset-id-key="datasetIdKey"
       :plugins="plugins"
       :css-classes="cssClasses"
       :styles="styles"
