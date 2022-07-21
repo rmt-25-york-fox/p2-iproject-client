@@ -1,3 +1,13 @@
+<script>
+import { RouterLink, RouterView } from 'vue-router'
+
+
+export default {
+    components: {
+        RouterLink
+    }
+}
+</script>
 <template>
 <header>
         <div class="content px-12 py-2">
@@ -9,7 +19,7 @@
                         <p class="text-gray-300">
                                 Mari meluangkan waktu sejenak setiap hari untuk memberikan kita motivasi kepada diri sendiri. Belajar merefleksikan diri dari firman Tuhan. Mendengarkan pesan Allah kepada kita hari ini. Mendatangkan hari sejaterah di hari kita. Daftar diri agar kami dapat membantu anda dekat menjadi lebih baik lagi.
                         </p>
-                        <span class="text-white">Create New Account?<a href="#" class="text-gray-900 text-lg ml-2 font-bold">Sign Up</a></span>
+                        <span class="text-white">Create New Account?<RouterLink to="/register" class="text-gray-900 text-lg ml-2 font-bold">Sign Up</RouterLink></span>
                     </div>
                     <div class="w-full md:max-w-md mt-6">
                         <div class="card bg-white shadow-md rounded-lg px-4 py-4 mb-6 ">
@@ -22,7 +32,12 @@
                                 <input type="password" class="rounded px-4 w-full py-1 bg-gray-200  border border-gray-400 mb-4 text-gray-700 placeholder-gray-700 focus:bg-white focus:outline-none" placeholder="Password">
                                 <div class="flex items-center justify-between">
                                     <a href="#" class="text-gray-600">Forget Password?</a>
-                                    <button class="bg-gray-800 text-gray-200  px-2 py-1 rounded">Sign In</button>
+                                     <div id="buttonDiv"
+                                            data-client_id="YOUR_GOOGLE_CLIENT_ID"
+                                            data-login_uri="https://your.domain/your_login_endpoint"
+                                            data-auto_prompt="false" >
+                                     </div>
+                                    <RouterLink to="/" class="bg-gray-800 text-gray-200  px-2 py-1 rounded">Sign In</RouterLink>
                                 </div>
                             </form>
                         </div>
