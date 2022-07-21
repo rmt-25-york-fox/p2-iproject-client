@@ -1,11 +1,13 @@
 import axios from "axios";
 import { defineStore } from "pinia";
 import instanceAxios from "../axiosInstance/axios";
+import Swal from "sweetalert2";
 
 export const useCounterStore = defineStore({
   id: "counter",
   state: () => ({
     apod: "",
+    twt: "",
     apiKey: "bMMYPqCAMs4fyql1uteiYhSqBfNjKfTSYMm0JsZ1",
     twitKey: "nJSDvcgwtEu7je5aaPUL6cWV1",
     twitKeySecret: "f8AiZTCeXkEG5fO7a2uWb7dWzjfGXNTSfqQ6sNO1TmcUNCzPUf",
@@ -32,11 +34,12 @@ export const useCounterStore = defineStore({
     async twitNasa() {
       try {
         const data = await axios.get("https://api.twitter.com/2/tweets/search/recent?query=from:nasa", {
-          Authorization: {
-            Bearer_Token: this.bearerToken,
+          headers: {
+            Authorization: `Bearer ${this.bearerToken}`,
           },
         });
         console.log(data);
+        this.twt = data.data;
       } catch (err) {
         console.log(err);
       }
@@ -48,12 +51,18 @@ export const useCounterStore = defineStore({
           email: value.email,
           password: value.password,
         });
-        console.log(data);
+        // console.log(data);
         localStorage.setItem("access_token", data.access_token);
         this.router.push("/");
         this.login = true;
+        Swal.fire("Welkome to space 8");
       } catch (err) {
         console.log(err);
+        Swal.fire({
+          icon: "error",
+          title: "Oops...",
+          text: `${err.response.data.message}`,
+        });
       }
     },
 
@@ -78,8 +87,14 @@ export const useCounterStore = defineStore({
           password: value.password,
         });
         this.router.push("/login");
+        Swal.fire("NAISEEE");
       } catch (err) {
         console.log(err);
+        Swal.fire({
+          icon: "error",
+          title: "Oops...",
+          text: `${err.response.data.message}`,
+        });
       }
     },
 
