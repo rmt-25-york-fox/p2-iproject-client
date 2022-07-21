@@ -120,22 +120,17 @@ export const useSportStore = defineStore({
 
         console.log('access token fetch Fitness>>>>>', access_token)
 
-        const data = await axios({
+        const { data } = await axios({
           method: 'get',
           url: `${this.baseUrl}/fitness`,
           headers: {
             access_token: access_token
           }
         })
-          .then(_ => {
-            console.log(_)
-          })
-          .catch(err => {
-            console.log(err)
-          })
+        console.log('data Fitness>>>>>', data)
 
         this.fitness = data.data
-        console.log('data Fitness>>>>>', this.fitness)
+        console.log('data Fitness>>>>>', data)
       } catch (err) {
         console.log(err)
       }

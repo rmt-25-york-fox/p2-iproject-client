@@ -8,6 +8,9 @@ import Navbar from './components/Navbar.vue'
 import HomePage from './views/HomePage.vue'
 
 export default {
+  created() {
+    this.fetchFitness()
+  },
   data() {
     return {}
   },
@@ -15,7 +18,7 @@ export default {
     ...mapActions(useSportStore, [''])
   },
   methods: {
-    ...mapState(useSportStore, ['loginHandler'])
+    ...mapState(useSportStore, ['loginHandler', 'fetchFitness'])
   },
   components: { LoginPage, Navbar, HomePage }
 }
