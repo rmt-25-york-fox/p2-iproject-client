@@ -21,7 +21,9 @@ export default {
       'toFavoritePage',
       'toDetailPage',
       'logoutHandler',
-      'toChatPage'
+      'toChatPage',
+      'toAddFitnessPage',
+      'logoutHandler'
     ])
   }
 }
@@ -58,8 +60,18 @@ export default {
               >
             </li>
             <li class="nav-item">
+              <a @click.prevent="toAddFitnessPage" class="nav-link"
+                >Add New Fitness Data</a
+              >
+            </li>
+            <li class="nav-item">
               <a @click.prevent="toFavoritePage" class="nav-link"
-                >My Favorites</a
+                >My Fitness Tracker</a
+              >
+            </li>
+            <li class="nav-item">
+              <a @click.prevent="toFavoritePage" class="nav-link"
+                >My Exercise</a
               >
             </li>
 
