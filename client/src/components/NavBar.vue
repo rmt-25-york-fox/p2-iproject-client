@@ -32,6 +32,9 @@ export default {
       <va-button color="#000" text-color="#000" class="mr-2 mb-2" :rounded="false" flat split>
         <RouterLink to="/donation">Donation</RouterLink>
       </va-button>
+      <va-button color="#000" text-color="#000" class="mr-2 mb-2" :rounded="false" flat split>
+        <RouterLink to="/livechat">Livechat</RouterLink>
+      </va-button>
     </template>
     <template #right> </template>
   </va-navbar>
