@@ -49,7 +49,7 @@ export default {
         </div>
         <!-- Card Donation Form -->
         <div class="row d-flex justify-content-center">
-          <div class="col-md-6 col-xl-4">
+          <div class="col-4">
             <div class="card shadow">
               <div class="card-body text-center align-items-center">
                 <div class="mb-3 p-2"><i class="fa-solid fa-money-bill-1 fs-4"></i></div>
@@ -99,7 +99,7 @@ export default {
             </div>
           </div>
           <!-- Card Donator -->
-          <div class="col-md-6 col-xl-4">
+          <div class="col-3">
             <div class="card shadow">
               <div class="card-body text-center align-items-center">
                 <div class="mb-3 p-2"><i class="fa-solid fa-users fs-4"></i></div>
