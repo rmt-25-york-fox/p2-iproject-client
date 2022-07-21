@@ -38,7 +38,8 @@ export default {
       'title',
       'rating',
       'genreId',
-      'fitness'
+      'fitness',
+      'histories'
     ])
   },
 

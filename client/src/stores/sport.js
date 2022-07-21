@@ -14,12 +14,32 @@ export const useSportStore = defineStore({
     rating: '',
     genreId: '',
     movies: [],
-    fitness: []
+    fitness: [],
+    histories: []
   }),
   getters: {
     doubleCount: state => state.counter * 2
   },
   actions: {
+    async getHistories() {
+      try {
+        const response = await axios.get(this.baseUrl + '/histories', {
+          headers: { access_token: localStorage.access_token }
+        })
+
+        console.log('isi test axios getHistories>>>>', response.data.data)
+
+        this.histories = response.data.data
+        console.log('this histories>>>>', this.histories)
+      } catch (err) {
+        console.log(err)
+      }
+    },
+    toHistory() {
+      this.getHistories()
+      this.router.push({ name: 'history' })
+      this.getHistories()
+    },
     async logout() {
       try {
         localStorage.clear()
