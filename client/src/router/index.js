@@ -4,6 +4,7 @@ import TutorialPage from "../views/TutorialPage.vue";
 import DetailTutorialPage from "../views/DetailTutorialPage.vue";
 import DonationPage from "../views/DonationPage.vue";
 import NotFoundPage from "../views/NotFoundPage.vue";
+import LivechatPage from "../views/LivechatPage.vue";
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -32,6 +33,11 @@ const router = createRouter({
       path: "/tutorial/:category/:id",
       name: "tutorialDetail",
       component: DetailTutorialPage,
+    },
+    {
+      path: "/livechat",
+      name: "livechat",
+      component: LivechatPage,
     },
     { path: "/:pathMatch(.*)*", name: "NotFound", component: NotFoundPage },
   ],
