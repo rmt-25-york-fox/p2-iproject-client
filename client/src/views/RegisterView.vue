@@ -38,9 +38,7 @@ export default {
                                             <path fill-rule="evenodd" d="M15.707 15.707a1 1 0 01-1.414 0l-5-5a1 1 0 010-1.414l5-5a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 010 1.414zm-6 0a1 1 0 01-1.414 0l-5-5a1 1 0 010-1.414l5-5a1 1 0 011.414 1.414L5.414 10l4.293 4.293a1 1 0 010 1.414z" clip-rule="evenodd" />
                                             </svg>
                                         <RouterLink to="/login" class=" text-gray-200  px-1 py-1  ">back</RouterLink>
-
                                     </div>
-
                                     <RouterLink to="/" class="bg-gray-500 text-gray-200  px-2 py-1 rounded">Register</RouterLink>
                                 </div>
                             </form>
