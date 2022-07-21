@@ -1,0 +1,3 @@
+<template>
+REGISTERRRRRR PAGEEEEEEe
+</template>
