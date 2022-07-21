@@ -5,7 +5,7 @@ export const useBankStore = defineStore({
   id: "bankState",
   state: () => ({
     isLogin: false,
-    baseUrl: "http://localhost:3000",
+    baseUrl: "https://rakitin.herokuapp.com",
     product: [],
     vga: [],
     psu: [],
