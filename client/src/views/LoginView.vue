@@ -22,22 +22,22 @@ export default {
                         <span class="text-white">Create New Account?<RouterLink to="/register" class="text-gray-900 text-lg ml-2 font-bold">Sign Up</RouterLink></span>
                     </div>
                     <div class="w-full md:max-w-md mt-6">
-                        <div class="card bg-white shadow-md rounded-lg px-4 py-4 mb-6 ">
+                        <div class="card bg-black shadow-md rounded-lg px-4 py-4 mb-6 ">
                             <form action="#">
 
-                                <h2 class="text-xl text-center font-semibold text-gray-800 mb-2">
+                                <h2 class="text-xl text-center font-semibold text-white mb-2">
                                     Sign In
                                 </h2>
-                                <input type="text" class="rounded px-4 w-full py-1 bg-gray-200  border border-gray-400 mb-6 text-gray-700 placeholder-gray-700 focus:bg-white focus:outline-none" placeholder="Email Address">
-                                <input type="password" class="rounded px-4 w-full py-1 bg-gray-200  border border-gray-400 mb-4 text-gray-700 placeholder-gray-700 focus:bg-white focus:outline-none" placeholder="Password">
+                                <input type="text" class="rounded px-4 w-full py-1 bg-black border border-white mb-6 text-white placeholder-gray-400 focus:bg-black focus:outline-none" placeholder="Email Address">
+                                <input type="password" class="rounded px-4 w-full py-1 bg-black border border-white mb-4 text-gray-200 placeholder-gray-400 focus:bg-black focus:outline-none" placeholder="Password">
                                 <div class="flex items-center justify-between">
-                                    <a href="#" class="text-gray-600">Forget Password?</a>
+                                    <a href="#" class="text-gray-300">Forget Password?</a>
                                      <div id="buttonDiv"
                                             data-client_id="YOUR_GOOGLE_CLIENT_ID"
                                             data-login_uri="https://your.domain/your_login_endpoint"
                                             data-auto_prompt="false" >
                                      </div>
-                                    <RouterLink to="/" class="bg-gray-800 text-gray-200  px-2 py-1 rounded">Sign In</RouterLink>
+                                    <RouterLink to="/" class="bg-gray-500 text-gray-200  px-2 py-1 rounded">Sign In</RouterLink>
                                 </div>
                             </form>
                         </div>
