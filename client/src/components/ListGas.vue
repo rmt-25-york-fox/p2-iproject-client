@@ -1,96 +1,34 @@
 <script>
+import { mapActions } from "pinia";
+import { useMainGas } from "../stores/counter";
 export default {
   name: "ListGas",
+  props: ["petrol"],
+
+  methods: {
+    ...mapActions(useMainGas, ["buyPetrol"]),
+    toBuyPetrol() {
+      this.buyPetrol({
+        id: this.petrol.id,
+      });
+      this.$router.push(`/transaksi/${this.petrol.id}`);
+    },
+  },
 };
 </script>
 
 <template>
-  <div class="col-lg-3 col-md-6 wow fadeInUp" data-wow-delay="0.1s">
+  <div class="col-lg-3 col-md-4 wow fadeInUp" data-wow-delay="0.1s">
     <div class="team-item position-relative rounded overflow-hidden">
-      <div class="overflow-hidden">
-        <img class="img-fluid" src="img/team-1.jpg" alt="" />
-      </div>
       <div class="team-text bg-light text-center p-4">
-        <h5>Doctor Name</h5>
-        <p class="text-primary">Department</p>
+        <h5>{{ petrol.nama }}</h5>
         <div class="team-social text-center">
-          <a class="btn btn-square" href=""
-            ><i class="fab fa-facebook-f"></i
+          <a
+            class="btn btn-square"
+            href=""
+            @click.prevent="toBuyPetrol(petrol.id)"
+            ><i class="fa-solid fa-dollar-sign"></i
           ></a>
-          <a class="btn btn-square" href=""><i class="fab fa-twitter"></i></a>
-          <a class="btn btn-square" href=""><i class="fab fa-instagram"></i></a>
-        </div>
-      </div>
-    </div>
-  </div>
-  <div class="col-lg-3 col-md-6 wow fadeInUp" data-wow-delay="0.3s">
-    <div class="team-item position-relative rounded overflow-hidden">
-      <div class="overflow-hidden">
-        <img class="img-fluid" src="img/team-2.jpg" alt="" />
-      </div>
-      <div class="team-text bg-light text-center p-4">
-        <h5>Doctor Name</h5>
-        <p class="text-primary">Department</p>
-        <div class="team-social text-center">
-          <a class="btn btn-square" href=""
-            ><i class="fab fa-facebook-f"></i
-          ></a>
-          <a class="btn btn-square" href=""><i class="fab fa-twitter"></i></a>
-          <a class="btn btn-square" href=""><i class="fab fa-instagram"></i></a>
-        </div>
-      </div>
-    </div>
-  </div>
-  <div class="col-lg-3 col-md-6 wow fadeInUp" data-wow-delay="0.5s">
-    <div class="team-item position-relative rounded overflow-hidden">
-      <div class="overflow-hidden">
-        <img class="img-fluid" src="img/team-3.jpg" alt="" />
-      </div>
-      <div class="team-text bg-light text-center p-4">
-        <h5>Doctor Name</h5>
-        <p class="text-primary">Department</p>
-        <div class="team-social text-center">
-          <a class="btn btn-square" href=""
-            ><i class="fab fa-facebook-f"></i
-          ></a>
-          <a class="btn btn-square" href=""><i class="fab fa-twitter"></i></a>
-          <a class="btn btn-square" href=""><i class="fab fa-instagram"></i></a>
-        </div>
-      </div>
-    </div>
-  </div>
-  <div class="col-lg-3 col-md-6 wow fadeInUp" data-wow-delay="0.7s">
-    <div class="team-item position-relative rounded overflow-hidden">
-      <div class="overflow-hidden">
-        <img class="img-fluid" src="img/team-4.jpg" alt="" />
-      </div>
-      <div class="team-text bg-light text-center p-4">
-        <h5>Doctor Name</h5>
-        <p class="text-primary">Department</p>
-        <div class="team-social text-center">
-          <a class="btn btn-square" href=""
-            ><i class="fab fa-facebook-f"></i
-          ></a>
-          <a class="btn btn-square" href=""><i class="fab fa-twitter"></i></a>
-          <a class="btn btn-square" href=""><i class="fab fa-instagram"></i></a>
-        </div>
-      </div>
-    </div>
-  </div>
-  <div class="col-lg-3 col-md-6 wow fadeInUp" data-wow-delay="0.9s">
-    <div class="team-item position-relative rounded overflow-hidden">
-      <div class="overflow-hidden">
-        <img class="img-fluid" src="img/team-4.jpg" alt="" />
-      </div>
-      <div class="team-text bg-light text-center p-4">
-        <h5>Doctor Name</h5>
-        <p class="text-primary">Department</p>
-        <div class="team-social text-center">
-          <a class="btn btn-square" href=""
-            ><i class="fab fa-facebook-f"></i
-          ></a>
-          <a class="btn btn-square" href=""><i class="fab fa-twitter"></i></a>
-          <a class="btn btn-square" href=""><i class="fab fa-instagram"></i></a>
         </div>
       </div>
     </div>

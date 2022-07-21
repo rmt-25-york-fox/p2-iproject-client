@@ -8,7 +8,7 @@ export const useMainGas = defineStore({
   state: () => ({
     isLogin: false,
     transaksi: [],
-    petrol: [],
+    petrols: [],
   }),
   getters: {},
   actions: {
@@ -26,12 +26,13 @@ export const useMainGas = defineStore({
           password: data.password,
         });
 
-        let accessToken = response.data.data.accestoken;
+        console.log(response);
+        let accessToken = response.data.data.access_token;
         let userId = response.data.data.userId;
         let email = response.data.data.email;
 
         localStorage.setItem("accesstoken", accessToken);
-        localStorage.setItem("authorId", userId);
+        localStorage.setItem("userId", userId);
         localStorage.setItem("email", email);
 
         this.isLogin = true;
@@ -55,6 +56,25 @@ export const useMainGas = defineStore({
         console.log(err);
         swal(`tidak berhasil`);
       }
+    },
+
+    async getPetrol() {
+      try {
+        const response = await instanceAxios.get("/petrol", {
+          headers: {
+            access_token: localStorage.getItem("accesstoken"),
+          },
+        });
+
+        this.petrols = response.data;
+      } catch (err) {
+        console.log(err);
+      }
+    },
+
+    async buyPetrol(data) {
+      try {
+      } catch (err) {}
     },
 
     logouthendler() {

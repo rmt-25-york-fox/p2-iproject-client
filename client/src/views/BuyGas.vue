@@ -13,9 +13,6 @@ export default {
   <div class="container-xxl py-5">
     <div class="container">
       <div class="row g-5">
-        <div class="col-lg-6 wow fadeInUp" data-wow-delay="0.1s">
-          Gambar bbm
-        </div>
         <div class="col-lg-6 wow fadeInUp" data-wow-delay="0.5s">
           <div class="bg-light rounded h-100 d-flex align-items-center p-5">
             <form>

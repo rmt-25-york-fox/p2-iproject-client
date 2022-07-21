@@ -4,7 +4,6 @@ export default {
   name: "MyTransaksi",
   components: {
     Navbar,
-    Footer,
   },
 };
 </script>
