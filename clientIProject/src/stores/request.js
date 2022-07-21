@@ -5,12 +5,13 @@ import Swal from 'sweetalert2'
 export const useRequestStore = defineStore ({
     id:'request',
     state:()=>({
-        baseUrl:'http://localhost:3000',
+        baseUrl:'https://iprojectdarien.herokuapp.com',
         requests:[],
         request:[],
         myRequest:[],
         myTask:[],
-        user:[]
+        user:[],
+        tetees:''
     }),
     actions:{
         async getRequest(){
@@ -65,6 +66,7 @@ export const useRequestStore = defineStore ({
                     this.baseUrl+`/request/${id}`,{headers:{access_token:localStorage.access_token}}
                 )
                 this.request = resp.data
+                this.TTS(id)
                 this.router.push({ path: `/request/${id}` })
             } catch (err) {
                 console.log(err);
@@ -100,6 +102,16 @@ export const useRequestStore = defineStore ({
                     )
                 this.user = resp.data
             }catch(err){
+                console.log(err);
+            }
+        },
+        async TTS(id){
+            try {
+                const resp = await axios.get(
+                    this.baseUrl+`/requestTTS/${id}`,{headers:{access_token:localStorage.access_token}}
+                )
+                this.tetees = resp.data
+            } catch (err) {
                 console.log(err);
             }
         }

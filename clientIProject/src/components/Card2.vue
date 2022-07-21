@@ -5,9 +5,12 @@ export default {
     name:'Card2',
     props:['request'],
     methods:{
-        ...mapActions(useRequestStore,['finishRequest']),
+        ...mapActions(useRequestStore,['finishRequest','detailRequest']),
         finished(){
             this.finishRequest(this.request.id)
+        },
+        viewDetail(){
+            this.detailRequest(this.request.id)
         }
     }
 }
@@ -23,8 +26,8 @@ export default {
             <h3 class="news-log">{{request.title}}</h3>
             <p class="description">
             {{request.description}}
+            <a href="#" v-on:click="viewDetail" class="btn-view"><span class="ic-sx24"></span> View Detail</a>
             </p>
-            <a href="#" class="btn-view"><span class="ic-sx24"></span> View Detail</a>
         </div>
     </div>
 </div>

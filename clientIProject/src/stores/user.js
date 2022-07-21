@@ -6,7 +6,7 @@ export const useUserStore = defineStore({
     id:'user',
     state:()=>({
         isLogin:false,
-        baseUrl:'http://localhost:3000'
+        baseUrl:'https://iprojectdarien.herokuapp.com'
     }),
     actions:{
         async login(temp){

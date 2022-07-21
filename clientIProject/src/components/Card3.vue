@@ -1,7 +1,15 @@
 <script>
+import { mapActions } from 'pinia'
+import { useRequestStore } from '../stores/request'
 export default {
     name:'Card3',
     props:['task'],
+    methods:{
+        ...mapActions(useRequestStore,['detailRequest']),
+        viewDetail(){
+            this.detailRequest(this.task.id)
+        }
+    }
 }
 </script>
 
@@ -15,8 +23,8 @@ export default {
             <h3 class="news-log">{{task.title}}</h3>
             <p class="description">
             {{task.description}}
+            <a href="#"  v-on:click="viewDetail" class="btn-view"><span class="ic-sx24"></span> View Detail</a>
             </p>
-            <a href="#" class="btn-view"><span class="ic-sx24"></span> View Detail</a>
         </div>
     </div>
 </div>

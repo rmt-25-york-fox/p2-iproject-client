@@ -223,7 +223,7 @@ img.poster {
     box-shadow: 0px 10px 65px 0px #dae0e8;
     padding: 25px 10px;
     border-radius: 6px;
-    display: table;
+    display: flexbox;
     margin-bottom: 45px;
 }
 

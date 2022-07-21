@@ -28,8 +28,8 @@ export default {
             <h3 class="news-log">{{request.title}}</h3>
             <p class="description">
             {{request.description}}
-            </p>
             <a href="#" v-on:click="viewDetail" class="btn-view"><span class="ic-sx24"></span> View Detail</a>
+            </p>
         </div>
     </div>
 </div>
