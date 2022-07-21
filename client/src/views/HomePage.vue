@@ -1,14 +1,28 @@
 <script>
-// import mapboxgl from "mapbox-gl";
-// import "mapbox-gl/dist/mapbox-gl.css";
+import Mapbox from "mapbox-gl";
+import { MglMap } from "vue-mapbox";
 import Navbar from "../components/Navbar.vue";
 // import { mapOptions } from "../assets/data";
+
 export default {
   name: "Home",
   components: {
     Navbar,
   },
-  methods: {},
+  name: "App",
+
+  methods: {
+    async onMapLoad(event) {
+      // Here we cathing 'load' map event
+      const asyncActions = event.component.actions;
+
+      const newParams = await asyncActions.flyTo({
+        center: [-6.168495573888538, 106.63818936456171],
+        zoom: 16,
+        speed: 1,
+      });
+    },
+  },
 };
 // let map = null;
 
@@ -42,11 +56,7 @@ export default {
 
 <template>
   <Navbar />
-  <div class="container-xxl py-5">
-    <div class="container">
-      <div id="map" class="absolute h-screen"></div>
-    </div>
-  </div>
+  <MglMap :accessToken="accessToken" :mapStyle="mapStyle" />
 </template>
 
 <style></style>
