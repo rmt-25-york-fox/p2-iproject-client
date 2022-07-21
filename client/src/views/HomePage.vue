@@ -1,6 +1,6 @@
 <script>
 import Mapbox from "mapbox-gl";
-import { MglMap } from "vue-mapbox";
+// import { MglMap } from "vue-mapbox";
 import Navbar from "../components/Navbar.vue";
 // import { mapOptions } from "../assets/data";
 
@@ -8,8 +8,16 @@ export default {
   name: "Home",
   components: {
     Navbar,
+    Mapbox,
   },
-  name: "App",
+
+  data() {
+    return {
+      accessToken:
+        "pk.eyJ1Ijoicml2YWxkaTEyIiwiYSI6ImNsNXMwbzRpczJkaTgzY3JvMDd3YnJidGQifQ.XD3HwgaRxr5f4JV0U2SwMw", // your access token. Needed if you using Mapbox maps
+      mapStyle: "mapbox://styles/kpfui/ckn9c157p02a618rzglws1mum", // your map style
+    };
+  },
 
   methods: {
     async onMapLoad(event) {
@@ -22,6 +30,10 @@ export default {
         speed: 1,
       });
     },
+  },
+  created() {
+    // We need to set mapbox-gl library here in order to use it in template
+    this.mapbox = Mapbox;
   },
 };
 // let map = null;
@@ -56,7 +68,7 @@ export default {
 
 <template>
   <Navbar />
-  <MglMap :accessToken="accessToken" :mapStyle="mapStyle" />
+  <Mapbox :accessToken="accessToken" :mapStyle="mapStyle" />
 </template>
 
 <style></style>
