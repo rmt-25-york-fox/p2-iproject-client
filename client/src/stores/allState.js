@@ -14,11 +14,12 @@ export const useAllStateStore = defineStore({
       address: "",
     },
     isOtp: "",
+    // listData: [],
   }),
   actions: {
     async loginHandler(objLogin) {
       try {
-        const response = await axios.post(`${baseUrl}/pub/login`, {
+        const response = await axios.post(`${baseUrl}/login`, {
           email: objLogin.email,
           password: objLogin.password,
         });
@@ -71,5 +72,23 @@ export const useAllStateStore = defineStore({
         swal.fire(error.response.data.message);
       }
     },
+    checkLogin() {
+      if (localStorage.getItem("access_token")) {
+        this.isLoggedin = true;
+      }
+    },
+    logOutHandler() {
+      localStorage.clear();
+      this.isLoggedin = false;
+    },
   },
+  // async getAllData() {
+  //   try {
+  //     const response = await axios.get(`${baseUrl}/listProducts`);
+  //     this.listData = response.data;
+  //     console.log("<>><>");
+  //   } catch (error) {
+  //     console.log(error, "<<");
+  //   }
+  // },
 });

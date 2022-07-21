@@ -3,6 +3,20 @@ import { mapState, mapActions } from "pinia";
 import { useAllStateStore } from "../stores/allState";
 export default {
   name: "LoginForm",
+  data() {
+    return {
+      objLogin: {
+        email: "",
+        password: "",
+      },
+    };
+  },
+  methods: {
+    ...mapActions(useAllStateStore, ["loginHandler"]),
+    formLoginHandler() {
+      this.loginHandler(this.objLogin);
+    },
+  },
 };
 </script>
 
@@ -19,6 +33,7 @@ export default {
         class="form-control"
         placeholder="Email"
         autofocus
+        v-model="objLogin.email"
       />
       <label class="sr-only">Password</label>
       <input
@@ -27,14 +42,18 @@ export default {
         id="email"
         class="form-control"
         placeholder="Password"
+        v-model="objLogin.password"
       />
       not have account?
       <RouterLink :to="{ path: '/register' }" class="text-success"
         >Sign up</RouterLink
       >
-      -->
-      <button class="mt-3 btn btn-lg btn-success btn-block">Sign in</button>
-      <div id="buttonDiv"></div>
+      <button
+        class="mt-3 btn btn-lg btn-success btn-block"
+        @click.prevent="formLoginHandler"
+      >
+        Sign in
+      </button>
     </form>
   </div>
 </template>

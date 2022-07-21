@@ -8,6 +8,7 @@
     "lint": "eslint . --ext .vue,.js,.jsx,.cjs,.mjs --fix --ignore-path .gitignore"
   },
   "dependencies": {
+    "@vue-stripe/vue-stripe": "^4.4.4",
     "axios": "^0.27.2",
     "nodemailer": "^6.7.7",
     "pinia": "^2.0.16",

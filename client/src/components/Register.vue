@@ -75,9 +75,9 @@ export default {
         v-model="objRegister.address"
       />
       have account?
-      <!-- <RouterLink :to="{ path: '/login' }" class="text-success"
+      <RouterLink :to="{ path: '/login' }" class="text-success"
         >Sign in</RouterLink
-      > -->
+      >
       <button
         class="mt-3 btn btn-lg btn-success btn-block"
         @click.prevent="formRegister"
