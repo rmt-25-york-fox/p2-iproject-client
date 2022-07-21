@@ -39,5 +39,24 @@ export const useCounterStore = defineStore({
         console.log(err);
       }
     },
+
+    logoutHandler() {
+      localStorage.clear();
+      this.login = false;
+      this.router.push("/login");
+    },
+
+    async newUser(value) {
+      try {
+        const newCus = await instanceAxios.post("/register", {
+          username: value.username,
+          email: value.email,
+          password: value.password,
+        });
+        this.router.push("/login");
+      } catch (err) {
+        console.log(err);
+      }
+    },
   },
 });

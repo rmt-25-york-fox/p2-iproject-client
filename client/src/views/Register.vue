@@ -1,3 +1,28 @@
+<script>
+import { mapActions } from "pinia";
+import { useCounterStore } from "../stores/counter";
+
+export default {
+  data() {
+    return {
+      username: "",
+      email: "",
+      password: "",
+    };
+  },
+  methods: {
+    ...mapActions(useCounterStore, ["newUser"]),
+    regis() {
+      this.newUser({
+        username: this.username,
+        email: this.email,
+        password: this.password,
+      });
+    },
+  },
+};
+</script>
+
 <template>
   <div class="form">
     <div class="row text-center">
@@ -7,18 +32,18 @@
     </div>
     <div class="row justify-content-center">
       <div class="col-md-4">
-        <form>
+        <form @submit.prevent="regis">
           <div class="mb-3">
             <label for="username" class="form-label">UserName</label>
-            <input type="text" class="form-control" id="usernameRegis" />
+            <input type="text" class="form-control" id="usernameRegis" v-model="username" />
           </div>
           <div class="mb-3">
             <label for="email" class="form-label">Email</label>
-            <input type="email" class="form-control" id="emailRegis" aria-describedby="emailHelp" />
+            <input type="email" class="form-control" id="emailRegis" aria-describedby="emailHelp" v-model="email" />
           </div>
           <div class="mb-3">
             <label for="password" class="form-label">Password</label>
-            <input type="password" class="form-control" id="passwordRegis" />
+            <input type="password" class="form-control" id="passwordRegis" v-model="password" />
           </div>
           <button type="submit" class="btn btn-primary">Submit</button>
           <div class="text-center">
