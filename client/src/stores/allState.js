@@ -12,6 +12,8 @@ export const useAllState = defineStore({
     page: "home",
     leaderboards: "",
     pockets: [],
+    next: "",
+    prev: "",
   }),
   // getters: {
   //   doubleCount: (state) => state.counter * 2,
@@ -47,9 +49,14 @@ export const useAllState = defineStore({
       this.router.push({ name: "LoginPage" });
       this.page = "home";
     },
-    toChangePage(page) {
+    toNext(page) {
       // console.log(typeof page);
-      this.pagination.currentPage = page;
+      this.changePage = page;
+      this.allProduct();
+    },
+    toPrev(page) {
+      // console.log(typeof page);
+      this.changePage = page;
       this.allProduct();
     },
     async handleCredentialResponse(response) {
@@ -133,18 +140,23 @@ export const useAllState = defineStore({
         Swal.fire(String(error.response.data.message).split(",").join(", "));
       }
     },
-    async allPokemon() {
+    async allPokemon(url) {
       try {
+        // console.log(url);
         const { data } = await axios.get(`${baseUrl}/pokemons`, {
           headers: { access_token: localStorage.getItem("access_token") },
+          params: { url },
         });
-        // console.log(data);
+        console.log(data);
         if (localStorage.getItem("access_token")) {
           this.page = "main";
         } else {
           this.page = "home";
         }
-        this.pokemons = data;
+        this.pokemons = data.data;
+        this.changePage = data.poke;
+        this.next = data.next;
+        this.prev = data.prev;
       } catch (error) {
         console.log(error);
       }

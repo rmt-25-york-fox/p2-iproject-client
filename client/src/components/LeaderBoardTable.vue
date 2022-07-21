@@ -15,18 +15,12 @@ import { useAllState } from '../stores/allState'
 
 <template>
     <tr>
+      <td></td>
       <td>{{leaderboard.name}}</td>
-      <td>{{leaderboard.rank}}</td>
+      <td >{{leaderboard.rank}}</td>
       <td>{{leaderboard.value}}</td>
     </tr>
 </template>
 
 <style scoped>
-
-.card img {
-  margin: 0 auto;
-  width: 300px;
-  display: flex;
-  flex-direction: column;
-}
 </style>
