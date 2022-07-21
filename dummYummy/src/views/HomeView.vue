@@ -36,12 +36,22 @@ export default {
             <div class="form-group">
               <div class="input-group mb-3">
                 <div class="input-group-prepend">
-                  <label class="input-group-text" for="inputGroupSelect01">Category</label>
+                  <label class="input-group-text" for="inputGroupSelect01"
+                    >Category</label
+                  >
                 </div>
-                <select class="form-select" aria-label="Default select example" id="inputGroupSelect01"
-                  v-model="objState.name">
+                <select
+                  class="form-select"
+                  aria-label="Default select example"
+                  id="inputGroupSelect01"
+                  v-model="objState.name"
+                >
                   <option value="" disable>Choose...</option>
-                  <option v-for="category in categories" :key="category.id" :value="category.name">
+                  <option
+                    v-for="category in categories"
+                    :key="category.id"
+                    :value="category.name"
+                  >
                     {{ category.name }}
                   </option>
                 </select>
