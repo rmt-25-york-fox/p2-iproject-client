@@ -6,14 +6,14 @@ import Swal from 'sweetalert2'
 export const useSportStore = defineStore({
   id: 'counter',
   state: () => ({
-    baseUrl: 'http://localhost:3000/pub',
+    baseUrl: 'http://localhost:3000',
     isLogin: '',
     isError: '',
     page: 0,
     title: '',
     rating: '',
     genreId: '',
-    movies: [],
+    sports: [],
     fitness: [],
     histories: []
   }),
@@ -21,9 +21,12 @@ export const useSportStore = defineStore({
     doubleCount: state => state.counter * 2
   },
   actions: {
+    toSubscribePage() {
+      this.router.push({ name: 'subscribe' })
+    },
     async getHistories() {
       try {
-        const response = await axios.get(this.baseUrl + '/histories', {
+        const response = await axios.get(this.baseUrl + '/pub/histories', {
           headers: { access_token: localStorage.access_token }
         })
 
@@ -77,7 +80,7 @@ export const useSportStore = defineStore({
         console.log('access_token>>>', access_token)
         const { data } = await axios({
           method: 'put',
-          url: `${this.baseUrl}/updateFitness`,
+          url: `${this.baseUrl}/pub/updateFitness`,
           headers: { access_token: access_token },
           data: {
             height: objFitness.height,
@@ -106,6 +109,7 @@ export const useSportStore = defineStore({
       this.router.push({ name: 'edit' })
     },
     toHomePage() {
+      this.fetchSports()
       this.fetchFitness()
       this.router.push({ name: 'home' })
       this.fetchFitness()
@@ -122,7 +126,7 @@ export const useSportStore = defineStore({
 
         const { data } = await axios({
           method: 'get',
-          url: `${this.baseUrl}/fitness`,
+          url: `${this.baseUrl}/pub/fitness`,
           headers: {
             access_token: access_token
           }
@@ -145,67 +149,39 @@ export const useSportStore = defineStore({
           objQuery.page = 0
         } else if (objQuery.page) {
           this.page = objQuery.page
-        } else if (!objQuery.title) {
-          this.title = ''
-        } else if (objQuery.title) {
-          this.title = objQuery.title
-        } else if (!objQuery.rating) {
-          this.rating = ''
-        } else if (objQuery.rating) {
-          this.rating = objQuery.rating
-        } else if (!objQuery.genreId) {
-          this.genreId = ''
-        } else if (objQuery.genreId) {
-          this.genreId = objQuery.genreId
         }
 
         this.page = objQuery.page
-        this.title = objQuery.title
-        this.rating = objQuery.rating
-        this.genreId = objQuery.genreId
-        console.log(
-          'queries>>>',
-          this.page,
-          this.title,
-          this.rating,
-          this.genreId
-        )
+
+        console.log('queries>>>', this.page)
 
         const response = await axiosInstance.get(
-          `${this.baseUrl}/sports?page=${this.page}&size=8&title=${this.title}&rating=${this.rating}&genreId=${this.genreId}`
+          `${this.baseUrl}/sports?page=${this.page}&size=8`
         )
         console.log('response>>>', response)
-        this.movies = response.data.data.sports
+        this.sports = response.data.data.sports
 
-        console.log('RESPONSE THIS MOVIES >>>>', this.movies)
+        console.log('RESPONSE THIS sports >>>>', this.sports)
       } catch (err) {
         console.log(err)
       }
     },
     async fetchSports() {
       try {
-        const axios = require('axios')
-
-        const options = {
-          method: 'GET',
-          url: 'https://exercisedb.p.rapidapi.com/exercises',
+        const access_token = localStorage.getItem('access_token')
+        const { data } = await axios({
+          method: 'get',
+          url: `${this.baseUrl}/sports`,
           headers: {
-            'X-RapidAPI-Key':
-              'e271177b1dmsh75da436e4a78356p10452ejsnd733e94bc616',
-            'X-RapidAPI-Host': 'exercisedb.p.rapidapi.com'
+            access_token: access_token
           }
-        }
+        })
 
-        axios
-          .request(options)
-          .then(function (response) {
-            this.movies = response.data
-            console.log(response.data)
-            console.log('this movies>>>', this.movies)
-          })
-          .catch(function (error) {
-            console.error(error)
-          })
+        this.sports = data.data
+
+        this.sports = this.sports.slice(0, 24)
+
+        console.log('this sports>>', this.sports)
       } catch (err) {
         console.log(err)
       }
@@ -214,14 +190,14 @@ export const useSportStore = defineStore({
       try {
         console.log('loginHandler HITT')
         console.log(objCredential, '<<<<<<<<')
-        const returnData = await axios.post(this.baseUrl + '/login', {
+        const returnData = await axios.post(this.baseUrl + '/pub/login', {
           email: objCredential.email,
           password: objCredential.password
         })
 
         localStorage.setItem('access_token', returnData.data.access_token)
         localStorage.setItem('name', returnData.data.name)
-        localStorage.setItem('role', returnData.data.role)
+        localStorage.setItem('email', returnData.data.email)
 
         console.log(returnData, '<<<<<<<returnData LoginHandler')
 

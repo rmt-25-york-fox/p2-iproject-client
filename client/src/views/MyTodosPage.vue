@@ -7,7 +7,7 @@ import Navbar from '../components/Navbar.vue'
 import Card from '../components/Card.vue'
 import Sidebar from '../components/Sidebar.vue'
 import PageButton from '../components/PageButton.vue'
-import MovieList from '../components/MovieList.vue'
+import SportList from '../components/SportList.vue'
 
 export default {
   created() {
@@ -45,7 +45,7 @@ export default {
       this.page = 'home'
     }
   },
-  components: { Navbar, Card, Sidebar, PageButton, MovieList }
+  components: { Navbar, Card, Sidebar, PageButton, SportList }
 }
 </script>
 <template>
@@ -86,7 +86,7 @@ export default {
     </div>
 
     <Sidebar />
-    <MovieList />
+    <SportList />
   </div>
 </template>
 <style></style>

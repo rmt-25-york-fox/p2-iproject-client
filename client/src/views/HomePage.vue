@@ -7,28 +7,21 @@ import Navbar from '../components/Navbar.vue'
 import Card from '../components/Card.vue'
 import Sidebar from '../components/Sidebar.vue'
 import PageButton from '../components/PageButton.vue'
-import MovieList from '../components/MovieList.vue'
+import SportList from '../components/SportList.vue'
 import FitnessDetailCard from '../components/FitnessDetailCard.vue'
 
 export default {
   created() {
     this.fetchFitness()
-    this.pagination({
-      page: this.page,
-      title: this.title,
-      rating: this.rating,
-      genreId: this.genreId
-    })
+    this.fetchSports()
+    // this.pagination({
+    //   page: this.page
+    // })
 
     if (localStorage.access_token) {
       this.page = 'home'
       this.isLogin = true
-      this.pagination({
-        page: this.page,
-        title: this.title,
-        rating: this.rating,
-        genreId: this.genreId
-      })
+      this.fetchSports()
     }
   },
   name: 'HomePage',
@@ -48,7 +41,8 @@ export default {
       'fetchMovies',
       'pagination',
       'fetchFavorites',
-      'fetchFitness'
+      'fetchFitness',
+      'fetchSports'
     ]),
     loginHandler() {
       this.isLogin = true
@@ -60,7 +54,7 @@ export default {
     Card,
     Sidebar,
     PageButton,
-    MovieList,
+    SportList,
     FitnessDetailCard
   }
 }
@@ -105,7 +99,7 @@ export default {
     </div>
 
     <Sidebar />
-    <MovieList />
+    <SportList />
   </div>
 </template>
 <style></style>
