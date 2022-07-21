@@ -15,8 +15,8 @@ export default {
           quantity: 1,
         },
       ],
-      successURL: "http://localhost:8080/success",
-      cancelURL: "http://localhost:8080/error",
+      successURL: "https://store3sport.web.app/success",
+      cancelURL: "https://store3sport.web.app/error",
     };
   },
   methods: {

@@ -60,8 +60,7 @@ export default {
     <div class="box-container">
       <div class="box">
         <div class="image">
-          <img src="https://i.imgur.com/ioL0h1s.jpg" />
-          <!-- <a href="#" class="fas fa-heart"></a> -->
+          <img src="../assets/sepatu.jpg" />
         </div>
         <div class="content">
           <div class="stars">
@@ -88,8 +87,7 @@ export default {
       </div>
       <div class="box">
         <div class="image">
-          <img src="https://i.imgur.com/ioL0h1s.jpg" />
-          <a href="#" class="fas fa-heart"></a>
+          <img src="../assets/sepatu.jpg" />
         </div>
         <div class="content">
           <div class="stars">
@@ -116,8 +114,7 @@ export default {
       </div>
       <div class="box">
         <div class="image">
-          <img src="https://i.imgur.com/ioL0h1s.jpg" />
-          <a href="#" class="fas fa-heart"></a>
+          <img src="../assets/sepatu.jpg" />
         </div>
         <div class="content">
           <div class="stars">

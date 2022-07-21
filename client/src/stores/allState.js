@@ -1,7 +1,7 @@
 import { defineStore } from "pinia";
 import axios from "axios";
 import swal from "sweetalert2";
-const baseUrl = "http://localhost:3000";
+const baseUrl = "https://sport3store.herokuapp.com";
 export const useAllStateStore = defineStore({
   id: "counter",
   state: () => ({
