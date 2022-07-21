@@ -96,5 +96,26 @@ export const useCounterStore = defineStore({
         console.log(err);
       }
     },
+
+    async addNewInfo(value) {
+      try {
+        const newData = await instanceAxios.post(
+          "/spaceshuttle",
+          {
+            name: value.name,
+            information: value.information,
+            imgUrl: value.imgUrl,
+          },
+          {
+            headers: {
+              access_token: localStorage.getItem("access_token"),
+            },
+          }
+        );
+        this.router.push("/shuttle");
+      } catch (err) {
+        console.log(err);
+      }
+    },
   },
 });

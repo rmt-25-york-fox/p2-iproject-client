@@ -34,6 +34,7 @@ export default {
             <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false"> Setting </a>
             <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
               <li><router-link to="/planet" class="dropdown-item" href="#">APOD</router-link></li>
+              <li><router-link to="/add" class="dropdown-item" href="#">Add new Info</router-link></li>
               <li><hr class="dropdown-divider" /></li>
               <li @click.prevent="logoutHandler"><router-link to="" class="dropdown-item" href="#">Sign Out</router-link></li>
             </ul>
