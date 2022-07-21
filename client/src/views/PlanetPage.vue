@@ -8,10 +8,11 @@ export default {
     Card,
   },
   methods: {
-    ...mapActions(useCounterStore, ["getApod"]),
+    ...mapActions(useCounterStore, ["getApod", "twitNasa"]),
   },
   created() {
     this.getApod();
+    this.twitNasa();
   },
 };
 </script>

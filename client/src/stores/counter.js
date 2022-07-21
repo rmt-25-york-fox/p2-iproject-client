@@ -7,6 +7,9 @@ export const useCounterStore = defineStore({
   state: () => ({
     apod: "",
     apiKey: "bMMYPqCAMs4fyql1uteiYhSqBfNjKfTSYMm0JsZ1",
+    twitKey: "nJSDvcgwtEu7je5aaPUL6cWV1",
+    twitKeySecret: "f8AiZTCeXkEG5fO7a2uWb7dWzjfGXNTSfqQ6sNO1TmcUNCzPUf",
+    bearerToken: "AAAAAAAAAAAAAAAAAAAAAFVXfAEAAAAAZNSCltt1xyeiTkZ7G%2BWJR9iw%2FQs%3DnZ3QyxsjjAsACbLdgzqK3DBIXnSFBappNnlzRQz081Uq30etAl",
     email: "",
     password: "",
     login: false,
@@ -26,6 +29,19 @@ export const useCounterStore = defineStore({
       }
     },
 
+    async twitNasa() {
+      try {
+        const data = await axios.get("https://api.twitter.com/2/tweets/search/recent?query=from:nasa", {
+          Authorization: {
+            Bearer_Token: this.bearerToken,
+          },
+        });
+        console.log(data);
+      } catch (err) {
+        console.log(err);
+      }
+    },
+
     async loginHandler(value) {
       try {
         const { data } = await instanceAxios.post("/login", {
@@ -34,7 +50,6 @@ export const useCounterStore = defineStore({
         });
         console.log(data);
         localStorage.setItem("access_token", data.access_token);
-        // this.getMovie();
         this.router.push("/");
         this.login = true;
       } catch (err) {
