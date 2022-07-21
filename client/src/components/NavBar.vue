@@ -13,12 +13,21 @@ export default {
       <va-button color="#000" text-color="#2C82E0" class="mr-2 mb-2" :rounded="false" flat split>
         <RouterLink to="/">Home</RouterLink>
       </va-button>
-
-      <va-button-dropdown color="#000" text-color="#000" class="mr-2 mb-2" :rounded="false" flat split label="Tutorial">
-        <RouterLink to="/tutorial/nodejs" class="mr-2 mb-2" role="button">NodeJs</RouterLink>
-        <RouterLink to="/tutorial/java" class="mr-2 mb-2" role="button">Java</RouterLink>
-        <RouterLink to="/tutorial/golang" class="mr-2 mb-2" role="button">Golang</RouterLink>
-      </va-button-dropdown>
+      <RouterLink to="/tutorial">
+        <va-button-dropdown
+          color="#000"
+          text-color="#000"
+          class="mr-2 mb-2"
+          :rounded="false"
+          flat
+          split
+          label="Tutorial"
+        >
+          <RouterLink to="/tutorial/nodejs" class="mr-2 mb-2" role="button">NodeJs</RouterLink>
+          <RouterLink to="/tutorial/java" class="mr-2 mb-2" role="button">Java</RouterLink>
+          <RouterLink to="/tutorial/golang" class="mr-2 mb-2" role="button">Golang</RouterLink>
+        </va-button-dropdown>
+      </RouterLink>
 
       <va-button color="#000" text-color="#000" class="mr-2 mb-2" :rounded="false" flat split>
         <RouterLink to="/donation">Donation</RouterLink>

@@ -3,6 +3,7 @@ import HomePage from "../views/HomePage.vue";
 import TutorialPage from "../views/TutorialPage.vue";
 import DetailTutorialPage from "../views/DetailTutorialPage.vue";
 import DonationPage from "../views/DonationPage.vue";
+import NotFoundPage from "../views/NotFoundPage.vue";
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -32,6 +33,7 @@ const router = createRouter({
       name: "tutorialDetail",
       component: DetailTutorialPage,
     },
+    { path: "/:pathMatch(.*)*", name: "NotFound", component: NotFoundPage },
   ],
 });
 
