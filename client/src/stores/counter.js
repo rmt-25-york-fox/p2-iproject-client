@@ -56,5 +56,11 @@ export const useMainGas = defineStore({
         swal(`tidak berhasil`);
       }
     },
+
+    logouthendler() {
+      localStorage.clear();
+      this.isLogin = false;
+      this.router.push("/login");
+    },
   },
 });

@@ -1,6 +1,19 @@
 <script>
+import { mapActions } from "pinia";
+import { RouterLink } from "vue-router";
+import { useMainGas } from "../stores/counter.js";
+
 export default {
   name: "Navbar",
+  components: {
+    RouterLink,
+  },
+  methods: {
+    ...mapActions(useMainGas, ["logouthendler"]),
+    loguthendler() {
+      this.logouthendler();
+    },
+  },
 };
 </script>
 
@@ -27,12 +40,18 @@ export default {
     </button>
     <div class="collapse navbar-collapse" id="navbarCollapse">
       <div class="navbar-nav ms-auto p-4 p-lg-0">
-        <a href="index.html" class="nav-item nav-link active">Home</a>
-        <a href="contact.html" class="nav-item nav-link">Buy gas</a>
-        <a href="about.html" class="nav-item nav-link">My Gas</a>
+        <RouterLink to="/" href="index.html" class="nav-item nav-link active"
+          >Home</RouterLink
+        >
+        <RouterLink to="/petrol" href="contact.html" class="nav-item nav-link"
+          >List gas</RouterLink
+        >
+        <RouterLink to="/transaksi" href="about.html" class="nav-item nav-link"
+          >My Gas</RouterLink
+        >
       </div>
       <a
-        href=""
+        @click.prevent="loguthendler"
         class="btn btn-primary rounded-0 py-4 px-lg-5 d-none d-lg-block"
         >Log Out <i class="fa-solid fa-arrow-right-from-bracket"></i
       ></a>
