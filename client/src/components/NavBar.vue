@@ -6,7 +6,7 @@ export default {
 
 <template>
   <!-- Start Navbar -->
-  <va-navbar color="#f8f9fc" shape text-color="#2C82E0"
+  <va-navbar color="#f8f9fc" text-color="#2C82E0"
     >s
     <template #left> </template>
     <template text-color="#000" #center>
