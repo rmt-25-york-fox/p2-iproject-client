@@ -10,6 +10,7 @@ export const useCounterStore = defineStore({
     email: "",
     password: "",
     login: false,
+    infos: [],
   }),
   getters: {},
   actions: {
@@ -54,6 +55,21 @@ export const useCounterStore = defineStore({
           password: value.password,
         });
         this.router.push("/login");
+      } catch (err) {
+        console.log(err);
+      }
+    },
+
+    async getInfo() {
+      try {
+        const { data } = await instanceAxios.get("/spaceshuttle", {
+          headers: {
+            access_token: localStorage.getItem("access_token"),
+          },
+        });
+        console.log(data);
+        this.infos = data;
+        console.log(this.infos);
       } catch (err) {
         console.log(err);
       }
