@@ -7,10 +7,10 @@ export default {
 <template>
   <div class="col-12 col-md-4">
     <div class="card-list mb-3 bg-dark" style="width: 18rem">
-      <img :src="info.imgUrl" class="card-img-top-list" alt="..." />
+      <img :src="info.imgUrl" class="card-img-top-list img-thumbnail" alt="..." />
       <div class="card-body">
         <h5 class="card-title">Name: {{ info.name }}</h5>
-        <router-link :to="`/spaceshuttle/detail/${info.id}`" class="btn btn-primary">Detail</router-link>
+        <router-link :to="`/detail/${info.id}`" class="btn btn-primary">Detail</router-link>
       </div>
     </div>
   </div>

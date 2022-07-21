@@ -31,7 +31,7 @@ const router = createRouter({
       component: RegisterPage,
     },
     {
-      path: "/detail",
+      path: "/detail/:id",
       name: "detail",
       component: DetailPage,
     },

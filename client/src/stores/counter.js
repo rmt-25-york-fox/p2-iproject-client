@@ -11,6 +11,7 @@ export const useCounterStore = defineStore({
     password: "",
     login: false,
     infos: [],
+    infoDetail: {},
   }),
   getters: {},
   actions: {
@@ -67,9 +68,23 @@ export const useCounterStore = defineStore({
             access_token: localStorage.getItem("access_token"),
           },
         });
-        console.log(data);
+        // console.log(data);
         this.infos = data;
-        console.log(this.infos);
+        // console.log(this.infos);
+      } catch (err) {
+        console.log(err);
+      }
+    },
+
+    async getDetail(payload) {
+      console.log(payload);
+      try {
+        const { data } = await instanceAxios.get(`/spaceshuttle/${payload}`, {
+          headers: {
+            access_token: localStorage.getItem("access_token"),
+          },
+        });
+        this.infoDetail = data.data;
       } catch (err) {
         console.log(err);
       }
