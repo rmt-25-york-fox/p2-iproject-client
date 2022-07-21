@@ -15,12 +15,46 @@ export const useSportStore = defineStore({
     genreId: '',
     sports: [],
     fitness: [],
-    histories: []
+    histories: [],
+    plans: [
+      { name: 'Free', price: 0, benefit1: 'Join community' },
+      {
+        name: 'Gold',
+        price: 100000,
+        benefit1: 'Join community',
+        benefit2: 'Get personal trainer'
+      },
+      {
+        name: 'Premium',
+        price: 1000000,
+        benefit1: 'Join community',
+        benefit2: 'Get personal trainer',
+        benefit3: 'Get nutritionist'
+      }
+    ]
   }),
   getters: {
     doubleCount: state => state.counter * 2
   },
   actions: {
+    async changeSubscribe() {
+      try {
+        axios({
+          method: 'patch',
+          url: `${this.baseUrl}/changeSubscribe`,
+          headers: { access_token: localStorage.access_token },
+          data: { email: localStorage.email }
+        })
+
+        Swal.fire(
+          'Success',
+          'You are subscribed! Thank you for using our service!',
+          'success'
+        )
+      } catch (err) {
+        console.log(err)
+      }
+    },
     toSubscribePage() {
       this.router.push({ name: 'subscribe' })
     },

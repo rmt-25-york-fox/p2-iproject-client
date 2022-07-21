@@ -42,9 +42,18 @@ export const usePaymentStore = defineStore({
 
             tio.router.push({ name: 'subscribe' })
 
+            let baseUrl = 'http://localhost:3000'
+
+            axios({
+              method: 'patch',
+              url: `${baseUrl}/changeSubscribe`,
+              headers: { access_token: access_token },
+              data: { email: localStorage.email }
+            })
+
             Swal.fire(
               'Payment Success',
-              'Thank you for using our service!',
+              'You are subscribed! Thank you for using our service!',
               'success'
             )
           },
