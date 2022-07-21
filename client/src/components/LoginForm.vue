@@ -57,9 +57,6 @@ export default {
         Login
       </button>
     </form>
-    <div class="d-flex justify-content-center text-center mt-2 pt-4">
-      <a href="#!" class="text-white"><i class="fab fa-google fa-lg"></i></a>
-    </div>
     <div>
       <p class="mb-0 mt-1">
         Don't have an account?

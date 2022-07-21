@@ -22,14 +22,13 @@ export default {
     class="navbar navbar-expand-lg bg-white navbar-light sticky-top p-0 wow fadeIn"
     data-wow-delay="0.1s"
   >
-    <a
-      href="index.html"
+    <p
       class="navbar-brand d-flex align-items-center px-4 px-lg-5"
     >
       <h1 class="m-0 text-primary">
         <i class="fa-solid fa-gas-pump"></i> My Kelimax
       </h1>
-    </a>
+    </p>
     <button
       type="button"
       class="navbar-toggler me-4"

@@ -38,6 +38,7 @@ export const useMainGas = defineStore({
 
         this.isLogin = true;
         this.router.push("/");
+        this.chart();
         swal("Berhasil login");
       } catch (err) {
         console.log(err);
@@ -104,6 +105,7 @@ export const useMainGas = defineStore({
           },
         });
 
+        console.log();
         this.charts = response.data;
       } catch (err) {
         console.log(err);
@@ -114,6 +116,13 @@ export const useMainGas = defineStore({
       localStorage.clear();
       this.isLogin = false;
       this.router.push("/login");
+    },
+
+    saveLoginstate() {
+      if (localStorage.getItem("accesstoken")) {
+        this.isLogin = true;
+        this.chart();
+      }
     },
   },
 });

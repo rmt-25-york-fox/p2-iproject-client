@@ -40,7 +40,7 @@ export default {
     },
     width: {
       type: Number,
-      default: 400,
+      default: 300,
     },
     height: {
       type: Number,
@@ -62,8 +62,8 @@ export default {
   data() {
     return {
       chartData: {
-        labels: ["January", "February", "March"],
-        datasets: [{ data: [40, 20, 12] }],
+        labels: [],
+        datasets: [{ data: [] }],
       },
       chartOptions: {
         responsive: true,
@@ -72,12 +72,31 @@ export default {
   },
   methods: {
     ...mapActions(useMainGas, ["chart"]),
+    // function sum(obj){
+
+    // }
   },
   computed: {
     ...mapState(useMainGas, ["charts"]),
   },
   created() {
     this.chart();
+
+    this.chartData.labels = Object.keys(this.charts);
+    this.chartData.datasets[0].data = Object.values(this.charts);
+
+    console.log(this.chartData.datasets[0].data[0]);
+    let nilai = this.chartData.datasets[0].data[0];
+
+    // let nilai = [
+    //   { kelas: "A", jumlah: 50 },
+    //   { kelas: "B", jumlah: 40 },
+    //   { kelas: "C", jumlah: 45 },
+    // ];
+    // let total = siswa.reduce((val, element) => {
+    //   return val + element.jumlah;
+    // }, 0);
+    // console.log(total);
   },
 };
 </script>
@@ -97,7 +116,6 @@ export default {
       :width="width"
       :height="height"
     />
-    <div class="container bg-light">Informasi</div>
   </div>
   <!-- mY Gas End -->
 </template>
