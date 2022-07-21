@@ -43,7 +43,11 @@ import { useAllState } from '../stores/allState'
             <button class="btn" type="submit">LOGIN</button>
             <h4>Don't have an account yet? Register now!</h4>
             <button  @click.prevent="toRegister" class="btn">REGISTER</button>
-            <div id="g_id_onload"></div>
+            <div class="d-flex flex-row align-items-center justify-content-center justify-content-lg-start">
+            <button type="button" class="btn btn-primary btn-floating mx-1">
+              <div id="g_id_onload"></div>
+            </button>
+          </div>
           </form>
         </div>
       </div>
@@ -62,7 +66,6 @@ import { useAllState } from '../stores/allState'
   background-size:cover;
   height:100%;
 }
-
 .form-container {
   margin: 200px;
   display:flex;

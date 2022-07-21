@@ -1,5 +1,6 @@
 <script>
 import { RouterLink, RouterView } from 'vue-router'
+import { useAllState } from './stores/allState'
 import {mapActions} from 'pinia'
 import NavBar from './components/NavBar.vue'
 import Footer from './components/Footer.vue'

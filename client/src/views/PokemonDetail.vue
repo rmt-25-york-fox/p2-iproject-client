@@ -27,7 +27,7 @@ import { useAllState } from '../stores/allState'
 </template>
 <style scoped>
 .card{
-  margin: 100px;
+  margin: 80px;
   /* margin-right: 300px */
 }
 h3{

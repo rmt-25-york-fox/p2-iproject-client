@@ -13,10 +13,13 @@ import NavBar from '../components/NavBar.vue'
     NavBar
 },
     computed: {
-      ...mapState(useAllState, ['pokemons', 'page'])
+      ...mapState(useAllState, ['pokemons', 'page', 'next', 'prev'])
     },
     methods: {
       ...mapActions(useAllState, ["allPokemon"]),
+      localPoke(url){
+        this.allPokemon(url)
+      }
     },
     created(){
       this.allPokemon()
@@ -31,6 +34,8 @@ import NavBar from '../components/NavBar.vue'
       <div class="row">
         <div class="col py-3">
           <h3>ALL POKEMON</h3>
+          <a href="" @click.prevent="this.localPoke(this.prev)" class="previous round">&#8249;</a>
+          <a href="" @click.prevent="this.localPoke(this.next)"  class="next round">&#8250;</a>
             <PokemonList/>
           </div>
 
@@ -75,5 +80,30 @@ h3{
   font-weight: bold;
   display: flex;
   justify-content: center;
+}
+
+a {
+  text-decoration: none;
+  display: inline-block;
+  padding: 8px 16px;
+}
+
+a:hover {
+  background-color: #ddd;
+  color: black;
+}
+
+.previous {
+  background-color: #f1f1f1;
+  color: black;
+}
+
+.next {
+  background-color: #04AA6D;
+  color: white;
+}
+
+.round {
+  border-radius: 50%;
 }
 </style>
