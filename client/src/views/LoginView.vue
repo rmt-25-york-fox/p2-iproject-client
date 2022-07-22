@@ -1,3 +1,17 @@
+<script>
+import { useStore } from "../stores/store";
+import { mapWritableState, mapActions } from "pinia";
+
+export default {
+  computed: {
+    ...mapWritableState(useStore, ["images", "password"]),
+  },
+  method: {
+    ...mapActions(useStore, ["login"]),
+  },
+};
+</script>
+
 <template>
   <div class="container">
     <div class="d-flex justify-content-center align-items-center vh-100">
@@ -7,9 +21,10 @@
           <p>please enter your details</p>
           <button class="mt-2">Dummy</button>
           <p class="mt-3"><span>or</span></p>
-          <form class="form">
+          <form class="form" @submit.prevent="login">
             <div class="form-floating mb-3">
               <input
+                v-model="email"
                 class="form-control"
                 type="text"
                 id="email"
@@ -20,6 +35,7 @@
             </div>
             <div class="form-floating">
               <input
+                v-model="password"
                 class="form-control"
                 type="password"
                 id="password"
@@ -29,7 +45,7 @@
               <label for="password">Password</label>
             </div>
             <div class="mt-4">
-              <button class="btn btn-primary">Sign In</button>
+              <button type="submit" class="btn btn-primary">Sign In</button>
             </div>
           </form>
           <p class="mt-4">

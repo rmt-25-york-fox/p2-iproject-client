@@ -1,3 +1,10 @@
+<script>
+import { useStore } from "../stores/store";
+import { mapActions, mapWritableState } from "pinia";
+
+export default {};
+</script>
+
 <template>
   <div class="container">
     <div class="d-flex justify-content-center align-items-center vh-100">
