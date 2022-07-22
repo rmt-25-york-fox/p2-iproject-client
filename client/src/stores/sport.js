@@ -6,7 +6,7 @@ import Swal from 'sweetalert2'
 export const useSportStore = defineStore({
   id: 'counter',
   state: () => ({
-    baseUrl: 'http://localhost:3000',
+    baseUrl: 'https://iproject-server-marsetio.herokuapp.com',
     isLogin: '',
     isError: '',
     page: 0,
@@ -275,7 +275,6 @@ export const useSportStore = defineStore({
         })
 
         console.log('data Fitness>>>>>', data)
-
 
         this.fitness = data.data
         console.log('data Fitness>>>>>', data)

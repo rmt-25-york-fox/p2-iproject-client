@@ -4,7 +4,7 @@ import axios from 'axios'
 
 import Swal from 'sweetalert2'
 
-const baseUrl = 'http://localhost:3000'
+const baseUrl = 'https://iproject-server-marsetio.herokuapp.com'
 
 export const usePaymentStore = defineStore({
   id: 'payment',
@@ -42,7 +42,7 @@ export const usePaymentStore = defineStore({
 
             tio.router.push({ name: 'subscribe' })
 
-            let baseUrl = 'http://localhost:3000'
+            let baseUrl = 'https://iproject-server-marsetio.herokuapp.com'
 
             axios({
               method: 'patch',
