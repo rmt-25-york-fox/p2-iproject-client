@@ -8,7 +8,7 @@ export default {
   computed: {
     ...mapState(useRequestStore, ["request", "tetees"]),
   },
-  components: { Navbar },
+  components: { Navbar }
 };
 </script>
 <template>
@@ -24,8 +24,9 @@ export default {
   <h3 style="margin-left: 20px">
     Contact info :{{ request.User.phoneNumber }}
   </h3>
-  <audio controls>
-    <source :src="tetees.response" type="audio/mpeg;base64," />
+<audio controls>
+    <source :src="'data:audio/mp3;base64,'+tetees" >
+    <source src="data:audio/wav;base64," >
     Your browser does not support the audio element.
-  </audio>
+</audio>
 </template>

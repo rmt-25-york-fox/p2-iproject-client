@@ -63,11 +63,14 @@ export const useRequestStore = defineStore({
     },
     async detailRequest(id) {
       try {
+        const response = await axios.get(this.baseUrl + `/requestTTS/${id}`, {
+          headers: { access_token: localStorage.access_token },
+        });
+        this.tetees = response.data;
         const resp = await axios.get(this.baseUrl + `/request/${id}`, {
           headers: { access_token: localStorage.access_token },
         });
         this.request = resp.data;
-        this.TTS(id);
         this.router.push({ path: `/request/${id}` });
       } catch (err) {
         console.log(err);
@@ -109,15 +112,16 @@ export const useRequestStore = defineStore({
         console.log(err);
       }
     },
-    async TTS(id) {
+    async deleteRequest(id){
       try {
-        const resp = await axios.get(this.baseUrl + `/requestTTS/${id}`, {
-          headers: { access_token: localStorage.access_token },
-        });
-        this.tetees = resp.data;
+        const resp = await axios.delete(this.baseUrl + `/request/${id}`,
+          {headers: { access_token: localStorage.access_token }}
+        )
+        Swal.fire("Request deleted");
+        this.getRequest();
       } catch (err) {
-        console.log(err);
+        Swal.fire(err.response.data)
       }
-    },
+    }
   },
 });

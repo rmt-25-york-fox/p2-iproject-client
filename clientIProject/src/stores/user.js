@@ -6,7 +6,8 @@ export const useUserStore = defineStore({
   id: "user",
   state: () => ({
     isLogin: false,
-    baseUrl: "https://iprojectdarien.herokuapp.com",
+    baseUrl: "https://iprojectdarien.herokuapp.com"
+    // https://iprojectdarien.herokuapp.com
   }),
   actions: {
     async login(temp) {
@@ -20,7 +21,7 @@ export const useUserStore = defineStore({
         this.router.push("/");
         Swal.fire("Success Login");
       } catch (err) {
-        
+        console.log(err);
         Swal.fire("Invalid Email/Password");
       }
     },

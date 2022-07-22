@@ -5,13 +5,16 @@ export default {
   name: "Card2",
   props: ["request"],
   methods: {
-    ...mapActions(useRequestStore, ["finishRequest", "detailRequest"]),
+    ...mapActions(useRequestStore, ["finishRequest", "detailRequest","deleteRequest"]),
     finished() {
       this.finishRequest(this.request.id);
     },
     viewDetail() {
       this.detailRequest(this.request.id);
     },
+    deletee(){
+      this.deleteRequest(this.request.id)
+    }
   },
 };
 </script>
@@ -30,6 +33,11 @@ export default {
           <span v-if="request.status === 'Done'" class="new-news"
             >FINISHED</span
           >
+          <p v-if="request.status !== 'Done'" 
+                v-on:click="deletee"
+            >Delete Request</p
+          >
+          
           <h3 class="news-log">{{ request.title }}</h3>
           <p class="description">
             {{ request.description }}
