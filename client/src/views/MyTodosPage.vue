@@ -1,13 +1,13 @@
 <script>
-import { mapActions, mapState } from "pinia";
-import { useSportStore } from "../stores/sport";
-import { RouterLink, RouterView } from "vue-router";
+import { mapActions, mapState } from 'pinia'
+import { useSportStore } from '../stores/sport'
+import { RouterLink, RouterView } from 'vue-router'
 
-import Navbar from "../components/Navbar.vue";
-import Card from "../components/Card.vue";
-import Sidebar from "../components/Sidebar.vue";
-import PageButton from "../components/PageButton.vue";
-import MovieList from "../components/MovieList.vue";
+import Navbar from '../components/Navbar.vue'
+import Card from '../components/Card.vue'
+import Sidebar from '../components/Sidebar.vue'
+import PageButton from '../components/PageButton.vue'
+import SportList from '../components/SportList.vue'
 
 export default {
   created() {
@@ -15,38 +15,38 @@ export default {
       page: this.page,
       title: this.title,
       rating: this.rating,
-      genreId: this.genreId,
-    });
+      genreId: this.genreId
+    })
 
     if (localStorage.access_token) {
-      this.page = "home";
-      this.isLogin = true;
+      this.page = 'home'
+      this.isLogin = true
       this.pagination({
         page: this.page,
         title: this.title,
         rating: this.rating,
-        genreId: this.genreId,
-      });
+        genreId: this.genreId
+      })
     }
   },
-  name: "HomePage",
+  name: 'HomePage',
   computed: {
-    ...mapState(useSportStore, ["page", "title", "rating", "genreId"]),
+    ...mapState(useSportStore, ['page', 'title', 'rating', 'genreId'])
   },
 
   methods: {
     ...mapActions(useSportStore, [
-      "fetchMovies",
-      "pagination",
-      "fetchFavorites",
+      'fetchMovies',
+      'pagination',
+      'fetchFavorites'
     ]),
     loginHandler() {
-      this.isLogin = true;
-      this.page = "home";
-    },
+      this.isLogin = true
+      this.page = 'home'
+    }
   },
-  components: { Navbar, Card, Sidebar, PageButton, MovieList },
-};
+  components: { Navbar, Card, Sidebar, PageButton, SportList }
+}
 </script>
 <template>
   <div
@@ -74,28 +74,19 @@ export default {
       <div class="ads1 col-4">
         <img
           style="margin-left: 100px; margin: 10px; width: auto; height: 200px"
-          src="../assets/thor.jpeg"
           alt=""
         />
       </div>
       <div style="padding: 0px" class="ads2 col-4">
-        <img
-          style="margin: 10px; width: auto; height: 200px"
-          src="../assets/drStrange.jpg"
-          alt=""
-        />
+        <img style="margin: 10px; width: auto; height: 200px" alt="" />
       </div>
       <div style="padding: 0px" class="ads2 col-4">
-        <img
-          style="margin: 10px; width: auto; height: 200px"
-          src="../assets/spiderman.jpeg"
-          alt=""
-        />
+        <img style="margin: 10px; width: auto; height: 200px" alt="" />
       </div>
     </div>
 
     <Sidebar />
-    <MovieList />
+    <SportList />
   </div>
 </template>
 <style></style>

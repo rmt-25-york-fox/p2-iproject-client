@@ -41,27 +41,7 @@ export default {
     logout() {
       this.$emit('logout')
     },
-    submitMovie() {
-      this.$emit('submitMovie', {
-        title: this.title,
-        synopsis: this.synopsis,
-        trailerUrl: this.trailerUrl,
-        imgUrl: this.imgUrl,
-        rating: this.rating,
-        genreId: this.genreId
-      })
-    },
-    updateMovie() {
-      const id = this.id
-      this.$emit('updateMovie', id, {
-        title: this.title,
-        synopsis: this.synopsis,
-        trailerUrl: this.trailerUrl,
-        imgUrl: this.imgUrl,
-        rating: this.rating,
-        genreId: this.genreId
-      })
-    },
+
     addfitnessuser() {
       this.addFitness({
         height: this.height,

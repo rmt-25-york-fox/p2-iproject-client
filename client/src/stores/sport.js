@@ -6,24 +6,110 @@ import Swal from 'sweetalert2'
 export const useSportStore = defineStore({
   id: 'counter',
   state: () => ({
-    baseUrl: 'http://localhost:3000/pub',
+    baseUrl: 'http://localhost:3000',
     isLogin: '',
     isError: '',
     page: 0,
     title: '',
     rating: '',
     genreId: '',
-    movies: [],
+    sports: [],
     fitness: [],
-    histories: []
+    histories: [],
+    plans: [
+      { name: 'Free', price: 0, benefit1: 'Join community' },
+      {
+        name: 'Gold',
+        price: 100000,
+        benefit1: 'Join community',
+        benefit2: 'Get personal trainer'
+      },
+      {
+        name: 'Premium',
+        price: 1000000,
+        benefit1: 'Join community',
+        benefit2: 'Get personal trainer',
+        benefit3: 'Get nutritionist'
+      }
+    ]
   }),
   getters: {
     doubleCount: state => state.counter * 2
   },
   actions: {
+    async signUpHandler(obj) {
+      try {
+        console.log(obj)
+        console.log(obj.email, obj.password, '<<<<<<<<')
+        const returnData = await axios.post(this.baseUrl + '/pub/register', {
+          name: obj.name,
+          email: obj.email,
+          password: obj.password,
+          gender: obj.gender,
+          age: obj.age,
+          height: obj.height,
+          weight: obj.weight,
+          neck: obj.neck,
+          waist: obj.waist,
+          hip: obj.hip,
+          goal: obj.goal,
+          activitylevel: obj.activitylevel
+        })
+
+        console.log(returnData.data)
+
+        Swal.fire({
+          icon: 'success',
+          title: `Success!`,
+          text: `You have been successfully registered`
+        })
+
+        this.router.push({ name: 'login' })
+      } catch (err) {
+        console.log(err)
+        Swal.fire({
+          icon: 'error',
+          title: `Error  ${err.response.status} ${err.response.statusText}!`,
+          text: err.response.data.message
+        })
+      }
+    },
+    toRegisterPage() {
+      this.router.push({ name: 'register' })
+      console.log('toSignUp terpanggil')
+    },
+    toLoginPage() {
+      this.router.push({ name: 'login' })
+      console.log('toSignUp terpanggil')
+    },
+    toHomePage() {
+      this.router.push({ name: 'home' })
+      console.log('toSignUp terpanggil')
+    },
+    async changeSubscribe() {
+      try {
+        axios({
+          method: 'patch',
+          url: `${this.baseUrl}/changeSubscribe`,
+          headers: { access_token: localStorage.access_token },
+          data: { email: localStorage.email }
+        })
+
+        Swal.fire(
+          'Success',
+          'You are subscribed! Thank you for using our service!',
+          'success'
+        )
+      } catch (err) {
+        console.log(err)
+      }
+    },
+    toSubscribePage() {
+      this.router.push({ name: 'subscribe' })
+    },
     async getHistories() {
       try {
-        const response = await axios.get(this.baseUrl + '/histories', {
+        const response = await axios.get(this.baseUrl + '/pub/histories', {
           headers: { access_token: localStorage.access_token }
         })
 
@@ -40,12 +126,59 @@ export const useSportStore = defineStore({
       this.router.push({ name: 'history' })
       this.getHistories()
     },
-    async logout() {
+
+    handleCredentialResponse(response) {
+      console.log('Encoded JWT ID token: ' + response.credential)
+      axios({
+        method: 'POST',
+        url: `${this.baseUrl}/google-sign-in`,
+        headers: { credential: response.credential }
+      })
+        .then(res => {
+          console.log(res)
+          const { access_token, email } = res.data
+
+          localStorage.access_token = access_token
+          localStorage.email = email
+
+          this.getMovies()
+          this.getHistories()
+
+          this.isLogin = true
+          this.page = 'HomePage'
+        })
+        .catch(err => {
+          console.log(err, 'Google sign in error!')
+        })
+    },
+
+    mounted() {
+      if (localStorage.access_token && localStorage.email) {
+        this.isLogin = true
+      }
+      const cb = this.handleCredentialResponse
+
+      window.onload = function () {
+        google.accounts.id.initialize({
+          client_id:
+            '983408498980-8si4t9mtg6i4daaknelku7adsc7cr4n9.apps.googleusercontent.com',
+          callback: cb
+        })
+        google.accounts.id.renderButton(
+          document.getElementById('google-button-login'),
+          { theme: 'outline', size: 'large' }
+        )
+      }
+    },
+    async logoutHandler() {
       try {
-        localStorage.clear()
-        google.accounts.id.revoke(localStorage.email, done => {
-          google.accounts.id.disableAutoSelect()
-          console.log('consent revoked')
+        if (!localStorage.access_token) {
+          Swal.fire({
+            icon: 'error',
+            title: `Error!`,
+            text: `Please login first!`
+          })
+        } else {
           localStorage.clear()
 
           Swal.fire({
@@ -54,17 +187,29 @@ export const useSportStore = defineStore({
             text: `You are successfully logout`
           })
 
-          localStorage.clear()
+          this.router.push({ name: 'login' })
 
-          this.page = 'login'
-          this.isLogin = false
-          this.emailLogin = ''
-          this.passwordLogin = ''
+          // this.router.push({ name: 'login' })
+          google.accounts.id.revoke(localStorage.email, done => {
+            google.accounts.id.disableAutoSelect()
+            console.log('consent revoked')
+            localStorage.clear()
 
-          console.log('logout terpanggil')
+            Swal.fire({
+              icon: 'success',
+              title: `Success!`,
+              text: `You are successfully logout`
+            })
+
+            localStorage.clear()
+
+            this.router.push({ name: 'login' })
+
+            console.log('logout terpanggil')
+            this.mounted()
+          })
           this.mounted()
-        })
-        this.mounted()
+        }
       } catch (err) {
         console.log(err)
       }
@@ -77,7 +222,7 @@ export const useSportStore = defineStore({
         console.log('access_token>>>', access_token)
         const { data } = await axios({
           method: 'put',
-          url: `${this.baseUrl}/updateFitness`,
+          url: `${this.baseUrl}/pub/updateFitness`,
           headers: { access_token: access_token },
           data: {
             height: objFitness.height,
@@ -106,6 +251,7 @@ export const useSportStore = defineStore({
       this.router.push({ name: 'edit' })
     },
     toHomePage() {
+      this.fetchSports()
       this.fetchFitness()
       this.router.push({ name: 'home' })
       this.fetchFitness()
@@ -122,12 +268,14 @@ export const useSportStore = defineStore({
 
         const { data } = await axios({
           method: 'get',
-          url: `${this.baseUrl}/fitness`,
+          url: `${this.baseUrl}/pub/fitness`,
           headers: {
             access_token: access_token
           }
         })
+
         console.log('data Fitness>>>>>', data)
+
 
         this.fitness = data.data
         console.log('data Fitness>>>>>', data)
@@ -143,67 +291,39 @@ export const useSportStore = defineStore({
           objQuery.page = 0
         } else if (objQuery.page) {
           this.page = objQuery.page
-        } else if (!objQuery.title) {
-          this.title = ''
-        } else if (objQuery.title) {
-          this.title = objQuery.title
-        } else if (!objQuery.rating) {
-          this.rating = ''
-        } else if (objQuery.rating) {
-          this.rating = objQuery.rating
-        } else if (!objQuery.genreId) {
-          this.genreId = ''
-        } else if (objQuery.genreId) {
-          this.genreId = objQuery.genreId
         }
 
         this.page = objQuery.page
-        this.title = objQuery.title
-        this.rating = objQuery.rating
-        this.genreId = objQuery.genreId
-        console.log(
-          'queries>>>',
-          this.page,
-          this.title,
-          this.rating,
-          this.genreId
-        )
+
+        console.log('queries>>>', this.page)
 
         const response = await axiosInstance.get(
-          `${this.baseUrl}/sports?page=${this.page}&size=8&title=${this.title}&rating=${this.rating}&genreId=${this.genreId}`
+          `${this.baseUrl}/sports?page=${this.page}&size=8`
         )
         console.log('response>>>', response)
-        this.movies = response.data.data.sports
+        this.sports = response.data.data.sports
 
-        console.log('RESPONSE THIS MOVIES >>>>', this.movies)
+        console.log('RESPONSE THIS sports >>>>', this.sports)
       } catch (err) {
         console.log(err)
       }
     },
     async fetchSports() {
       try {
-        const axios = require('axios')
-
-        const options = {
-          method: 'GET',
-          url: 'https://exercisedb.p.rapidapi.com/exercises',
+        const access_token = localStorage.getItem('access_token')
+        const { data } = await axios({
+          method: 'get',
+          url: `${this.baseUrl}/sports`,
           headers: {
-            'X-RapidAPI-Key':
-              'e271177b1dmsh75da436e4a78356p10452ejsnd733e94bc616',
-            'X-RapidAPI-Host': 'exercisedb.p.rapidapi.com'
+            access_token: access_token
           }
-        }
+        })
 
-        axios
-          .request(options)
-          .then(function (response) {
-            this.movies = response.data
-            console.log(response.data)
-            console.log('this movies>>>', this.movies)
-          })
-          .catch(function (error) {
-            console.error(error)
-          })
+        this.sports = data.data
+
+        this.sports = this.sports.slice(0, 24)
+
+        console.log('this sports>>', this.sports)
       } catch (err) {
         console.log(err)
       }
@@ -212,14 +332,14 @@ export const useSportStore = defineStore({
       try {
         console.log('loginHandler HITT')
         console.log(objCredential, '<<<<<<<<')
-        const returnData = await axios.post(this.baseUrl + '/login', {
+        const returnData = await axios.post(this.baseUrl + '/pub/login', {
           email: objCredential.email,
           password: objCredential.password
         })
 
         localStorage.setItem('access_token', returnData.data.access_token)
         localStorage.setItem('name', returnData.data.name)
-        localStorage.setItem('role', returnData.data.role)
+        localStorage.setItem('email', returnData.data.email)
 
         console.log(returnData, '<<<<<<<returnData LoginHandler')
 

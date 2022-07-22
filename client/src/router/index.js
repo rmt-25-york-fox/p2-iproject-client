@@ -5,6 +5,8 @@ import MyTodosPage from '../views/MyTodosPage.vue'
 import ChatPage from '../views/ChatPage.vue'
 import AddFitnessPage from '../views/AddFitnessPage.vue'
 import HistoryPage from '../views/HistoryPage.vue'
+import SubscribePage from '../views/SubscribePage.vue'
+import RegisterPage from '../views/RegisterPage.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -38,6 +40,16 @@ const router = createRouter({
       path: '/history',
       name: 'history',
       component: HistoryPage
+    },
+    {
+      path: '/subscribe',
+      name: 'subscribe',
+      component: SubscribePage
+    },
+    {
+      path: '/register',
+      name: 'register',
+      component: RegisterPage
     }
   ]
 })

@@ -23,8 +23,9 @@ export default {
       'logoutHandler',
       'toChatPage',
       'toAddFitnessPage',
-      'logoutHandler',
-      'toHistory'
+
+      'toHistory',
+      'toSubscribePage'
     ])
   }
 }
@@ -71,9 +72,7 @@ export default {
               >
             </li>
             <li class="nav-item">
-              <a @click.prevent="toFavoritePage" class="nav-link"
-                >My Exercise</a
-              >
+              <a @click.prevent="toSubscribePage" class="nav-link">Subscribe</a>
             </li>
 
             <li class="nav-item">
