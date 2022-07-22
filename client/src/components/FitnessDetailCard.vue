@@ -3,7 +3,6 @@ import { mapActions } from 'pinia'
 import { useSportStore } from '../stores/sport'
 
 export default {
-
   name: 'FitnessDetailCard',
   data() {
     return { isLogin: false, page: 'login' }
@@ -37,14 +36,12 @@ export default {
         ></iframe>
       </div>
 
-      <div v-if="fitness.length >= 0" class="card-body">
+      <div class="card-body">
         <h5 class="card-title">
-
           Your Body Mass Index (BMI) is: {{ fitness.bmi.data.bmi }}
         </h5>
         <p class="card-text">
           Your Health Category is: {{ fitness.bmi.data.health }}
-
         </p>
         <p class="card-text">
           Your Ideal Weight is:
@@ -56,8 +53,6 @@ export default {
           >Your Body Fat Percentage is:
 
           {{ fitness.bodyFatPercentage['Body Fat (BMI method)'] }} %</span
-
-
         >
       </div>
     </div>
