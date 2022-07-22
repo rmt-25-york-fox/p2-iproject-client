@@ -6,10 +6,10 @@ import { useSportStore } from '../stores/sport'
 
 export default {
   data() {
-    return { name: '', email: '', amount: '' }
+    return { name: '', email: '', amounts: [0, 100000, 1000000], amount: '' }
   },
   name: 'Card',
-  props: ['movie'],
+  props: ['plan'],
 
   data() {
     return { isLogin: false, page: 'login' }
@@ -24,18 +24,22 @@ export default {
       'fetchMovies',
       'addFavorite',
       'pagination',
-      'sliceString'
+      'sliceString',
+      'changeSubscribe'
     ]),
     ...mapActions(usePaymentStore, ['paymentHandler']),
     payment() {
       this.paymentHandler({
-        email: this.email,
-        name: this.name,
-        amount: this.amount,
-        message: this.message
+        email: localStorage.getItem('email'),
+        name: localStorage.getItem('name'),
+        amount: this.plan.price
       })
+    },
+    formattedPrice() {
+      return `Rp. ${this.plan.price.toLocaleString('id-ID')},00`
     }
-  }
+  },
+  getters() {}
 }
 </script>
 <template>
@@ -45,30 +49,52 @@ export default {
       <div class="card-body">
         <div style="flex-direction: row" class="row">
           <div class="col-10">
-            <h5 class="card-title">Name</h5>
-            <!-- <span style="color: orange" class="fa fa-star checked"></span> -->
-            <!-- <span style="margin-left: 5px" class="card-text">{{
-              movie.rating
-            }}</span
-            > -->
-            <form action="" @submit.prevent="payment">
-              <input v-model="name" type="text" placeholder="name" />
-              <input v-model="email" type="text" placeholder="email" />
-              <input v-model="amount" type="number" placeholder="amount" />
+            <h5 class="card-title">{{ plan.name }}</h5>
+            <h5 class="">{{ formattedPrice(plan.price) }}</h5>
+            <h5 v-if="plan.benefit2 && !plan.benefit3">Monthly</h5>
+            <h5 v-if="plan.benefit3">Anually (save 16.67%)</h5>
+            <br />
+            <ul>
+              <li>
+                <h5 class="">{{ plan.benefit1 }}</h5>
+              </li>
+              <li v-if="plan.benefit2">
+                <h5 class="">{{ plan.benefit2 }}</h5>
+              </li>
+              <li v-if="plan.benefit3">
+                <h5 class="">{{ plan.benefit3 }}</h5>
+              </li>
+            </ul>
 
-              <button
-                style="
-                  margin-left: 10px;
-                  justify-content: flex-end;
-                  padding: 0px 2px;
-                  border-round: 50px;
-                "
-                class="btn btn-primary"
-                type="submit"
-              >
-                Subscribe
-              </button>
-            </form>
+            <button
+              v-if="this.plan.price <= 0"
+              @click.prevent="changeSubscribe"
+              style="
+                margin-left: 10px;
+                justify-content: flex-end;
+                padding: 0px 2px;
+                border-round: 50px;
+              "
+              class="btn btn-primary"
+              type="submit"
+            >
+              Subscribe
+            </button>
+
+            <button
+              v-if="this.plan.price > 0"
+              @click.prevent="payment"
+              style="
+                margin-left: 10px;
+                justify-content: flex-end;
+                padding: 0px 2px;
+                border-round: 50px;
+              "
+              class="btn btn-primary"
+              type="submit"
+            >
+              Subscribe
+            </button>
           </div>
           <div
             style="

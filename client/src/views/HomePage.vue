@@ -98,7 +98,6 @@ export default {
       </div>
     </div>
 
-    <Sidebar />
     <SportList />
   </div>
 </template>

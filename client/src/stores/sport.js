@@ -15,12 +15,95 @@ export const useSportStore = defineStore({
     genreId: '',
     sports: [],
     fitness: [],
-    histories: []
+    histories: [],
+    plans: [
+      { name: 'Free', price: 0, benefit1: 'Join community' },
+      {
+        name: 'Gold',
+        price: 100000,
+        benefit1: 'Join community',
+        benefit2: 'Get personal trainer'
+      },
+      {
+        name: 'Premium',
+        price: 1000000,
+        benefit1: 'Join community',
+        benefit2: 'Get personal trainer',
+        benefit3: 'Get nutritionist'
+      }
+    ]
   }),
   getters: {
     doubleCount: state => state.counter * 2
   },
   actions: {
+    async signUpHandler(obj) {
+      try {
+        console.log(obj)
+        console.log(obj.email, obj.password, '<<<<<<<<')
+        const returnData = await axios.post(this.baseUrl + '/pub/register', {
+          name: obj.name,
+          email: obj.email,
+          password: obj.password,
+          gender: obj.gender,
+          age: obj.age,
+          height: obj.height,
+          weight: obj.weight,
+          neck: obj.neck,
+          waist: obj.waist,
+          hip: obj.hip,
+          goal: obj.goal,
+          activitylevel: obj.activitylevel
+        })
+
+        console.log(returnData.data)
+
+        Swal.fire({
+          icon: 'success',
+          title: `Success!`,
+          text: `You have been successfully registered`
+        })
+
+        this.router.push({ name: 'login' })
+      } catch (err) {
+        console.log(err)
+        Swal.fire({
+          icon: 'error',
+          title: `Error  ${err.response.status} ${err.response.statusText}!`,
+          text: err.response.data.message
+        })
+      }
+    },
+    toRegisterPage() {
+      this.router.push({ name: 'register' })
+      console.log('toSignUp terpanggil')
+    },
+    toLoginPage() {
+      this.router.push({ name: 'login' })
+      console.log('toSignUp terpanggil')
+    },
+    toHomePage() {
+      this.router.push({ name: 'home' })
+      console.log('toSignUp terpanggil')
+    },
+    async changeSubscribe() {
+      try {
+        axios({
+          method: 'patch',
+          url: `${this.baseUrl}/changeSubscribe`,
+          headers: { access_token: localStorage.access_token },
+          data: { email: localStorage.email }
+        })
+
+        Swal.fire(
+          'Success',
+          'You are subscribed! Thank you for using our service!',
+          'success'
+        )
+      } catch (err) {
+        console.log(err)
+      }
+    },
     toSubscribePage() {
       this.router.push({ name: 'subscribe' })
     },
@@ -43,12 +126,59 @@ export const useSportStore = defineStore({
       this.router.push({ name: 'history' })
       this.getHistories()
     },
-    async logout() {
+
+    handleCredentialResponse(response) {
+      console.log('Encoded JWT ID token: ' + response.credential)
+      axios({
+        method: 'POST',
+        url: `${this.baseUrl}/google-sign-in`,
+        headers: { credential: response.credential }
+      })
+        .then(res => {
+          console.log(res)
+          const { access_token, email } = res.data
+
+          localStorage.access_token = access_token
+          localStorage.email = email
+
+          this.getMovies()
+          this.getHistories()
+
+          this.isLogin = true
+          this.page = 'HomePage'
+        })
+        .catch(err => {
+          console.log(err, 'Google sign in error!')
+        })
+    },
+
+    mounted() {
+      if (localStorage.access_token && localStorage.email) {
+        this.isLogin = true
+      }
+      const cb = this.handleCredentialResponse
+
+      window.onload = function () {
+        google.accounts.id.initialize({
+          client_id:
+            '983408498980-8si4t9mtg6i4daaknelku7adsc7cr4n9.apps.googleusercontent.com',
+          callback: cb
+        })
+        google.accounts.id.renderButton(
+          document.getElementById('google-button-login'),
+          { theme: 'outline', size: 'large' }
+        )
+      }
+    },
+    async logoutHandler() {
       try {
-        localStorage.clear()
-        google.accounts.id.revoke(localStorage.email, done => {
-          google.accounts.id.disableAutoSelect()
-          console.log('consent revoked')
+        if (!localStorage.access_token) {
+          Swal.fire({
+            icon: 'error',
+            title: `Error!`,
+            text: `Please login first!`
+          })
+        } else {
           localStorage.clear()
 
           Swal.fire({
@@ -57,17 +187,29 @@ export const useSportStore = defineStore({
             text: `You are successfully logout`
           })
 
-          localStorage.clear()
+          this.router.push({ name: 'login' })
 
-          this.page = 'login'
-          this.isLogin = false
-          this.emailLogin = ''
-          this.passwordLogin = ''
+          // this.router.push({ name: 'login' })
+          google.accounts.id.revoke(localStorage.email, done => {
+            google.accounts.id.disableAutoSelect()
+            console.log('consent revoked')
+            localStorage.clear()
 
-          console.log('logout terpanggil')
+            Swal.fire({
+              icon: 'success',
+              title: `Success!`,
+              text: `You are successfully logout`
+            })
+
+            localStorage.clear()
+
+            this.router.push({ name: 'login' })
+
+            console.log('logout terpanggil')
+            this.mounted()
+          })
           this.mounted()
-        })
-        this.mounted()
+        }
       } catch (err) {
         console.log(err)
       }

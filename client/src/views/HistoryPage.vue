@@ -79,18 +79,6 @@ export default {
     "
     class="container-fluid row"
   >
-    <SideBar
-      :content="content"
-      :name="name"
-      :role="role"
-      :changeName="changeName"
-      :changeRole="changeRole"
-      @logout="logout"
-      @toHistory="toHistory"
-      @toAddMovie="toAddMovie"
-      @toHomePage="toHomePage"
-    />
-
     <div class="col-10">
       <div
         style="margin-left: 400px; margin-top: 0px; margin-right: 15px"

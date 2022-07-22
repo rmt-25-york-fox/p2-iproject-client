@@ -1,28 +1,29 @@
 <script>
-import { mapActions } from "pinia";
-import { useSportStore } from "../stores/sport";
+import { mapActions } from 'pinia'
+import { useSportStore } from '../stores/sport'
 
-import GoogleLoginButton from "../components/GoogleLoginButton.vue";
-import ButtonApp from "../components/ButtonApp.vue";
+import GoogleLoginButton from '../components/GoogleLoginButton.vue'
+import ButtonApp from '../components/ButtonApp.vue'
 export default {
   data() {
-    return {};
+    return {}
   },
-  name: "LoginPage",
+  name: 'LoginPage',
 
-  props: ["isLogin", "email", "password", "baseUrl", "page"],
+  props: ['isLogin', 'email', 'password', 'baseUrl', 'page'],
   components: { ButtonApp, GoogleLoginButton },
   methods: {
     ...mapActions(useSportStore, [
-      "toHomePage",
-      "toRegisterPage",
-      "loginHandler",
+      'toHomePage',
+      'toRegisterPage',
+      'loginHandler',
+      'toLoginPage'
     ]),
     login() {
-      this.loginHandler({ email: this.email, password: this.password });
-    },
-  },
-};
+      this.loginHandler({ email: this.email, password: this.password })
+    }
+  }
+}
 </script>
 
 <template>
