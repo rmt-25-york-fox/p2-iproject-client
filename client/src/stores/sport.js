@@ -37,12 +37,23 @@ export const useSportStore = defineStore({
     doubleCount: state => state.counter * 2
   },
   actions: {
-    async signUpHandler(objCredential) {
+    async signUpHandler(obj) {
       try {
-        console.log(objCredential.email, objCredential.password, '<<<<<<<<')
-        const returnData = await axios.post(this.baseUrl + '/register', {
-          email: objCredential.email,
-          password: objCredential.password
+        console.log(obj)
+        console.log(obj.email, obj.password, '<<<<<<<<')
+        const returnData = await axios.post(this.baseUrl + '/pub/register', {
+          name: obj.name,
+          email: obj.email,
+          password: obj.password,
+          gender: obj.gender,
+          age: obj.age,
+          height: obj.height,
+          weight: obj.weight,
+          neck: obj.neck,
+          waist: obj.waist,
+          hip: obj.hip,
+          goal: obj.goal,
+          activitylevel: obj.activitylevel
         })
 
         console.log(returnData.data)
