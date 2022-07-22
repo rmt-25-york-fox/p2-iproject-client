@@ -15,7 +15,9 @@ export default {
 </script>
 
 <template>
-  <SubscribeCard v-for="(plan, index) in plans" :key="index" :plan="plan" />
+  <div style="display: flex; flex-direction: row" class="row">
+    <SubscribeCard v-for="(plan, index) in plans" :key="index" :plan="plan" />
+  </div>
 </template>
 
 <style scoped></style>

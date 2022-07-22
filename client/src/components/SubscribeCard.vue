@@ -43,7 +43,7 @@ export default {
 }
 </script>
 <template>
-  <div style="margin-bottom: 10px" class="col-3 col-md-3">
+  <div style="margin: 100px 50px" class="col-3 col-md-3">
     <div class="card h-100">
       <img style="height: 150px; object-fit: cover" class="card-img-top" />
       <div class="card-body">

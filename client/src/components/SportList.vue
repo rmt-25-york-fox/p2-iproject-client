@@ -17,7 +17,7 @@ export default {
 }
 </script>
 <template>
-  <div class="col-10 row">
+  <div style="margin-left: 100px" class="col-10 row">
     <div
       v-if="this.sports.length === 0"
       style="

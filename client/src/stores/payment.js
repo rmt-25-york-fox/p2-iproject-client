@@ -4,13 +4,15 @@ import axios from 'axios'
 
 import Swal from 'sweetalert2'
 
-const baseUrl = 'https://iproject-server-marsetio.herokuapp.com'
+// const baseUrl = 'http://localhost:3000'
+const baseUrl = 'https://iproject-server-marsetio2.herokuapp.com'
 
 export const usePaymentStore = defineStore({
   id: 'payment',
 
   state: () => ({
-    payments: []
+    payments: [],
+    isSubscribe2: false
   }),
 
   getters: {},
@@ -39,10 +41,12 @@ export const usePaymentStore = defineStore({
           onSuccess(result) {
             tio.updateStatusHandler(result.order_id)
             console.log(result.order_id)
+            tio.isSubscribe2 = obj.isSubscribe2
 
             tio.router.push({ name: 'subscribe' })
 
-            let baseUrl = 'https://iproject-server-marsetio.herokuapp.com'
+            // let baseUrl = 'http://localhost:3000'
+            let baseUrl = 'https://iproject-server-marsetio2.herokuapp.com'
 
             axios({
               method: 'patch',
@@ -50,6 +54,8 @@ export const usePaymentStore = defineStore({
               headers: { access_token: access_token },
               data: { email: localStorage.email }
             })
+
+            // this.isSubscribe2
 
             Swal.fire(
               'Payment Success',

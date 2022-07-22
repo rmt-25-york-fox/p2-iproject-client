@@ -1,5 +1,6 @@
 <script>
 import { mapActions, mapState } from 'pinia'
+import { usePaymentStore } from '../stores/payment'
 import { useSportStore } from '../stores/sport'
 
 export default {
@@ -11,7 +12,8 @@ export default {
   emits: [''],
   props: [''],
   computed: {
-    ...mapState(useSportStore, ['isLogin'])
+    ...mapState(useSportStore, ['isLogin', 'isSubscribe']),
+    ...mapState(usePaymentStore, ['isSubscribe2'])
   },
   methods: {
     ...mapActions(useSportStore, [
@@ -48,6 +50,28 @@ export default {
       <div class="auto">
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
           <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+            <li
+              style="background-color: blue; border-radius: 50px"
+              v-if="isSubscribe === true"
+              class="nav-item"
+            >
+              <a style="color: white" class="nav-link">Subscribed</a>
+            </li>
+            <li
+              v-if="isSubscribe2 === 'Gold'"
+              style="background-color: blue; border-radius: 50px"
+              class="nav-item"
+            >
+              <a style="color: white" class="nav-link">Gold</a>
+            </li>
+            <li
+              v-if="isSubscribe2 === 'Premium'"
+              style="background-color: blue; border-radius: 50px"
+              class="nav-item"
+            >
+              <a style="color: white" class="nav-link">Premium</a>
+            </li>
+
             <li class="nav-item">
               <a
                 @click.prevent="toHomePage"
@@ -75,13 +99,13 @@ export default {
               <a @click.prevent="toSubscribePage" class="nav-link">Subscribe</a>
             </li>
 
-            <li class="nav-item">
+            <li v-if="isLogin == false" class="nav-item">
               <a @click.prevent="toLoginPage" class="nav-link">Sign In</a>
             </li>
-            <li class="nav-item">
+            <li v-if="isLogin == false" class="nav-item">
               <a @click.prevent="toRegisterPage" class="nav-link">Sign Up</a>
             </li>
-            <li class="nav-item">
+            <li v-if="isLogin == true" class="nav-item">
               <a @click.prevent="logoutHandler" class="nav-link">Log out</a>
             </li>
           </ul>

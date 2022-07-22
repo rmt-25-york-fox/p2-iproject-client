@@ -22,7 +22,7 @@ export default {
 <template>
   <nav>
     <div>
-      <h1><strong>Vue</strong> Chat App</h1>
+      <!-- <h1><strong>Vue</strong> Chat App</h1> -->
 
       <a
         style="color: white; margin: 20px; cursor: pointer"
@@ -39,7 +39,12 @@ export default {
         </button>
       </div>
 
-      <button v-else class="bg-green-500 hover:bg-green-600" @click="signIn">
+      <button
+        style="margin-left: 120px"
+        v-else
+        class="bg-green-500 hover:bg-green-600"
+        @click="signIn"
+      >
         Sign in
       </button>
     </div>

@@ -244,6 +244,7 @@ export default {
             <br />
           </div>
         </div>
+        <br />
 
         <ButtonApp @click.prevent="signup" buttonText="Sign up" />
       </form>

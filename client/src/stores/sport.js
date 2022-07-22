@@ -6,8 +6,11 @@ import Swal from 'sweetalert2'
 export const useSportStore = defineStore({
   id: 'counter',
   state: () => ({
-    baseUrl: 'https://iproject-server-marsetio.herokuapp.com',
+    // baseUrl: 'http://localhost:3000',
+    baseUrl: 'https://iproject-server-marsetio2.herokuapp.com',
+
     isLogin: '',
+    isSubscribe: false,
     isError: '',
     page: 0,
     title: '',
@@ -95,6 +98,8 @@ export const useSportStore = defineStore({
           data: { email: localStorage.email }
         })
 
+        this.isSubscribe = true
+
         Swal.fire(
           'Success',
           'You are subscribed! Thank you for using our service!',
@@ -181,6 +186,8 @@ export const useSportStore = defineStore({
         } else {
           localStorage.clear()
 
+          this.isLogin = false
+
           Swal.fire({
             icon: 'success',
             title: `Success!`,
@@ -194,6 +201,8 @@ export const useSportStore = defineStore({
             google.accounts.id.disableAutoSelect()
             console.log('consent revoked')
             localStorage.clear()
+
+            this.isLogin = false
 
             Swal.fire({
               icon: 'success',
@@ -351,6 +360,7 @@ export const useSportStore = defineStore({
         })
 
         this.pagination()
+        this.isLogin = true
 
         this.router.push({ name: 'home' })
 
