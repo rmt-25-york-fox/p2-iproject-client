@@ -74,18 +74,6 @@ export default {
     "
     class="container-fluid row"
   >
-    <Sidebar
-      @logout="logout"
-      @toHistory="toHistory"
-      @toAddMovie="toAddMovie"
-      @toHomePage="toHomePage"
-      :changeName="changeName"
-      :changeRole="changeRole"
-      :addOrEdit="addOrEdit"
-      :name="name"
-      :role="role"
-    />
-
     <div class="col-10" style="padding-left: 400px; padding-right: 30px">
       <h3 class="mt-3">Add New Fitness Data</h3>
       <FormFitness
