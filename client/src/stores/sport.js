@@ -37,11 +37,37 @@ export const useSportStore = defineStore({
     doubleCount: state => state.counter * 2
   },
   actions: {
-    toSignUp() {
+    async signUpHandler(objCredential) {
+      try {
+        console.log(objCredential.email, objCredential.password, '<<<<<<<<')
+        const returnData = await axios.post(this.baseUrl + '/register', {
+          email: objCredential.email,
+          password: objCredential.password
+        })
+
+        console.log(returnData.data)
+
+        Swal.fire({
+          icon: 'success',
+          title: `Success!`,
+          text: `You have been successfully registered`
+        })
+
+        this.router.push({ name: 'login' })
+      } catch (err) {
+        console.log(err)
+        Swal.fire({
+          icon: 'error',
+          title: `Error  ${err.response.status} ${err.response.statusText}!`,
+          text: err.response.data.message
+        })
+      }
+    },
+    toRegisterPage() {
       this.router.push({ name: 'register' })
       console.log('toSignUp terpanggil')
     },
-    toSignIn() {
+    toLoginPage() {
       this.router.push({ name: 'login' })
       console.log('toSignUp terpanggil')
     },
@@ -135,18 +161,13 @@ export const useSportStore = defineStore({
     },
     async logoutHandler() {
       try {
-        localStorage.clear()
-
-        Swal.fire({
-          icon: 'success',
-          title: `Success!`,
-          text: `You are successfully logout`
-        })
-
-        // this.router.push({ name: 'login' })
-        google.accounts.id.revoke(localStorage.email, done => {
-          google.accounts.id.disableAutoSelect()
-          console.log('consent revoked')
+        if (!localStorage.access_token) {
+          Swal.fire({
+            icon: 'error',
+            title: `Error!`,
+            text: `Please login first!`
+          })
+        } else {
           localStorage.clear()
 
           Swal.fire({
@@ -155,14 +176,29 @@ export const useSportStore = defineStore({
             text: `You are successfully logout`
           })
 
-          localStorage.clear()
-
           this.router.push({ name: 'login' })
 
-          console.log('logout terpanggil')
+          // this.router.push({ name: 'login' })
+          google.accounts.id.revoke(localStorage.email, done => {
+            google.accounts.id.disableAutoSelect()
+            console.log('consent revoked')
+            localStorage.clear()
+
+            Swal.fire({
+              icon: 'success',
+              title: `Success!`,
+              text: `You are successfully logout`
+            })
+
+            localStorage.clear()
+
+            this.router.push({ name: 'login' })
+
+            console.log('logout terpanggil')
+            this.mounted()
+          })
           this.mounted()
-        })
-        this.mounted()
+        }
       } catch (err) {
         console.log(err)
       }
