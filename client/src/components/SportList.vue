@@ -35,9 +35,7 @@ export default {
 
     <Card v-for="sport in sports" :key="sport.id" :sport="sport" />
     <br />
-    <div style="margin-left: 1030px; align-items: flex-end">
-      <PageButton />
-    </div>
+    <div style="margin-left: 1030px; align-items: flex-end"></div>
   </div>
 </template>
 <style></style>

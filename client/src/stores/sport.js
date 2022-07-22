@@ -37,6 +37,18 @@ export const useSportStore = defineStore({
     doubleCount: state => state.counter * 2
   },
   actions: {
+    toSignUp() {
+      this.router.push({ name: 'register' })
+      console.log('toSignUp terpanggil')
+    },
+    toSignIn() {
+      this.router.push({ name: 'login' })
+      console.log('toSignUp terpanggil')
+    },
+    toHomePage() {
+      this.router.push({ name: 'home' })
+      console.log('toSignUp terpanggil')
+    },
     async changeSubscribe() {
       try {
         axios({
@@ -77,9 +89,61 @@ export const useSportStore = defineStore({
       this.router.push({ name: 'history' })
       this.getHistories()
     },
-    async logout() {
+
+    handleCredentialResponse(response) {
+      console.log('Encoded JWT ID token: ' + response.credential)
+      axios({
+        method: 'POST',
+        url: `${this.baseUrl}/google-sign-in`,
+        headers: { credential: response.credential }
+      })
+        .then(res => {
+          console.log(res)
+          const { access_token, email } = res.data
+
+          localStorage.access_token = access_token
+          localStorage.email = email
+
+          this.getMovies()
+          this.getHistories()
+
+          this.isLogin = true
+          this.page = 'HomePage'
+        })
+        .catch(err => {
+          console.log(err, 'Google sign in error!')
+        })
+    },
+
+    mounted() {
+      if (localStorage.access_token && localStorage.email) {
+        this.isLogin = true
+      }
+      const cb = this.handleCredentialResponse
+
+      window.onload = function () {
+        google.accounts.id.initialize({
+          client_id:
+            '983408498980-8si4t9mtg6i4daaknelku7adsc7cr4n9.apps.googleusercontent.com',
+          callback: cb
+        })
+        google.accounts.id.renderButton(
+          document.getElementById('google-button-login'),
+          { theme: 'outline', size: 'large' }
+        )
+      }
+    },
+    async logoutHandler() {
       try {
         localStorage.clear()
+
+        Swal.fire({
+          icon: 'success',
+          title: `Success!`,
+          text: `You are successfully logout`
+        })
+
+        // this.router.push({ name: 'login' })
         google.accounts.id.revoke(localStorage.email, done => {
           google.accounts.id.disableAutoSelect()
           console.log('consent revoked')
@@ -93,10 +157,7 @@ export const useSportStore = defineStore({
 
           localStorage.clear()
 
-          this.page = 'login'
-          this.isLogin = false
-          this.emailLogin = ''
-          this.passwordLogin = ''
+          this.router.push({ name: 'login' })
 
           console.log('logout terpanggil')
           this.mounted()

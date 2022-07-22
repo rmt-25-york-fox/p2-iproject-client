@@ -23,7 +23,7 @@ export default {
       'logoutHandler',
       'toChatPage',
       'toAddFitnessPage',
-      'logoutHandler',
+
       'toHistory',
       'toSubscribePage'
     ])
