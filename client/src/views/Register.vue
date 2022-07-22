@@ -27,7 +27,7 @@ export default {
   <div class="form">
     <div class="row text-center">
       <div class="col">
-        <h2>Create New Account</h2>
+        <h2 style="color: aliceblue">Create New Account</h2>
       </div>
     </div>
     <div class="row justify-content-center">

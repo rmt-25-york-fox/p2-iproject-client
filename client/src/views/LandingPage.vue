@@ -36,5 +36,6 @@ export default {
 
 .container-list {
   margin-top: 5rem;
+  margin-left: 5rem;
 }
 </style>
