@@ -3,6 +3,7 @@ import HomePage from '../pages/HomePage.vue'
 import RegisterPage from '../pages/RegisterPage.vue'
 import LoginPage from '../pages/LoginPage.vue'
 import ProfilePage from '../pages/ProfilePage.vue'
+import JobPage from '../pages/JobPage.vue'
 
 
 const router = createRouter({
@@ -27,6 +28,11 @@ const router = createRouter({
       path: '/profile',
       name: 'ProfilePage',
       component: ProfilePage
+    },
+    {
+      path: '/job',
+      name: 'JobPage',
+      component: JobPage
     },
   ]
 })

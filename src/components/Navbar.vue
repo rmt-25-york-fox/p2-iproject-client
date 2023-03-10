@@ -1,11 +1,28 @@
 <script>
 
 import { RouterLink, RouterView } from 'vue-router'
+import { mapActions, mapState, mapWritableState } from 'pinia'
+import { useJoblezzStore } from '../stores/joblezz'
 
 export default {
-    methods: {
-    
-    }
+
+  // COMPUTED
+  computed: {
+        ...mapState(useJoblezzStore, ['isLogin', 'isPremium', 'dataJobs', 'oneJob']),
+    },
+
+
+  // METHODS
+  methods: {
+    ...mapActions(useJoblezzStore, ['logout', 'fetchJobs', 'getOneJob', 'getPremium', 'applyJob']),
+
+
+    handleGetPremium() {
+      this.getPremium()
+    },
+
+  },
+
 }
 
 </script>
@@ -38,43 +55,35 @@ export default {
         </button>
       </div>
       <div class="flex flex-1 items-center justify-center sm:items-stretch sm:justify-start">
+        <RouterLink to="/">
         <div class="flex flex-shrink-0 items-center">
           <img class="block h-8 w-auto lg:hidden" src="https://svelte.id/h8/p2/img/avatar.png" alt="Your Company">
           <img class="hidden h-8 w-auto lg:block" src="https://svelte.id/h8/p2/img/avatar.png" alt="Your Company">
         </div>
+      </RouterLink>
         <div class="hidden sm:ml-6 sm:block">
-          <div class="flex space-x-4">
+          <div v-if="isLogin" class="flex space-x-4">
             <!-- Current: "bg-gray-900 text-white", Default: "text-gray-300 hover:bg-gray-700 hover:text-white" -->
             <!-- <a href="#" class="bg-gray-900 text-white rounded-md px-3 py-2 text-sm font-medium" aria-current="page">Home</a> -->
 
-            <a href="#" class="text-gray-600 hover:bg-gray-700 hover:text-white rounded-md px-3 py-2 text-sm font-medium">Jobs</a>
+            <a v-if="!isPremium" @click.prevent="handleGetPremium()" href="#" class="text-gray-600 hover:bg-gray-700 hover:text-white rounded-md px-3 py-2 text-sm font-medium">Get Premium</a>
 
-            <a href="#" class="text-gray-600 hover:bg-gray-700 hover:text-white rounded-md px-3 py-2 text-sm font-medium">Company</a>
+            <!-- <a href="#" class="text-gray-600 hover:bg-gray-700 hover:text-white rounded-md px-3 py-2 text-sm font-medium">Company</a> -->
 
-            <a href="#" class="text-gray-600 hover:bg-gray-700 hover:text-white rounded-md px-3 py-2 text-sm font-medium">Profile</a>
+            <!-- <a href="#" class="text-gray-600 hover:bg-gray-700 hover:text-white rounded-md px-3 py-2 text-sm font-medium">Profile</a> -->
           </div>
         </div>
       </div>
       <div class="absolute inset-y-0 right-0 flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0">
-        <!-- <button type="button" class="rounded-full bg-gray-800 p-1 text-gray-400 hover:text-white focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800">
-          <span class="sr-only">View notifications</span>
-          <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true">
-            <path stroke-linecap="round" stroke-linejoin="round" d="M14.857 17.082a23.848 23.848 0 005.454-1.31A8.967 8.967 0 0118 9.75v-.7V9A6 6 0 006 9v.75a8.967 8.967 0 01-2.312 6.022c1.733.64 3.56 1.085 5.455 1.31m5.714 0a24.255 24.255 0 01-5.714 0m5.714 0a3 3 0 11-5.714 0" />
-          </svg>
-        </button> -->
-
-        <!-- Profile dropdown -->
-        <!-- <div class="relative ml-3">
-          <div>
-            <button type="button" class="flex rounded-full bg-gray-800 text-sm focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800" id="user-menu-button" aria-expanded="false" aria-haspopup="true">
-              <span class="sr-only">Open user menu</span>
-              <img class="h-8 w-8 rounded-full" src="https://svelte.id/h8/p2/img/avatar.png" alt="">
-            </button>
-          </div>
-        </div> -->
-        <RouterLink to="/register">
+        
+        
+        <RouterLink to="/profile" v-if="isLogin">
+          <a href="#" class="text-gray-600 hover:bg-gray-700 hover:text-white rounded-md px-3 py-2 text-sm font-medium">Profile</a>
+        </RouterLink>
+        <RouterLink to="/register" v-if="!isLogin">
             <a href="#" class="rounded-md bg-blue-600 px-3.5 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-blue-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-600">REGISTER</a>
         </RouterLink>
+        <a @click.prevent="logout" v-else href="#" class="rounded-md bg-red-600 px-3.5 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-red-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-600">LOGOUT</a>
       </div>
     </div>
   </div>

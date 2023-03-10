@@ -1,15 +1,34 @@
 <script>
 
+import { RouterLink, RouterView } from 'vue-router'
+import { mapActions, mapState, mapWritableState } from 'pinia'
+import { useJoblezzStore } from '../stores/joblezz'
+
 export default {
+  props: [''],
+  emits: [''],
+  data() {
+    return {
+      userData: {
+        email: '',
+        password: ''
+      }
+    }
+  },
   methods: {
-  
+    ...mapActions(useJoblezzStore, ['register']),
+
+    // Submit Form
+    submitForm() {
+      this.register(this.userData)
+    }
+
   }
 }
 
 </script>
 
 <template>
-  <!-- <RouterLink to="/login"></RouterLink> -->
   <div class="flex min-h-full flex-col justify-center py-12 sm:px-6 lg:px-8">
     <header>
       <div class="mx-auto flex max-w-7xl items-center justify-center py-6 px-6">

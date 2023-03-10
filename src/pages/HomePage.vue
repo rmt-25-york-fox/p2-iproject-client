@@ -5,17 +5,18 @@ import { useJoblezzStore } from '../stores/joblezz';
 
 import Hero from '../components/Hero.vue'
 import Card from '../components/Card.vue'
+import Preloader from '../components/Preloader.vue'
 
 export default {
 
   // REGISTER COMPONENTS
   components : {
-    Hero, Card
+    Hero, Card, Preloader
   },
 
   // COMPUTED
   computed: {
-    ...mapState(useJoblezzStore, ['isLogin', 'dataJobs', 'oneJob']),
+    ...mapState(useJoblezzStore, ['isLogin', 'isPremium', 'dataJobs', 'oneJob', 'isLoading']),
 
   },
 
@@ -28,29 +29,42 @@ export default {
   // LIFECYCLE - CREATED
   created() {
 
+    // CHECK ACCESS_TOKEN
+    if (localStorage.getItem('access_token')) {
+      this.isLogin = true
+    } else {
+      this.isLogin = false
+    }
+
     // FETCH JOBS DATA
     this.fetchJobs()
 
-  }
+  },
+
+//   beforeMount() {
+
+//     // CHECK ACCESS_TOKEN
+//     if (localStorage.getItem('access_token')) {
+//       this.isLogin = true
+//     } else {
+//       this.isLogin = false
+//     }
+
+//     // FETCH JOBS DATA
+//     this.fetchJobs()
+
+// }
 
 }
 
 </script>
 
 <template>
-
-  <!-- {{ dataJobs.results }} -->
-
   <Hero />
-  <!-- <h1>There are {{ dataJobs.count }} remote jobs!</h1> -->
-
+  <Preloader v-if="isLoading" />
   <div class="overflow-hidden bg-white shadow sm:rounded-md">
     <ul role="list" class="divide-y divide-gray-200">
-      <!-- <Card /> -->
-
-      <Card v-for="job in dataJobs.results" :key="job.id" :job="job" />
-
+        <Card v-for="job in dataJobs.results" :key="job.id" :job="job" />
     </ul>
   </div>
-
 </template>

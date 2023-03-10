@@ -1,26 +1,35 @@
 <script>
+import { RouterLink, RouterView } from 'vue-router'
 
 import { mapActions, mapState, mapWritableState } from "pinia";
 import { useJoblezzStore } from '../stores/joblezz';
 
 export default {
+    data() {
+        return {
+            testData: 'testdatataa123',
+        }
+    },
+
     props: ['job'],
 
 
 
     // COMPUTED
     computed: {
-        ...mapState(useJoblezzStore, ['isLogin', 'dataJobs', 'oneJob']),
+        ...mapState(useJoblezzStore, ['isLogin', 'isPremium', 'dataJobs', 'oneJob']),
 
     },
+
 
     // METHODS
     methods: {
         ...mapActions(useJoblezzStore, ['logout', 'fetchJobs', 'getOneJob']),
 
 
-        handleOneJob(id) {
-            this.getOneJob(id)
+        handleOneJob(job) {
+            // console.log(this.testData, 'MASUK handleOneJob CARD');
+            this.getOneJob(job)
         },
 
     },
@@ -30,10 +39,14 @@ export default {
 </script>
 
 <template>
-    <!-- {{ job }} -->
-    <li>
-            <!-- <a @click.prevent="handleOneJob(job.id)" href="#" class="block hover:bg-gray-50"> -->
-            <a href="#" class="block hover:bg-gray-50">
+    <!-- {{ oneJob }} -->
+    <li class="">
+        <RouterLink to="/job"
+        @click="handleOneJob(job)" class="block hover:bg-gray-50"
+        >
+            <!-- <a @click.prevent="handleOneJob(job.role, job.company_name, job.logo)" href="#" class="block hover:bg-gray-50"> -->
+            <!-- <a @click.prevent="handleOneJob({job.role, job.company_name, job.imgUrl})" href="#" class="block hover:bg-gray-50"> -->
+            <!-- <a href="#" class="block hover:bg-gray-50"> -->
                 <div class="px-4 py-4 sm:px-6">
                     <div class="flex items-center justify-between">
                         <p class="truncate text-sm font-medium text-blue-600">{{ job.role }}</p>
@@ -75,8 +88,7 @@ export default {
                         </div>
                     </div>
                 </div>
-            </a>
+            <!-- </a> -->
+        </RouterLink>
         </li>
 </template>
-
-

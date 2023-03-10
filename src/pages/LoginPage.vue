@@ -1,10 +1,30 @@
 <script>
 
+import { RouterLink, RouterView } from 'vue-router'
+import { mapActions, mapState, mapWritableState } from 'pinia'
+import { useJoblezzStore } from '../stores/joblezz'
+
 export default {
   props: [''],
   emits: [''],
-  methods: {
   
+  data() {
+    return {
+      userData: {
+        email: "",
+        password: "",
+      },
+    }
+  },
+  methods: {
+
+    ...mapActions(useJoblezzStore, ['login']),
+
+    // Submit Form
+    submitForm() {
+      this.login(this.userData)
+    }
+
   }
 }
 
